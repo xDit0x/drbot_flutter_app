@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Flutter (iOS)",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "device": "iPhone 17",
+            "flutterMode": "debug"
+        },
+        {
+            "name": "Flutter (macOS)",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "device": "macos",
+            "flutterMode": "debug"
+        }
+    ]
+}

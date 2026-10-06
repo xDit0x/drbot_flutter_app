@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "668754273407",
+    "project_id": "drbot-app",
+    "storage_bucket": "drbot-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668754273407:android:5562ed3a09d98a6094cb4a",
+        "android_client_info": {
+          "package_name": "com.example.flutter_learning"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsr7coY0tWItEaOe725OdK7Jvtig9OSi0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
