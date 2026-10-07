@@ -86,16 +86,34 @@ class _AppointmentPageState extends State<AppointmentPage> {
                           ),
                           title: Text(
                             appointment.specialty,
-                            style: const TextStyle(fontSize: 16),
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                          subtitle: Text(
-                            appointment.date == null
-                                ? 'Fecha por confirmar'
-                                : '${appointment.date!.day}/${appointment.date!.month}/${appointment.date!.year}'
-                                      ' - con Dr/Dra.${appointment.doctorName}',
-
-                            overflow: TextOverflow.visible,
-                            softWrap: true,
+                          subtitle: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                appointment.date == null
+                                    ? 'Fecha por confirmar'
+                                    : '${appointment.date!.hour}:${appointment.date!.minute} - ${appointment.date!.day}/${appointment.date!.month}/${appointment.date!.year}',
+                                overflow: TextOverflow.visible,
+                                softWrap: true,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              Text(
+                                'Dr/Dra.${appointment.doctorName.trimLeft()}',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ],
                           ),
                           trailing: Container(
                             decoration: BoxDecoration(

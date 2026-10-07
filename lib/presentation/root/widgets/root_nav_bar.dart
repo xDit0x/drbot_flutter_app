@@ -7,7 +7,6 @@ class RootNavBar extends StatelessWidget {
   final int currentPageIndex;
   final ValueChanged<int> onDestinationSelected;
   final List<RootDestination> destinations;
-  final Color borderColor = const Color.fromARGB(93, 52, 52, 52);
 
   final bool showSelection;
   const RootNavBar({
@@ -20,6 +19,9 @@ class RootNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Color borderColor = context.isDarkMode
+        ? const Color.fromARGB(93, 143, 143, 143)
+        : const Color.fromARGB(63, 52, 52, 52);
     return SafeArea(
       top: false,
       bottom: true,
@@ -62,7 +64,7 @@ class RootNavBar extends StatelessWidget {
                         ? Colors.white
                         : Theme.of(context).colorScheme.inverseSurface
                               .withAlpha(250),
-                    fontSize: 12,
+                    fontSize: 14,
                     letterSpacing: 0.5,
                     shadows: [
                       Shadow(
@@ -81,16 +83,21 @@ class RootNavBar extends StatelessWidget {
                   fontFamily: 'Satoshi',
                   color: context.isDarkMode
                       ? const Color.fromARGB(255, 215, 215, 215)
-                      : const Color.fromARGB(255, 117, 117, 117),
+                      : const Color.fromARGB(255, 79, 79, 79),
                   letterSpacing: 0.5,
-                  fontSize: 12,
+                  fontSize: 14,
                   shadows: [
                     Shadow(
                       color: context.isDarkMode
-                          ? Colors.black.withAlpha(200)
-                          : Colors.grey.withAlpha(200),
+                          ? const Color.fromARGB(255, 40, 40, 40).withAlpha(220)
+                          : const Color.fromARGB(
+                              255,
+                              202,
+                              202,
+                              202,
+                            ).withAlpha(220),
                       blurRadius: 2,
-                      offset: Offset(0, 1),
+                      offset: Offset(0, 0.4),
                     ),
                   ],
                 );
@@ -138,9 +145,9 @@ class RootNavBar extends StatelessWidget {
                                   ? Colors.grey
                                   : const Color.fromARGB(
                                       255,
-                                      117,
-                                      117,
-                                      117,
+                                      79,
+                                      79,
+                                      79,
                                     ).withAlpha(200),
                               BlendMode.srcIn,
                             ),

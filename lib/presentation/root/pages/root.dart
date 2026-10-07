@@ -33,6 +33,9 @@ class _RootPageState extends State<RootPage> {
         children: [
           FeatureScaffold(destination: current),
           FeaturesSheet(
+            selectedSheetIndex: selectedSheetFeature == null
+                ? null
+                : sheet.indexOf(selectedSheetFeature!),
             destinations: sheet,
             onFeatureSelected: (index) {
               setState(() {

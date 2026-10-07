@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/common/helpers/is_dark_mode.dart';
 import 'package:flutter_learning/core/configs/theme/app_colors.dart';
 import 'package:flutter_learning/presentation/root/models/root_destination.dart';
 
@@ -8,12 +9,14 @@ class FeaturesSheet extends StatefulWidget {
   static const double fadeEndExtent = 0.57;
 
   final List<RootDestination> destinations;
+  final int? selectedSheetIndex;
   final ValueChanged<int> onFeatureSelected;
 
   const FeaturesSheet({
     super.key,
     required this.destinations,
     required this.onFeatureSelected,
+    this.selectedSheetIndex,
   });
 
   @override
@@ -24,7 +27,6 @@ class _FeaturesSheetState extends State<FeaturesSheet> {
   final DraggableScrollableController _controller =
       DraggableScrollableController();
   double _extent = FeaturesSheet.minExtent;
-  final Color borderColor = const Color.fromARGB(93, 52, 52, 52);
 
   @override
   void initState() {
@@ -61,6 +63,7 @@ class _FeaturesSheetState extends State<FeaturesSheet> {
   }
 
   Widget _featureTile(RootDestination destination, int index) {
+    final isSelected = index == widget.selectedSheetIndex;
     return GestureDetector(
       onTap: () => _onTileTap(index),
       child: Container(
@@ -70,15 +73,76 @@ class _FeaturesSheetState extends State<FeaturesSheet> {
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          spacing: 2,
           children: [
-            destination.icon,
-            const SizedBox(height: 8),
+            AnimatedContainer(
+              duration: Duration(milliseconds: 250),
+              width: 55,
+              height: 55,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: isSelected
+                      ? context.isDarkMode
+                            ? AppColors.darkGrey.withAlpha(200)
+                            : Colors.transparent
+                      : Colors.transparent,
+                  style: BorderStyle.solid,
+                  width: 2,
+                  strokeAlign: BorderSide.strokeAlignInside,
+                ),
+                color: isSelected
+                    ? context.isDarkMode
+                          ? AppColors.primary
+                          : Theme.of(context).colorScheme.surface
+                    : Colors.transparent,
+              ),
+              child: ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                  isSelected
+                      ? context.isDarkMode
+                            ? AppColors.darkBackground
+                            : Theme.of(context).colorScheme.inverseSurface
+                                  .withAlpha(200)
+                      : context.isDarkMode
+                      ? Colors.grey
+                      : const Color.fromARGB(255, 79, 79, 79).withAlpha(200),
+                  BlendMode.srcIn,
+                ),
+                child: destination.icon,
+              ),
+            ),
             Text(
               destination.label,
-              style: const TextStyle(
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                overflow: TextOverflow.clip,
                 fontFamily: 'Satoshi',
-                fontWeight: FontWeight.w500,
+                color: isSelected
+                    ? context.isDarkMode
+                          ? Colors.white
+                          : Colors.black
+                    : context.isDarkMode
+                    ? const Color.fromARGB(255, 235, 235, 235)
+                    : const Color.fromARGB(255, 79, 79, 79),
+                letterSpacing: 0.5,
                 fontSize: 14,
+                shadows: [
+                  Shadow(
+                    color: context.isDarkMode
+                        ? Colors.black.withAlpha(200)
+                        : const Color.fromARGB(
+                            255,
+                            202,
+                            202,
+                            202,
+                          ).withAlpha(220),
+                    blurRadius: 2,
+                    offset: Offset(0, 0.4),
+                  ),
+                ],
               ),
               textAlign: TextAlign.center,
             ),
@@ -90,6 +154,9 @@ class _FeaturesSheetState extends State<FeaturesSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final Color borderColor = context.isDarkMode
+        ? const Color.fromARGB(93, 143, 143, 143)
+        : const Color.fromARGB(63, 52, 52, 52);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: DraggableScrollableSheet(
@@ -104,8 +171,8 @@ class _FeaturesSheetState extends State<FeaturesSheet> {
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surfaceContainer,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(25),
-                  topRight: Radius.circular(25),
+                  topLeft: Radius.circular(50),
+                  topRight: Radius.circular(50),
                 ),
                 border: Border(
                   left: BorderSide(color: borderColor, width: 0.2),
@@ -115,13 +182,13 @@ class _FeaturesSheetState extends State<FeaturesSheet> {
               ),
               child: ListView(
                 controller: scrollController,
-                padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
+                padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
                 children: [
                   Center(
                     child: Container(
                       width: 40,
                       height: 5,
-                      margin: const EdgeInsets.only(bottom: 16),
+                      margin: const EdgeInsets.only(bottom: 26),
                       decoration: BoxDecoration(
                         color: AppColors.grey,
                         borderRadius: BorderRadius.circular(3),
@@ -138,18 +205,17 @@ class _FeaturesSheetState extends State<FeaturesSheet> {
                           style: TextStyle(
                             fontFamily: 'Satoshi',
                             fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                            fontSize: 26,
                             height: 1,
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        const SizedBox(height: 0),
                         GridView.count(
                           crossAxisCount: 3,
-                          // childAspectRatio: 1.4,
+                          // childAspectRatio: 1.1,
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          mainAxisSpacing: 12,
+                          mainAxisSpacing: 4,
                           crossAxisSpacing: 12,
                           children: [
                             for (var i = 0; i < widget.destinations.length; i++)
