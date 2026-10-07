@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart' hide State;
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_learning/core/configs/theme/app_colors.dart';
+import 'package:flutter_learning/domain/entities/appointments/appointment.dart';
 import 'package:flutter_learning/domain/usecases/appointments/get_appointments.dart';
 import 'package:flutter_learning/service_locator.dart';
 
@@ -45,9 +46,98 @@ class _AppointmentPageState extends State<AppointmentPage> {
         return snapshot.data!.fold((l) => Center(child: Text(l.toString())), (
           r,
         ) {
-          return Center();
+          final items = (r as List).cast<Appointment>();
+          if (items.isEmpty) {
+            return const Center(
+              child: Text(
+                "Sin citas programadas para su persona.",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+            );
+          }
+
+          return Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.access_alarm),
+                  const Text(
+                    ' Citas programadas',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 0.62,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 72),
+                  children: [
+                    for (final appointment in items)
+                      Card(
+                        color: Theme.of(context).colorScheme.surfaceContainer,
+                        child: ListTile(
+                          leading: Icon(
+                            Icons.arrow_right,
+                            color: Theme.of(context).colorScheme.inverseSurface,
+                          ),
+                          title: Text(
+                            appointment.specialty,
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                          subtitle: Text(
+                            appointment.date == null
+                                ? 'Fecha por confirmar'
+                                : '${appointment.date!.day}/${appointment.date!.month}/${appointment.date!.year}'
+                                      ' - con Dr/Dra.${appointment.doctorName}',
+
+                            overflow: TextOverflow.visible,
+                            softWrap: true,
+                          ),
+                          trailing: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .surfaceContainerHigh,
+                            ),
+                            child: IconButton(
+                              onPressed: () {
+                                HapticFeedback.mediumImpact();
+                                // _removeAppointment(context, appointment);
+                              },
+                              icon: const Icon(
+                                size: 26,
+                                Icons.delete_rounded,
+                                color: Color.fromARGB(255, 255, 0, 0),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ],
+          );
         });
       },
     );
   }
+}
+
+Future<void> _removeAppointment(
+  BuildContext context,
+  Appointment appointment,
+  RelativeRect deletePosition,
+) async {
+  final selection;
+  await showMenu(
+    context: context,
+    items: [CheckedPopupMenuItem(child: Text("test"))],
+    position: deletePosition,
+  );
 }

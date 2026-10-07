@@ -3,12 +3,25 @@ import 'package:flutter_learning/core/configs/theme/app_colors.dart';
 
 class AppTheme {
   static final lightTheme = ThemeData(
+    colorScheme: ColorScheme.light(
+      primary: AppColors.primary,
+      onPrimary: Colors.white,
+      surface: AppColors.lightBackground,
+      onSurface: Colors.black,
+      surfaceContainer: AppColors.lightContainer,
+      surfaceContainerHigh: AppColors.lightContainerHigh,
+      inverseSurface: const Color(0xFF1C1C1E),
+      onInverseSurface: Colors.white,
+      error: Colors.red,
+    ),
+
     tabBarTheme: TabBarThemeData(
       labelColor: AppColors.darkGrey,
       unselectedLabelColor: AppColors.grey,
       indicatorColor: AppColors.primary,
       labelStyle: TextStyle(fontFamily: 'Satoshi', fontWeight: FontWeight.bold),
     ),
+
     primaryColor: AppColors.primary,
     scaffoldBackgroundColor: AppColors.lightBackground,
     brightness: Brightness.light,
@@ -34,6 +47,7 @@ class AppTheme {
         borderSide: const BorderSide(color: Colors.black, width: 1.5),
       ),
     ),
+
     textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.black),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -45,6 +59,17 @@ class AppTheme {
     ),
   );
   static final darkTheme = ThemeData(
+    colorScheme: ColorScheme.dark(
+      primary: AppColors.primaryDark,
+      onPrimary: Colors.white,
+      surface: AppColors.darkBackground, // negro puro, como pides
+      onSurface: Colors.white,
+      surfaceContainer: AppColors.darkContainer,
+      surfaceContainerHigh: AppColors.darkContainerHigh,
+      inverseSurface: AppColors.inverseDark,
+      onInverseSurface: Colors.black,
+      error: const Color(0xFFFF453A), // rojo sistema iOS en dark
+    ),
     tabBarTheme: TabBarThemeData(
       labelColor: Colors.white,
       unselectedLabelColor: AppColors.grey,

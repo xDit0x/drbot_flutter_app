@@ -41,10 +41,10 @@ class Appointment {
     }
     return Appointment(
       id: id,
-      doctorName: (map['doctorName']),
+      doctorName: (map['doctorName'] ?? '').toString(),
       status: AppointmentStatus.fromName((map['status'] as String?)),
       date: date,
-      specialty: (map['specialty']),
+      specialty: (map['specialty'] ?? '').toString(),
     );
   }
 }

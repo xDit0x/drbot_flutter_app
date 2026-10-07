@@ -37,7 +37,12 @@ class _ClinicInfoViewState extends State<ClinicInfoView> {
         ) {
           final info = r as ClinicalInfo;
           if (info.bloodGroup == null && info.allergies.isEmpty) {
-            return const Center(child: Text('Sin datos clínicos registrados'));
+            return const Center(
+              child: Text(
+                'Sin datos clínicos registrados.',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+            );
           }
           final severeAgents = info.allergies
               .where((a) => a.severity == AllergySeverity.severe)

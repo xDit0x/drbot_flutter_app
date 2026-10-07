@@ -24,6 +24,7 @@ class _FeaturesSheetState extends State<FeaturesSheet> {
   final DraggableScrollableController _controller =
       DraggableScrollableController();
   double _extent = FeaturesSheet.minExtent;
+  final Color borderColor = const Color.fromARGB(93, 52, 52, 52);
 
   @override
   void initState() {
@@ -98,60 +99,68 @@ class _FeaturesSheetState extends State<FeaturesSheet> {
         maxChildSize: FeaturesSheet.maxExtent,
         snap: true,
         builder: (context, scrollController) {
-          return Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surfaceContainer,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(100),
+          return ClipRect(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surfaceContainer,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25),
+                  topRight: Radius.circular(25),
+                ),
+                border: Border(
+                  left: BorderSide(color: borderColor, width: 0.2),
+                  right: BorderSide(color: borderColor, width: 0.2),
+                  top: BorderSide(color: borderColor, width: 0.5),
+                ),
               ),
-            ),
-            child: ListView(
-              controller: scrollController,
-              padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
-              children: [
-                Center(
-                  child: Container(
-                    width: 40,
-                    height: 5,
-                    margin: const EdgeInsets.only(bottom: 16),
-                    decoration: BoxDecoration(
-                      color: AppColors.grey,
-                      borderRadius: BorderRadius.circular(3),
+              child: ListView(
+                controller: scrollController,
+                padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
+                children: [
+                  Center(
+                    child: Container(
+                      width: 40,
+                      height: 5,
+                      margin: const EdgeInsets.only(bottom: 16),
+                      decoration: BoxDecoration(
+                        color: AppColors.grey,
+                        borderRadius: BorderRadius.circular(3),
+                      ),
                     ),
                   ),
-                ),
-                Opacity(
-                  opacity: _contentOpacity,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 10),
-                      const Text(
-                        'Funcionalidades',
-                        style: TextStyle(
-                          fontFamily: 'Satoshi',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          height: 1,
+                  Opacity(
+                    opacity: _contentOpacity,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 10),
+                        const Text(
+                          'Funcionalidades',
+                          style: TextStyle(
+                            fontFamily: 'Satoshi',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            height: 1,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 0),
-                      GridView.count(
-                        crossAxisCount: 3,
-                        // childAspectRatio: 1.4,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        mainAxisSpacing: 12,
-                        crossAxisSpacing: 12,
-                        children: [
-                          for (var i = 0; i < widget.destinations.length; i++)
-                            _featureTile(widget.destinations[i], i),
-                        ],
-                      ),
-                    ],
+                        const SizedBox(height: 0),
+                        GridView.count(
+                          crossAxisCount: 3,
+                          // childAspectRatio: 1.4,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          mainAxisSpacing: 12,
+                          crossAxisSpacing: 12,
+                          children: [
+                            for (var i = 0; i < widget.destinations.length; i++)
+                              _featureTile(widget.destinations[i], i),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },

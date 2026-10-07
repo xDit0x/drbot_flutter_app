@@ -39,9 +39,9 @@ class RootNavBar extends StatelessWidget {
                 bottomStart: Radius.circular(50),
               ),
               border: Border(
-                left: BorderSide(color: borderColor, width: 1.5),
-                right: BorderSide(color: borderColor, width: 1.5),
-                bottom: BorderSide(color: borderColor, width: 0.4),
+                left: BorderSide(color: borderColor, width: 0.2),
+                right: BorderSide(color: borderColor, width: 0.2),
+                bottom: BorderSide(color: borderColor, width: 0.5),
               ),
             ),
             padding: const EdgeInsets.fromLTRB(12, 15, 12, 20),
@@ -58,14 +58,19 @@ class RootNavBar extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Satoshi',
-                    color: Colors.white,
+                    color: context.isDarkMode
+                        ? Colors.white
+                        : Theme.of(context).colorScheme.inverseSurface
+                              .withAlpha(250),
                     fontSize: 12,
                     letterSpacing: 0.5,
                     shadows: [
                       Shadow(
-                        color: Colors.black.withAlpha(200),
-                        blurRadius: 9,
-                        offset: Offset(0, 2),
+                        color: context.isDarkMode
+                            ? Colors.black.withAlpha(200)
+                            : Colors.grey.withAlpha(200),
+                        blurRadius: 2,
+                        offset: Offset(0, 1),
                       ),
                     ],
                   );
@@ -74,9 +79,20 @@ class RootNavBar extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   overflow: TextOverflow.ellipsis,
                   fontFamily: 'Satoshi',
-                  color: Colors.white60,
+                  color: context.isDarkMode
+                      ? const Color.fromARGB(255, 215, 215, 215)
+                      : const Color.fromARGB(255, 117, 117, 117),
                   letterSpacing: 0.5,
                   fontSize: 12,
+                  shadows: [
+                    Shadow(
+                      color: context.isDarkMode
+                          ? Colors.black.withAlpha(200)
+                          : Colors.grey.withAlpha(200),
+                      blurRadius: 2,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
                 );
               }),
               destinations: [
@@ -87,31 +103,45 @@ class RootNavBar extends StatelessWidget {
                         final bool isSelected =
                             showSelection && i == currentPageIndex;
                         return AnimatedContainer(
-                          duration: Duration(milliseconds: 200),
+                          duration: Duration(milliseconds: 250),
                           width: 55,
                           height: 55,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            shape: BoxShape.circle,
+                            borderRadius: BorderRadius.circular(20),
                             border: Border.all(
                               color: isSelected
                                   ? context.isDarkMode
-                                        ? AppColors.darkGrey
-                                        : AppColors.lightBackground
+                                        ? AppColors.darkGrey.withAlpha(200)
+                                        : Colors.transparent
                                   : Colors.transparent,
                               style: BorderStyle.solid,
-                              width: 1.2,
+                              width: 2,
                               strokeAlign: BorderSide.strokeAlignInside,
                             ),
                             color: isSelected
-                                ? AppColors.primary
+                                ? context.isDarkMode
+                                      ? AppColors.primary
+                                      : Theme.of(context).colorScheme.surface
                                 : Colors.transparent,
                           ),
                           child: ColorFiltered(
                             colorFilter: ColorFilter.mode(
                               isSelected
-                                  ? AppColors.darkBackground
-                                  : Colors.grey,
+                                  ? context.isDarkMode
+                                        ? AppColors.darkBackground
+                                        : Theme.of(context)
+                                              .colorScheme
+                                              .inverseSurface
+                                              .withAlpha(200)
+                                  : context.isDarkMode
+                                  ? Colors.grey
+                                  : const Color.fromARGB(
+                                      255,
+                                      117,
+                                      117,
+                                      117,
+                                    ).withAlpha(200),
                               BlendMode.srcIn,
                             ),
                             child: destinations[i].icon,
