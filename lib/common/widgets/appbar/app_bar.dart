@@ -11,7 +11,7 @@ class BasicAppbar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       elevation: 0,
       title: title ?? const Text(''),
-      leading: IconButton(
+      /*leading: IconButton(
         onPressed: () {
           Navigator.pop(context);
         },
@@ -31,7 +31,7 @@ class BasicAppbar extends StatelessWidget implements PreferredSizeWidget {
             color: context.isDarkMode ? Colors.white : Colors.black,
           ),
         ),
-      ),
+      ),*/
     );
   }
 
