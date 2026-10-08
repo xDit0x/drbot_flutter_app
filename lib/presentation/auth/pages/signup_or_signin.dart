@@ -6,7 +6,7 @@ import 'package:flutter_learning/core/configs/assets/app_images.dart';
 import 'package:flutter_learning/core/configs/assets/app_vectors.dart';
 import 'package:flutter_learning/core/configs/theme/app_colors.dart';
 import 'package:flutter_learning/presentation/auth/pages/signup.dart';
-import 'package:flutter_learning/presentation/auth/pages/singin.dart';
+import 'package:flutter_learning/presentation/auth/pages/signin.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SignupOrSigninPage extends StatelessWidget {

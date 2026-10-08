@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/common/helpers/is_dark_mode.dart';
 import 'package:flutter_learning/common/helpers/validators.dart';
+import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
 import 'package:flutter_learning/core/configs/theme/app_colors.dart';
 import 'package:flutter_learning/domain/models/contact/update_contact_request.dart';
 import 'package:flutter_learning/domain/entities/contact/contact_info.dart';
@@ -37,63 +38,20 @@ class _ContactInfoViewState extends State<ContactInfoView> {
     if (!mounted) return;
     result.fold(
       (l) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                Icon(Icons.warning_amber_outlined, color: Colors.white),
-                SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    l.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            backgroundColor: Colors.red,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            margin: const EdgeInsets.all(16),
-            duration: const Duration(seconds: 3),
-          ),
+        SnackbarRoot.show(
+          context,
+          l.toString(),
+          selection: SnackbarRootType.bad,
         );
       },
       (r) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Row(
-              children: [
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 4,
-                    children: [
-                      Icon(Icons.account_circle_rounded),
-                      Text(
-                        'Contacto actualizado',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            backgroundColor: Colors.green,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            margin: const EdgeInsets.all(16),
-            duration: const Duration(seconds: 3),
+        SnackbarRoot.show(
+          context,
+          'Contacto actualizado',
+          selection: SnackbarRootType.ok,
+          leading: const Icon(
+            Icons.account_circle_rounded,
+            color: Colors.white,
           ),
         );
         setState(() => _load());
@@ -114,65 +72,19 @@ class _ContactInfoViewState extends State<ContactInfoView> {
     if (!mounted) return;
     result.fold(
       (l) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                Icon(Icons.warning_amber_outlined, color: Colors.white),
-                SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    l.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            backgroundColor: Colors.red,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            margin: const EdgeInsets.all(16),
-            duration: const Duration(seconds: 3),
-          ),
+        SnackbarRoot.show(
+          context,
+          l.toString(),
+          selection: SnackbarRootType.bad,
         );
       },
 
       (r) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Row(
-              children: [
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 4,
-                    children: [
-                      Icon(Icons.phone_rounded),
-                      Text(
-                        'Contacto actualizado',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            backgroundColor: Colors.green,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            margin: const EdgeInsets.all(16),
-            duration: const Duration(seconds: 3),
-          ),
+        SnackbarRoot.show(
+          context,
+          'Contacto actualizado',
+          selection: SnackbarRootType.ok,
+          leading: const Icon(Icons.phone_rounded, color: Colors.white),
         );
         setState(() {
           _pendingCountry = null;

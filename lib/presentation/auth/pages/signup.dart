@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/common/widgets/appbar/app_bar.dart';
 import 'package:flutter_learning/common/widgets/button/basic_app_button.dart';
+import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
 import 'package:flutter_learning/core/configs/assets/app_images.dart';
 import 'package:flutter_learning/core/configs/theme/app_colors.dart';
 import 'package:flutter_learning/domain/models/auth/create_user_request.dart';
 import 'package:flutter_learning/domain/usecases/auth/sign_up.dart';
-import 'package:flutter_learning/presentation/auth/pages/singin.dart';
+import 'package:flutter_learning/presentation/auth/pages/signin.dart';
 import 'package:flutter_learning/presentation/root/pages/root.dart';
 import 'package:flutter_learning/service_locator.dart';
 
@@ -40,34 +41,10 @@ class SignUpPage extends StatelessWidget {
             BasicAppButton(
               onPressed: () async {
                 if (_email.text.trim().isEmpty || _password.text.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: const Row(
-                        children: [
-                          Icon(
-                            Icons.warning_amber_outlined,
-                            color: Colors.white,
-                          ),
-                          SizedBox(width: 12),
-                          Expanded(
-                            child: Text(
-                              'Introduce el email y la contraseña',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      backgroundColor: const Color.fromARGB(255, 251, 155, 45),
-                      behavior: SnackBarBehavior.floating,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      margin: const EdgeInsets.all(16),
-                      duration: const Duration(seconds: 3),
-                    ),
+                  SnackbarRoot.show(
+                    context,
+                    'Introduce el email y la contraseña',
+                    selection: SnackbarRootType.warning,
                   );
                   return;
                 }
@@ -81,31 +58,11 @@ class SignUpPage extends StatelessWidget {
                 result.fold(
                   (l) {
                     //LEFT = no ha ido bien
-                    var snackbar = SnackBar(
-                      content: Row(
-                        children: [
-                          const Icon(Icons.error_outline, color: Colors.white),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Text(
-                              l.toString(),
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      backgroundColor: Colors.redAccent,
-                      behavior: SnackBarBehavior.floating,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      margin: const EdgeInsets.all(16),
-                      duration: const Duration(seconds: 3),
+                    SnackbarRoot.show(
+                      context,
+                      l.toString(),
+                      selection: SnackbarRootType.bad,
                     );
-                    ScaffoldMessenger.of(context).showSnackBar(snackbar);
                   },
                   (r) {
                     Navigator.pushAndRemoveUntil(

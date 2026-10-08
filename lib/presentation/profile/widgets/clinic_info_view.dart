@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart' hide State;
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
 import 'package:flutter_learning/core/configs/theme/app_colors.dart';
 import 'package:flutter_learning/data/sources/clinical/assigned_center_service.dart';
 import 'package:flutter_learning/data/sources/clinical/medical_center_csv.dart';
@@ -97,9 +98,13 @@ class _ClinicInfoViewState extends State<ClinicInfoView> {
         hospital
             ? 'Hospital de referencia guardado.'
             : 'Centro de salud de referencia guardado.',
+        SnackbarRootType.ok,
       );
     } catch (error) {
-      _showMessage('No se pudo cargar o guardar el centro: $error');
+      _showMessage(
+        'No se pudo cargar o guardar el centro: $error',
+        SnackbarRootType.bad,
+      );
     } finally {
       if (mounted) {
         setState(() => _savingCenter = false);
@@ -107,9 +112,8 @@ class _ClinicInfoViewState extends State<ClinicInfoView> {
     }
   }
 
-  void _showMessage(String message) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
+  void _showMessage(String message, SnackbarRootType selection) {
+    SnackbarRoot.show(context, message, selection: SnackbarRootType.ok);
   }
 
   Widget _buildClinicalInfo(AsyncSnapshot<Either> snapshot) {
