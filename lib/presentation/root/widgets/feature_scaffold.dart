@@ -56,6 +56,11 @@ class FeatureScaffold extends StatelessWidget {
             onPressed: () async {
               HapticFeedback.lightImpact();
               final shouldLogout = await showDialog<bool>(
+                animationStyle: AnimationStyle(
+                  duration: Duration(milliseconds: 200),
+                  reverseCurve: Curves.fastOutSlowIn,
+                ),
+                barrierColor: Colors.black.withAlpha(220),
                 context: context,
                 builder: (dialogContext) => AlertDialog(
                   title: Row(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/common/helpers/is_dark_mode.dart';
 
 import 'package:flutter_learning/presentation/profile/models/profile_tab.dart';
 
@@ -22,6 +23,10 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           TabBar(
             dividerColor: Colors.transparent,
+            unselectedLabelColor: context.isDarkMode
+                ? const Color.fromARGB(255, 210, 210, 210)
+                : const Color.fromARGB(255, 97, 97, 97),
+
             indicatorWeight: 1,
             indicatorSize: TabBarIndicatorSize.tab,
             indicatorPadding: EdgeInsetsGeometry.fromLTRB(20, 0, 20, 3.5),

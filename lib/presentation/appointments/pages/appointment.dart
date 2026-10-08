@@ -58,6 +58,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
 
           return Column(
             children: [
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
