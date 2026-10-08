@@ -2,14 +2,13 @@ import 'package:dartz/dartz.dart' hide State;
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
 import 'package:flutter_learning/core/configs/theme/app_colors.dart';
-import 'package:flutter_learning/data/sources/clinical/assigned_center_service.dart';
-import 'package:flutter_learning/data/sources/clinical/medical_center_csv.dart';
+
 import 'package:flutter_learning/domain/entities/clinical/allergy.dart';
 import 'package:flutter_learning/domain/entities/clinical/clinical_info.dart';
-import 'package:flutter_learning/domain/entities/clinical/medical_center.dart';
+
 import 'package:flutter_learning/domain/usecases/clinical/get_clinical_info.dart';
 import 'package:flutter_learning/presentation/profile/widgets/allergy_severity_color.dart';
-import 'package:flutter_learning/presentation/profile/widgets/medical_center_picker.dart';
+
 import 'package:flutter_learning/service_locator.dart';
 
 class PersonalInfoView extends StatefulWidget {
