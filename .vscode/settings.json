@@ -1,4 +1,4 @@
 {
   "cmake.sourceDirectory": "/Users/peterpunk/esp/v5.4.1/esp-idf/components/openthread/openthread/third_party/mbedtls/repo/programs/cipher",
-  "java.configuration.updateBuildConfiguration": "interactive"
+  "java.configuration.updateBuildConfiguration": "disabled"
 }
