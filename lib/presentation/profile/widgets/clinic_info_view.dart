@@ -19,8 +19,8 @@ class ClinicInfoView extends StatefulWidget {
 }
 
 class _ClinicInfoViewState extends State<ClinicInfoView> {
-  late final Future<Either> _clinicalFuture =
-      sl<GetClinicalInfoUseCase>().call();
+  late final Future<Either> _clinicalFuture = sl<GetClinicalInfoUseCase>()
+      .call();
 
   final MedicalCenterCsv _csvService = MedicalCenterCsv();
   final AssignedCenterService _assignedService = AssignedCenterService();
@@ -71,10 +71,8 @@ class _ClinicInfoViewState extends State<ClinicInfoView> {
 
       final selectedCenter = await showDialog<MedicalCenter>(
         context: context,
-        builder: (context) => MedicalCenterPicker(
-          centers: centers,
-          hospitals: hospital,
-        ),
+        builder: (context) =>
+            MedicalCenterPicker(centers: centers, hospitals: hospital),
       );
 
       if (!mounted || selectedCenter == null) return;
@@ -110,9 +108,8 @@ class _ClinicInfoViewState extends State<ClinicInfoView> {
   }
 
   void _showMessage(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
   Widget _buildClinicalInfo(AsyncSnapshot<Either> snapshot) {
@@ -135,62 +132,55 @@ class _ClinicInfoViewState extends State<ClinicInfoView> {
     final result = snapshot.data;
     if (result == null) return const SizedBox.shrink();
 
-    return result.fold<Widget>(
-      (error) => Text(error.toString()),
-      (value) {
-        final info = value as ClinicalInfo;
+    return result.fold<Widget>((error) => Text(error.toString()), (value) {
+      final info = value as ClinicalInfo;
 
-        if (info.bloodGroup == null && info.allergies.isEmpty) {
-          return const Text('Sin datos clínicos registrados.');
-        }
+      if (info.bloodGroup == null && info.allergies.isEmpty) {
+        return const Text('Sin datos clínicos registrados.');
+      }
 
-        final severeAgents = info.allergies
-            .where((allergy) => allergy.severity == AllergySeverity.severe)
-            .map((allergy) => allergy.agent)
-            .join(', ');
+      final severeAgents = info.allergies
+          .where((allergy) => allergy.severity == AllergySeverity.severe)
+          .map((allergy) => allergy.agent)
+          .join(', ');
 
-        final subtitle = info.allergies.isEmpty
-            ? 'Sin alergias conocidas'
-            : severeAgents.isEmpty
-                ? 'Con alergias conocidas'
-                : 'Con alergias graves conocidas: $severeAgents';
+      final subtitle = info.allergies.isEmpty
+          ? 'Sin alergias conocidas'
+          : severeAgents.isEmpty
+          ? 'Con alergias conocidas'
+          : 'Con alergias graves conocidas: $severeAgents';
 
-        final orderedAllergies = [...info.allergies]
-          ..sort((a, b) => a.severity.rank.compareTo(b.severity.rank));
+      final orderedAllergies = [...info.allergies]
+        ..sort((a, b) => a.severity.rank.compareTo(b.severity.rank));
 
-        return Column(
-          children: [
-            ListTile(
-              leading: Icon(
-                info.allergies.isNotEmpty
-                    ? Icons.warning_amber_rounded
-                    : Icons.bloodtype_rounded,
-              ),
-              title: Text(
-                'Grupo: ${info.bloodGroup?.label ?? 'No consta'}',
-              ),
-              subtitle: Text(subtitle),
+      return Column(
+        children: [
+          ListTile(
+            leading: Icon(
+              info.allergies.isNotEmpty
+                  ? Icons.warning_amber_rounded
+                  : Icons.bloodtype_rounded,
             ),
-            for (final allergy in orderedAllergies)
-              Card(
-                child: ListTile(
-                  title: Text(
-                    allergy.agent,
-                    style: const TextStyle(fontWeight: FontWeight.w700),
-                  ),
-                  subtitle: Text(
-                    '${allergy.type.label} · ${allergy.reaction}',
-                  ),
-                  trailing: Text(
-                    allergy.severity.label,
-                    style: TextStyle(color: allergy.severity.color),
-                  ),
+            title: Text('Grupo: ${info.bloodGroup?.label ?? 'No consta'}'),
+            subtitle: Text(subtitle),
+          ),
+          for (final allergy in orderedAllergies)
+            Card(
+              child: ListTile(
+                title: Text(
+                  allergy.agent,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+                subtitle: Text('${allergy.type.label} · ${allergy.reaction}'),
+                trailing: Text(
+                  allergy.severity.label,
+                  style: TextStyle(color: allergy.severity.color),
                 ),
               ),
-          ],
-        );
-      },
-    );
+            ),
+        ],
+      );
+    });
   }
 
   Widget _buildReferenceTile({
@@ -214,8 +204,9 @@ class _ClinicInfoViewState extends State<ClinicInfoView> {
     return SizedBox(
       width: double.infinity,
       child: OutlinedButton.icon(
-        onPressed:
-            _savingCenter ? null : () => _chooseCenter(hospital: hospital),
+        onPressed: _savingCenter
+            ? null
+            : () => _chooseCenter(hospital: hospital),
         icon: _savingCenter
             ? const SizedBox(
                 width: 16,
@@ -261,14 +252,16 @@ class _ClinicInfoViewState extends State<ClinicInfoView> {
                   const LinearProgressIndicator()
                 else ...[
                   if (_assignedCentersError != null)
-                    Text('No se cargaron las referencias: $_assignedCentersError'),
+                    Text(
+                      'No se cargaron las referencias: $_assignedCentersError',
+                    ),
                   _buildReferenceTile(
                     title: 'Centro de salud de referencia',
                     icon: Icons.medical_services_outlined,
                     center: _healthCenter,
                   ),
                   const SizedBox(height: 8),
-                _buildReferenceButton(hospital: false),
+                  _buildReferenceButton(hospital: false),
                   const Divider(),
                   _buildReferenceTile(
                     title: 'Hospital de referencia',

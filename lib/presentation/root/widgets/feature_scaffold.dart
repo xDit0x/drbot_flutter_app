@@ -54,32 +54,109 @@ class FeatureScaffold extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () async {
+              HapticFeedback.lightImpact();
               final shouldLogout = await showDialog<bool>(
                 context: context,
                 builder: (dialogContext) => AlertDialog(
-                  title: const Text('Cerrar sesión'),
-                  content: const Text('¿Seguro que desea cerrar sesión?'),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Cerrar sesión',
+                        style: TextStyle(
+                          fontSize: 26,
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  content: const Text(
+                    '¿Seguro que desea cerrar sesión?',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                  ),
                   actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(dialogContext, false),
-                      child: const Text('Cancelar'),
+                    Column(
+                      spacing: 4,
+                      children: [
+                        FilledButton(
+                          style: FilledButton.styleFrom(
+                            padding: EdgeInsets.symmetric(vertical: 13),
+                          ),
+                          onPressed: () {
+                            HapticFeedback.heavyImpact();
+                            Navigator.pop(dialogContext, true);
+                          },
+                          child: Row(
+                            spacing: 3,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.logout,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .inverseSurface,
+                                weight: 4,
+                              ),
+                              Text(
+                                'Cerrar sesión',
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .inverseSurface,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            HapticFeedback.lightImpact();
+                            Navigator.pop(dialogContext, false);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 42,
+                              vertical: 8,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .surfaceContainer,
+                            ),
+                            child: Text(
+                              'Cancelar',
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .inverseSurface,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    FilledButton(
-                      onPressed: () => Navigator.pop(dialogContext, true),
-                      child: const Text('Cerrar sesión'),
-                    ),
-                  ]
-                )
+                  ],
+                ),
               );
-              
-              if(shouldLogout != true || !context.mounted) return;
+
+              if (shouldLogout != true || !context.mounted) return;
 
               await FirebaseAuth.instance.signOut();
 
               Navigator.pushAndRemoveUntil(
-                context, 
-                MaterialPageRoute(builder: (_) => const SignInPage()), 
-                (route) => false);
+                context,
+                MaterialPageRoute(builder: (_) => const SignInPage()),
+                (route) => false,
+              );
             },
             child: Icon(
               Icons.logout_rounded,

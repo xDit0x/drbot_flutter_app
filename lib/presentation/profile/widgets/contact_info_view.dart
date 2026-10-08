@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart' hide State;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/common/helpers/is_dark_mode.dart';
 import 'package:flutter_learning/common/helpers/validators.dart';
 import 'package:flutter_learning/core/configs/theme/app_colors.dart';
 import 'package:flutter_learning/domain/models/contact/update_contact_request.dart';
@@ -227,20 +228,36 @@ class _ContactInfoViewState extends State<ContactInfoView> {
                   Text(
                     info.fullName != null ? '${info.fullName}' : "Nombre no proporcionado, contacte con el administrador.",
                     style: TextStyle(
-                      color: info.fullName != null ? Colors.white : Colors.grey,
+                      color: info.fullName != null
+                          ? Theme.of(context).colorScheme.inverseSurface
+                          : Colors.grey,
                       fontSize: 23,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 0.5,
                       decoration: info.fullName != null
                           ? null
                           : TextDecoration.underline,
-                      decorationColor: Colors.grey.withAlpha(100),
+                      decorationColor: context.isDarkMode
+                          ? Colors.grey.withAlpha(100)
+                          : const Color.fromARGB(
+                              255,
+                              74,
+                              74,
+                              74,
+                            ).withAlpha(250),
                     ),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 12),
                   InlineEditableText(
-                    textColor: const Color.fromARGB(255, 197, 197, 197),
+                    textColor: context.isDarkMode
+                        ? Colors.grey
+                        : const Color.fromARGB(
+                            255,
+                            125,
+                            125,
+                            125,
+                          ).withAlpha(250),
                     key: ValueKey('email:${info.email}'),
                     maxLenght: 100,
                     hintText: "No consta email de contacto",
@@ -291,7 +308,9 @@ class _ContactInfoViewState extends State<ContactInfoView> {
                               Text(
                                 '${effectiveCountry.flag}${effectiveCountry.dialCode}',
                                 style: TextStyle(
-                                  color: AppColors.lightBackground,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .inverseSurface,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
                                 ),
@@ -326,6 +345,9 @@ class _ContactInfoViewState extends State<ContactInfoView> {
                             children: [
                               Expanded(
                                 child: InlineEditableText(
+                                  textColor: Theme.of(context)
+                                      .colorScheme
+                                      .inverseSurface,
                                   key: ValueKey(
                                     'phone:${_pendingCountry?.name}:${info.phoneNumber}',
                                   ),
