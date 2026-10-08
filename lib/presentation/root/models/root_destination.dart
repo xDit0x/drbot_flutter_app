@@ -3,6 +3,7 @@ import 'package:flutter_learning/core/configs/assets/app_vectors.dart';
 import 'package:flutter_learning/presentation/appointments/pages/appointment.dart';
 import 'package:flutter_learning/presentation/profile/pages/profile.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_learning/presentation/settings/settings_page.dart';
 
 class RootDestination {
   final Widget icon;
@@ -54,7 +55,7 @@ class RootDestination {
     RootDestination(
       icon: Icon(Icons.settings, size: 30),
       label: 'Ajustes',
-      page: Center(child: Text('Ajustes')),
+      page: const SettingsPage(),
     ),
     RootDestination(
       icon: Icon(Icons.question_answer, size: 30),
@@ -65,11 +66,6 @@ class RootDestination {
       icon: Icon(Icons.help_center_rounded, size: 30),
       label: 'Ayuda',
       page: Center(child: Text('Ayuda')),
-    ),
-    RootDestination(
-      icon: Icon(Icons.biotech_rounded, size: 30),
-      label: 'Seguridad biométrica',
-      page: Center(child: Text('Seguridad biométrica')),
     ),
     RootDestination(
       icon: Icon(Icons.medication_liquid_rounded, size: 30),

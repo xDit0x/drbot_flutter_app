@@ -43,6 +43,9 @@ dependencies:
   get_it:
   dartz:
   cloud_firestore:
+  shared_preferences: ^2.5.3
+  package_info_plus: ^10.2.2
+  local_auth: ^3.0.2
 
 dev_dependencies:
   flutter_test:
