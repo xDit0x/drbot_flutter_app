@@ -80,20 +80,41 @@ class _PersonalInfoViewState extends State<PersonalInfoView> {
                   ? Icons.warning_amber_rounded
                   : Icons.bloodtype_rounded,
             ),
-            title: Text('Grupo: ${info.bloodGroup?.label ?? 'No consta'}'),
+            title: Text(
+              'Grupo ${info.bloodGroup?.label ?? 'No consta'}',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
             subtitle: Text(subtitle),
           ),
           for (final allergy in orderedAllergies)
             Card(
+              color: Theme.of(context).colorScheme.surfaceContainer,
               child: ListTile(
                 title: Text(
                   allergy.agent,
                   style: const TextStyle(fontWeight: FontWeight.w700),
                 ),
                 subtitle: Text('${allergy.type.label} · ${allergy.reaction}'),
-                trailing: Text(
-                  allergy.severity.label,
-                  style: TextStyle(color: allergy.severity.color),
+                trailing: Container(
+                  padding: EdgeInsets.fromLTRB(12, 2, 12, 5),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surfaceContainer
+                        .withAlpha(255),
+                    borderRadius: BorderRadius.circular(8),
+                    border: BoxBorder.all(
+                      width: 1.2,
+                      strokeAlign: 2,
+                      color: allergy.severity.color.withAlpha(50),
+                    ),
+                  ),
+                  child: Text(
+                    allergy.severity.label,
+                    style: TextStyle(
+                      color: allergy.severity.color,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ),
             ),

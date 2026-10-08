@@ -160,32 +160,61 @@ class _ContactInfoViewState extends State<ContactInfoView> {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 12),
-                  InlineEditableText(
-                    textColor: context.isDarkMode
-                        ? Colors.grey
-                        : const Color.fromARGB(
-                            255,
-                            125,
-                            125,
-                            125,
-                          ).withAlpha(250),
-                    key: ValueKey('email:${info.email}'),
-                    maxLenght: 100,
-                    hintText: "No consta email de contacto",
-                    initialValue: info.email ?? '',
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (v) =>
-                        RegExp(r'^[^@]+@[^@]+\.[^@]+$')
-                            .hasMatch((v ?? '').trim())
-                        ? null
-                        : 'Email no válido',
-                    onSubmit: (String value) {
-                      _saveEmail(value, info);
-                    },
+                  SizedBox(height: 16),
+                  Container(
+                    width: 300,
+                    height: 2,
+                    decoration: BoxDecoration(
+                      color:
+                          // Theme.of(context).colorScheme.inverseSurface
+                          //     .withAlpha(205)
+                          Colors.grey,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surfaceContainer
+                          .withAlpha(230),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .surfaceContainerHigh,
+                          offset: Offset.fromDirection(1, 1),
+                        ),
+                      ],
+                    ),
+
+                    child: InlineEditableText(
+                      textColor: context.isDarkMode
+                          ? const Color.fromARGB(255, 211, 211, 211)
+                          : const Color.fromARGB(
+                              255,
+                              125,
+                              125,
+                              125,
+                            ).withAlpha(250),
+                      key: ValueKey('email:${info.email}'),
+                      maxLenght: 100,
+                      hintText: "No consta email de contacto",
+                      initialValue: info.email ?? '',
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (v) =>
+                          RegExp(r'^[^@]+@[^@]+\.[^@]+$')
+                              .hasMatch((v ?? '').trim())
+                          ? null
+                          : 'Email no válido',
+                      onSubmit: (String value) {
+                        _saveEmail(value, info);
+                      },
+                    ),
                   ),
 
-                  SizedBox(height: 16),
+                  SizedBox(height: 20),
                   Row(
                     spacing: 10,
                     mainAxisAlignment: MainAxisAlignment.center,
