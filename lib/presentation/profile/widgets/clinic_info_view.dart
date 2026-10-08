@@ -267,6 +267,8 @@ class _ClinicInfoViewState extends State<ClinicInfoView> {
                     icon: Icons.medical_services_outlined,
                     center: _healthCenter,
                   ),
+                  const SizedBox(height: 8),
+                _buildReferenceButton(hospital: false),
                   const Divider(),
                   _buildReferenceTile(
                     title: 'Hospital de referencia',
@@ -275,15 +277,11 @@ class _ClinicInfoViewState extends State<ClinicInfoView> {
                   ),
                 ],
                 const SizedBox(height: 8),
-                _buildReferenceButton(hospital: false),
-                const SizedBox(height: 8),
                 _buildReferenceButton(hospital: true),
                 const Padding(
                   padding: EdgeInsets.only(top: 8),
                   child: Text(
-                    'Busca por nombre, municipio o provincia. '
-                    'Los CSV no incluyen códigos postales, así que '
-                    'no se calcula una distancia exacta.',
+                    'Busca por nombre, municipio o provincia o código REGCESS. ',
                     style: TextStyle(fontSize: 12),
                   ),
                 ),

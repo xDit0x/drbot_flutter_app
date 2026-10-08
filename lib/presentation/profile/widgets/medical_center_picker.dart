@@ -29,7 +29,7 @@ class _MedicalCenterPickerState extends State<MedicalCenterPicker>
       
       if(isHospital != widget.hospitals) { return false ; }
 
-      final searcheablText = '${center.name} ${center.province} ${center.municipality} ${center.region}';
+      final searcheablText = '${center.code} ${center.name} ${center.province} ${center.municipality} ${center.region}';
 
       return searcheablText.toLowerCase().contains(_query.trim().toLowerCase());
     }).toList();
@@ -45,7 +45,7 @@ class _MedicalCenterPickerState extends State<MedicalCenterPicker>
             TextField(
               decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.search),
-                hintText: 'Buscar por nombre, provincia, municipio o comunidad autónoma',
+                hintText: 'Buscar por nombre, provincia, municipio, comunidad autónoma o código REGCESS',
                 border: OutlineInputBorder()
               ),
               onChanged: (value) => setState(() => _query = value),

@@ -6,7 +6,7 @@ import 'package:flutter_learning/common/helpers/is_dark_mode.dart';
 
 import 'package:flutter_learning/core/configs/assets/app_vectors.dart';
 
-import 'package:flutter_learning/presentation/auth/pages/singin.dart';
+import 'package:flutter_learning/presentation/auth/pages/signin.dart';
 import 'package:flutter_learning/presentation/choose_mode/bloc/theme_cubit.dart';
 
 import 'package:flutter_learning/presentation/root/models/root_destination.dart';
@@ -54,13 +54,32 @@ class FeatureScaffold extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () async {
-              await FirebaseAuth.instance.signOut();
-              if (!context.mounted) return;
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (_) => SignInPage()),
-                (route) => false,
+              final shouldLogout = await showDialog<bool>(
+                context: context,
+                builder: (dialogContext) => AlertDialog(
+                  title: const Text('Cerrar sesión'),
+                  content: const Text('¿Seguro que desea cerrar sesión?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(dialogContext, false),
+                      child: const Text('Cancelar'),
+                    ),
+                    FilledButton(
+                      onPressed: () => Navigator.pop(dialogContext, true),
+                      child: const Text('Cerrar sesión'),
+                    ),
+                  ]
+                )
               );
+              
+              if(shouldLogout != true || !context.mounted) return;
+
+              await FirebaseAuth.instance.signOut();
+
+              Navigator.pushAndRemoveUntil(
+                context, 
+                MaterialPageRoute(builder: (_) => const SignInPage()), 
+                (route) => false);
             },
             child: Icon(
               Icons.logout_rounded,
