@@ -5,7 +5,7 @@ extension AllergySeverityColor on AllergySeverity {
   Color get color {
     switch (this) {
       case AllergySeverity.mild:
-        return Colors.lightGreenAccent;
+        return const Color.fromARGB(255, 89, 205, 149);
       case AllergySeverity.moderate:
         return Colors.orangeAccent;
       case AllergySeverity.severe:

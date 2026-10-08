@@ -96,16 +96,11 @@ class _PersonalInfoViewState extends State<PersonalInfoView> {
                 ),
                 subtitle: Text('${allergy.type.label} · ${allergy.reaction}'),
                 trailing: Container(
-                  padding: EdgeInsets.fromLTRB(12, 2, 12, 5),
+                  padding: EdgeInsets.fromLTRB(12, 1, 12, 4),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surfaceContainer
-                        .withAlpha(255),
+                    color: Theme.of(context).colorScheme.surfaceContainerHighest
+                        .withAlpha(105),
                     borderRadius: BorderRadius.circular(8),
-                    border: BoxBorder.all(
-                      width: 1.2,
-                      strokeAlign: 2,
-                      color: allergy.severity.color.withAlpha(50),
-                    ),
                   ),
                   child: Text(
                     allergy.severity.label,
