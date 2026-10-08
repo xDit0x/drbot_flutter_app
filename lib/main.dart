@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_learning/presentation/choose_mode/bloc/theme_cubit.dart';
 import 'package:flutter_learning/firebase_options.dart';
-import 'package:flutter_learning/presentation/root/pages/root.dart';
+import 'package:flutter_learning/presentation/root/pages/authgate.dart';
 
 import 'package:flutter_learning/service_locator.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           themeMode: mode,
           debugShowCheckedModeBanner: false,
           // home: const SplashPage(),
-          home: RootPage(),
+          home: AuthGate(),
         ),
       ),
     );

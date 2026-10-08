@@ -1,0 +1,565 @@
+﻿Código de Centro Normalizado REGCESS (CCN);Nombre de Centro;Código Autonómico de Autorización del Centro;Comunidad Autónoma;Provincia;Municipio;Clase de Centro;Dependencia Funcional
+1046000268;HOSPITAL UNIVERSITARIO FRANCESC DE BORJA DE GANDIA;1068;Comunitat Valenciana;Valencia/València;Gandia;Hospitales Generales;Publicos
+1328000066;HOSPITAL UNIVERSITARIO FUNDACION ALCORCON;CH0080;Madrid, Comunidad de;Madrid;Alcorcón;Hospitales Generales;Publicos
+1328000009;HOSPITAL UNIVERSITARIO FUNDACION JIMENEZ DIAZ;CH0011;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+0538002290;HOSPITAL UNIVERSITARIO GENERAL DE LA PALMA;4457;Canarias;Santa Cruz de Tenerife;Breña Alta;Hospitales Generales;Publicos
+1328000025;HOSPITAL UNIVERSITARIO HM MADRID;CH0031;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+1328000067;HOSPITAL UNIVERSITARIO HM MONTEPRINCIPE;CH0081;Madrid, Comunidad de;Madrid;Boadilla del Monte;Hospitales Generales;Privados
+1328016888;HOSPITAL UNIVERSITARIO HM PUERTA DEL SUR;CH0107;Madrid, Comunidad de;Madrid;Móstoles;Hospitales Generales;Privados
+1328000078;HOSPITAL UNIVERSITARIO HM SANCHINARRO;CH0093;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+1328000072;HOSPITAL UNIVERSITARIO HM TORRELODONES;CH0087;Madrid, Comunidad de;Madrid;Torrelodones;Hospitales Generales;Privados
+0538000126;HOSPITAL UNIVERSITARIO HOSPITEN BELLEVUE;360;Canarias;Santa Cruz de Tenerife;Puerto de la Cruz;Hospitales Generales;Privados
+0538000373;HOSPITAL UNIVERSITARIO HOSPITEN RAMBLA;444;Canarias;Santa Cruz de Tenerife;Santa Cruz de Tenerife;Hospitales Generales;Privados
+0538000121;HOSPITAL UNIVERSITARIO HOSPITEN SUR;24;Canarias;Santa Cruz de Tenerife;Arona;Hospitales Generales;Privados
+1328000083;HOSPITAL UNIVERSITARIO INFANTA CRISTINA;CH0098;Madrid, Comunidad de;Madrid;Parla;Hospitales Generales;Publicos
+1328000080;HOSPITAL UNIVERSITARIO INFANTA ELENA;CH0095;Madrid, Comunidad de;Madrid;Valdemoro;Hospitales Generales;Publicos
+1328000086;HOSPITAL UNIVERSITARIO INFANTA LEONOR;CH0101;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Publicos
+1328000082;HOSPITAL UNIVERSITARIO INFANTA SOFIA;CH0097;Madrid, Comunidad de;Madrid;San Sebastián de los Reyes;Hospitales Generales;Publicos
+0121000147;HOSPITAL UNIVERSITARIO JUAN RAMON JIMENEZ;16078;Andalucía;Huelva;Huelva;Hospitales Generales;Publicos
+1328000074;HOSPITAL UNIVERSITARIO LA MORALEJA;CH0089;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+1328000031;HOSPITAL UNIVERSITARIO LA PAZ;CH0041;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Publicos
+1328000008;HOSPITAL UNIVERSITARIO LA ZARZUELA;CH0009;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+1046000353;HOSPITAL UNIVERSITARIO LLUIS ALCANYIS DE XATIVA;2147;Comunitat Valenciana;Valencia/València;Xàtiva;Hospitales Generales;Publicos
+1003000136;HOSPITAL UNIVERSITARIO MARINA BAIXA DE LA VILA JOIOSA;2045;Comunitat Valenciana;Alicante/Alacant;Vila Joiosa, la/Villajoyosa;Hospitales Generales;Publicos
+0639000197;HOSPITAL UNIVERSITARIO MARQUES DE VALDECILLA;06/1997/00123;Cantabria;Cantabria;Santander;Hospitales Generales;Publicos
+0250000069;HOSPITAL UNIVERSITARIO MIGUEL SERVET;5010035;Aragón;Zaragoza;Zaragoza;Hospitales Generales;Publicos
+0802000374;HOSPITAL UNIVERSITARIO NUESTRA SEÑORA  DEL PERPETUO SOCORRO;0200116/0003044;Castilla - La Mancha;Albacete;Albacete;Hospitales Generales;Publicos
+0538001932;HOSPITAL UNIVERSITARIO NUESTRA SEÑORA DE CANDELARIA;4080;Canarias;Santa Cruz de Tenerife;Santa Cruz de Tenerife;Hospitales Generales;Publicos
+0535000321;HOSPITAL UNIVERSITARIO PERPETUO SOCORRO;814;Canarias;Palmas, Las;Palmas de Gran Canaria, Las;Hospitales Generales;Privados
+1328000034;HOSPITAL UNIVERSITARIO PRINCIPE DE ASTURIAS;CH0044;Madrid, Comunidad de;Madrid;Alcalá de Henares;Hospitales Generales;Publicos
+1328000087;HOSPITAL UNIVERSITARIO PUERTA DE HIERRO MAJADAHONDA;CH0102;Madrid, Comunidad de;Madrid;Majadahonda;Hospitales Generales;Publicos
+0111000289;HOSPITAL UNIVERSITARIO PUERTA DEL MAR;16051;Andalucía;Cádiz;Cádiz;Hospitales Generales;Publicos
+0111000286;HOSPITAL UNIVERSITARIO PUNTA DE EUROPA;16050;Andalucía;Cádiz;Algeciras;Hospitales Generales;Publicos
+1328000076;HOSPITAL UNIVERSITARIO QUIRONSALUD MADRID;CH0091;Madrid, Comunidad de;Madrid;Pozuelo de Alarcón;Hospitales Generales;Privados
+1328000039;HOSPITAL UNIVERSITARIO RAMON Y CAJAL;CH0049;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Publicos
+0129001068;HOSPITAL UNIVERSITARIO REGIONAL DE MALAGA;16093;Andalucía;Málaga;Málaga;Hospitales Generales;Publicos
+0114000530;HOSPITAL UNIVERSITARIO REINA SOFIA;16062;Andalucía;Córdoba;Córdoba;Hospitales Generales;Publicos
+0747001319;HOSPITAL UNIVERSITARIO RIO HORTEGA;47-C11-0008;Castilla y León;Valladolid;Valladolid;Hospitales Generales;Publicos
+0333002777;HOSPITAL UNIVERSITARIO SAN AGUSTIN;899;Asturias, Principado de;Asturias;Avilés;Hospitales Generales;Publicos
+0222000002;HOSPITAL UNIVERSITARIO SAN JORGE;2210009;Aragón;Huesca;Huesca;Hospitales Generales;Publicos
+1003000247;HOSPITAL UNIVERSITARIO SAN JUAN DE ALICANTE;904;Comunitat Valenciana;Alicante/Alacant;Sant Joan d'Alacant;Hospitales Generales;Publicos
+1726000576;HOSPITAL UNIVERSITARIO SAN PEDRO;16391900110C1;Rioja, La;Rioja, La;Logroño;Hospitales Generales;Publicos
+0535001314;HOSPITAL UNIVERSITARIO SAN ROQUE LAS PALMAS;207;Canarias;Palmas, Las;Palmas de Gran Canaria, Las;Hospitales Generales;Privados
+0535001243;HOSPITAL UNIVERSITARIO SAN ROQUE MASPALOMAS;3251;Canarias;Palmas, Las;San Bartolomé de Tirajana;Hospitales Generales;Privados
+1328000041;HOSPITAL UNIVERSITARIO SANTA CRISTINA;CH0051;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Publicos
+1328000042;HOSPITAL UNIVERSITARIO SEVERO OCHOA;CH0052;Madrid, Comunidad de;Madrid;Leganés;Hospitales Generales;Publicos
+0104000316;HOSPITAL UNIVERSITARIO TORRECARDENAS;16038;Andalucía;Almería;Almería;Hospitales Generales;Publicos
+1003000161;HOSPITAL UNIVERSITARIO VEGA BAJA DE ORIHUELA;357;Comunitat Valenciana;Alicante/Alacant;Orihuela;Hospitales Generales;Publicos
+1003000255;HOSPITAL UNIVERSITARIO VINALOPO;9574;Comunitat Valenciana;Alicante/Alacant;Elx/Elche;Hospitales Generales;Publicos
+0129001073;HOSPITAL UNIVERSITARIO VIRGEN DE LA VICTORIA;16096;Andalucía;Málaga;Málaga;Hospitales Generales;Publicos
+0118000556;HOSPITAL UNIVERSITARIO VIRGEN DE LAS NIEVES;16073;Andalucía;Granada;Granada;Hospitales Generales;Publicos
+0141000541;HOSPITAL UNIVERSITARIO VIRGEN DE VALME;16115;Andalucía;Sevilla;Sevilla;Hospitales Generales;Publicos
+0141000547;HOSPITAL UNIVERSITARIO VIRGEN DEL ROCIO;16118;Andalucía;Sevilla;Sevilla;Hospitales Generales;Publicos
+0141000544;HOSPITAL UNIVERSITARIO VIRGEN MACARENA;16116;Andalucía;Sevilla;Sevilla;Hospitales Generales;Publicos
+0535000324;HOSPITAL UNIVERSITARIO VITHAS LAS PALMAS;2462;Canarias;Palmas, Las;Palmas de Gran Canaria, Las;Hospitales Generales;Privados
+1046000362;HOSPITAL UNIVERSITARIO Y POLITECNICO LA FE;2215;Comunitat Valenciana;Valencia/València;València;Hospitales Generales;Publicos
+1328000017;HOSPITAL UNIVERSITARIO 12 DE OCTUBRE;CH0023;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Publicos
+1648004434;HOSPITAL URDULIZ OSPITALEA;48 C.1.1. 11234;País Vasco;Bizkaia;Urduliz;Hospitales Generales;Publicos
+0129007432;HOSPITAL VALLE DE GUADALHORCE DE CARTAMA;16096/150;Andalucía;Málaga;Málaga;Hospitales Generales;Publicos
+0114000535;HOSPITAL VALLE DE LOS PEDROCHES;16063;Andalucía;Córdoba;Pozoblanco;Hospitales Generales;Publicos
+0333001052;HOSPITAL VALLE DEL NALON;2250;Asturias, Principado de;Asturias;Langreo;Hospitales Generales;Publicos
+0121000149;HOSPITAL VAZQUEZ  DIAZ;16078/45;Andalucía;Huelva;Huelva;Hospitales Generales;Publicos
+0111000411;HOSPITAL VIAMED BAHIA DE CADIZ;19551;Andalucía;Cádiz;Chiclana de la Frontera;Hospitales Generales;Privados
+0250000091;HOSPITAL VIAMED MONTECANAL;5010053;Aragón;Zaragoza;Zaragoza;Hospitales Generales;Privados
+0111000300;HOSPITAL VIAMED NOVO SANCTI PETRI;17251;Andalucía;Cádiz;Chiclana de la Frontera;Hospitales Generales;Privados
+0141002499;HOSPITAL VIAMED SANTA ANGELA DE LA CRUZ;31303;Andalucía;Sevilla;Sevilla;Hospitales Generales;Privados
+0222000006;HOSPITAL VIAMED SANTIAGO;2210017;Aragón;Huesca;Huesca;Hospitales Generales;Privados
+0943000757;HOSPITAL VIAMED TARRAGONA;H43001928;Cataluña;Tarragona;Tarragona;Hospitales Generales;Privados
+0813000577;HOSPITAL VIRGEN DE ALTAGRACIA;1301880/1301880;Castilla - La Mancha;Ciudad Real;Manzanares;Hospitales Generales;Publicos
+0121001889;HOSPITAL VIRGEN DE LA BELLA;50094;Andalucía;Huelva;Lepe;Hospitales Generales;Privados
+0749000895;HOSPITAL VIRGEN DE LA CONCHA COMPLEJO ASISTENCIAL DE ZAMORA;49-C11-0002;Castilla y León;Zamora;Zamora;Hospitales Generales;Publicos
+0111000293;HOSPITAL VIRGEN DE LAS MONTAÑAS;16056;Andalucía;Cádiz;Villamartín;Hospitales Generales;Privados
+0111000294;HOSPITAL VIRGEN DEL CAMINO;16057;Andalucía;Cádiz;Sanlúcar de Barrameda;Hospitales Generales;Privados
+1430000059;HOSPITAL VIRGEN DEL CASTILLO;1980002;Murcia, Región de;Murcia;Yecla;Hospitales Generales;Publicos
+0104000314;HOSPITAL VIRGEN DEL MAR;16035;Andalucía;Almería;Almería;Hospitales Generales;Privados
+1328000058;HOSPITAL VIRGEN DEL MAR;CH0069;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+1110000692;HOSPITAL VIRGEN DEL PUERTO;100067;Extremadura;Cáceres;Plasencia;Hospitales Generales;Publicos
+0333005582;HOSPITAL VITAL ALVAREZ BUYLLA;6244;Asturias, Principado de;Asturias;Mieres;Hospitales Generales;Publicos
+0141001671;HOSPITAL VITHAS  SEVILLA;25361;Andalucía;Sevilla;Castilleja de la Cuesta;Hospitales Generales;Privados
+0908016458;HOSPITAL VITHAS BARCELONA;H08766518;Cataluña;Barcelona;Esplugues de Llobregat;Hospitales Generales;Privados
+1012000255;HOSPITAL VITHAS CASTELLON;5229;Comunitat Valenciana;Castellón/Castelló;Castelló de la Plana;Hospitales Generales;Privados
+0118004282;HOSPITAL VITHAS GRANADA;46209;Andalucía;Granada;Granada;Hospitales Generales;Privados
+0129001079;HOSPITAL VITHAS MALAGA;16100;Andalucía;Málaga;Málaga;Hospitales Generales;Privados
+1046000344;HOSPITAL VITHAS VALENCIA CONSUELO;1991;Comunitat Valenciana;Valencia/València;València;Hospitales Generales;Privados
+1046011350;HOSPITAL VITHAS VALENCIA TURIA;25172;Comunitat Valenciana;Valencia/València;València;Hospitales Generales;Privados
+1601000003;HOSPITAL VITHAS VITORIA;01 C.1.1. 4;País Vasco;Araba/Álava;Vitoria-Gasteiz;Hospitales Generales;Privados
+0129002973;HOSPITAL VITHAS XANIT ESTEPONA;33975;Andalucía;Málaga;Estepona;Hospitales Generales;Privados
+0129001928;HOSPITAL VITHAS XANIT INTERNACIONAL;25451;Andalucía;Málaga;Benalmádena;Hospitales Generales;Privados
+1046000096;HOSPITAL 9 DE OCTUBRE;1030;Comunitat Valenciana;Valencia/València;València;Hospitales Generales;Privados
+0535000322;HOSPITEN CLINICA ROCA SAN AGUSTIN;189;Canarias;Palmas, Las;San Bartolomé de Tirajana;Hospitales Generales;Privados
+0129001851;HOSPITEN ESTEPONA;24471;Andalucía;Málaga;Estepona;Hospitales Generales;Privados
+0535000463;HOSPITEN LANZAROTE;1721;Canarias;Palmas, Las;Tías;Hospitales Generales;Privados
+1328016665;IDC SALUD VILLALBA S.A.U. - HOSPITAL GENERAL DE VILLALBA;CH0106;Madrid, Comunidad de;Madrid;Collado Villalba;Hospitales Generales;Publicos
+1328000090;IDCSALUD MOSTOLES SA;CH0105;Madrid, Comunidad de;Madrid;Móstoles;Hospitales Generales;Publicos
+1046011007;IMED COLON;23575;Comunitat Valenciana;Valencia/València;València;Hospitales Generales;Privados
+1046008287;IMED VALENCIA;40626;Comunitat Valenciana;Valencia/València;Burjassot;Hospitales Generales;Privados
+1601001943;MIKS;01/016140;País Vasco;Araba/Álava;Vitoria-Gasteiz;Hospitales Generales;Privados
+0407000011;MUTUA BALEAR;1018;Balears, Illes;Balears, Illes;Palma;Hospitales Generales;Privados
+0908005227;MUTUA DE GRANOLLERS, MUTUA DE PREVISIO SOCIAL A PRIMA FIXA;H08002600;Cataluña;Barcelona;Granollers;Hospitales Generales;Privados
+1046011796;NUEVO HOSPITAL GENERAL D'ONTINYENT/NOU HOSPITAL GENERAL D ONTINYENT;45529;Comunitat Valenciana;Valencia/València;Ontinyent;Hospitales Generales;Publicos
+1620000007;ORGANIZACION SANITARIA INTEGRADA DEBAGOIENA;20 C.1.1. 24;País Vasco;Gipuzkoa;Arrasate/Mondragón;Hospitales Generales;Publicos
+0908005193;PARC SANITARI SANT JOAN DE DEU - RECINTE SANT BOI;H08001163;Cataluña;Barcelona;Sant Boi de Llobregat;Hospitales Generales;Privados
+0908005252;PARC SANITARI SANT JOAN DE DEU - UHPP - 1;H08631341;Cataluña;Barcelona;Sant Esteve Sesrovires;Hospitales Generales;Privados
+0908005262;PARC SANITARI SANT JOAN DE DEU - UHPP - 2;H08679174;Cataluña;Barcelona;Sant Esteve Sesrovires;Hospitales Generales;Privados
+0943000762;PIUS HOSPITAL DE VALLS;H43002290;Cataluña;Tarragona;Valls;Hospitales Generales;Privados
+0943000764;POLICLINICA COMARCAL DEL VENDRELL.;H43002625;Cataluña;Tarragona;Santa Oliva;Hospitales Generales;Privados
+1620000002;POLICLINICA GIPUZKOA;20 C.1.1. 17;País Vasco;Gipuzkoa;Donostia/San Sebastián;Hospitales Generales;Privados
+0407001219;POLICLINICA NUESTRA SRA. DEL ROSARIO;949;Balears, Illes;Balears, Illes;Eivissa;Hospitales Generales;Privados
+1328000057;SANATORIO NUESTRA SEÑORA DEL ROSARIO;CH0068;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+1328031251;SANITAS S.A. DE HOSPITALES;CH0120;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+0908005285;SERVEIS SANITARIS LA ROCA DEL VALLES 2;H08840521;Cataluña;Barcelona;Roca del Vallès, La;Hospitales Generales;Publicos
+0908005286;SERVEIS SANITARIS SANT JOAN DE VILATORRADA;H08840539;Cataluña;Barcelona;Sant Joan de Vilatorrada;Hospitales Generales;Publicos
+0925000574;VITHAS HOSPITAL MONTSERRAT;H25001646;Cataluña;Lleida;Lleida;Hospitales Generales;Privados
+1236000120;VITHAS HOSPITAL NOSA SEÑORA DE FATIMA;C-36-000128;Galicia;Pontevedra;Vigo;Hospitales Generales;Privados
+1003000129;VITHAS HOSPITAL PERPETUO INTERNACIONAL;1190;Comunitat Valenciana;Alicante/Alacant;Alacant/Alicante;Hospitales Generales;Privados
+0538000130;VITHAS HOSPITAL SANTA CRUZ;5;Canarias;Santa Cruz de Tenerife;Santa Cruz de Tenerife;Hospitales Generales;Privados
+1531000733;CLINICA UNIVERSIDAD DE NAVARRA;C10107;Navarra, Comunidad Foral de;Navarra;Pamplona/Iruña;Hospitales Generales;Privados
+1328020032;CLINICA UNIVERSIDAD DE NAVARRA;CH0110;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+1648000008;CLINICA VIRGEN BLANCA;48 C.1.1. 38;País Vasco;Bizkaia;Bilbao;Hospitales Generales;Privados
+1003000134;CLINICA VISTAHERMOSA GRUPO HLA;1503;Comunitat Valenciana;Alicante/Alacant;Alacant/Alicante;Hospitales Generales;Privados
+0845002431;COMPLEJO HOSPITALARIO DE TOLEDO;4507847/0003953;Castilla - La Mancha;Toledo;Toledo;Hospitales Generales;Publicos
+0535001838;COMPLEJO HOSPITALARIO UNIVERSITARIO INSULAR MATERNO INFANTIL;4089;Canarias;Palmas, Las;Palmas de Gran Canaria, Las;Hospitales Generales;Publicos
+1215000172;COMPLEXO HOSPITALARIO UNIVERSITARIO A CORUÑA;C-15-000186;Galicia;Coruña, A;Coruña, A;Hospitales Generales;Publicos
+1215000177;COMPLEXO HOSPITALARIO UNIVERSITARIO DE FERROL;C-15-000191;Galicia;Coruña, A;Ferrol;Hospitales Generales;Publicos
+1227000093;COMPLEXO HOSPITALARIO UNIVERSITARIO DE LUGO;C-27-000094;Galicia;Lugo;Lugo;Hospitales Generales;Publicos
+1232000111;COMPLEXO HOSPITALARIO UNIVERSITARIO DE OURENSE;C-32-000114;Galicia;Ourense;Ourense;Hospitales Generales;Publicos
+1236000116;COMPLEXO HOSPITALARIO UNIVERSITARIO DE PONTEVEDRA;C-36-000123;Galicia;Pontevedra;Pontevedra;Hospitales Generales;Publicos
+1215000179;COMPLEXO HOSPITALARIO UNIVERSITARIO DE SANTIAGO;C-15-000194;Galicia;Coruña, A;Santiago de Compostela;Hospitales Generales;Publicos
+1236000128;COMPLEXO HOSPITALARIO UNIVERSITARIO DE VIGO;C-36-000138;Galicia;Pontevedra;Vigo;Hospitales Generales;Publicos
+1236000126;CONCHEIRO CENTRO MEDICO QUIRURGICO;C-36-000135;Galicia;Pontevedra;Vigo;Hospitales Generales;Privados
+1046000057;CONSORCIO HOSPITAL GENERAL UNIVERSITARIO DE VALENCIA;1022;Comunitat Valenciana;Valencia/València;València;Hospitales Generales;Publicos
+1012000183;CONSORCIO HOSPITALARIO PROVINCIAL  UNIVERSITARIO DE CASTELLON;2216;Comunitat Valenciana;Castellón/Castelló;Castelló de la Plana;Hospitales Generales;Publicos
+0908005289;CQM CLINIC MARESME, SL;H08863279;Cataluña;Barcelona;Mataró;Hospitales Generales;Privados
+0925000580;ESPITAU VAL D'ARAN;H25002079;Cataluña;Lleida;Vielha e Mijaran;Hospitales Generales;Privados
+0908005159;FREMAP, HOSPITAL DE BARCELONA;H08000402;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+0908005197;FUNDACIO HOSPITAL DE L'ESPERIT SANT;H08001212;Cataluña;Barcelona;Santa Coloma de Gramenet;Hospitales Generales;Privados
+0908005188;FUNDACIO HOSPITAL SANT JOAN DE DEU (MARTORELL);H08001043;Cataluña;Barcelona;Martorell;Hospitales Generales;Privados
+0908005168;FUNDACIO HOSPITALARIAS;H08000603;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+0925000578;FUNDACIO SANT HOSPITAL.;H25001710;Cataluña;Lleida;Seu d'Urgell, La;Hospitales Generales;Privados
+1328000018;FUNDACION HOSPITALARIAS;CH0024;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+0908015202;GARBI VALL D'HEBRON;H08735171;Cataluña;Barcelona;Barcelona;Hospitales Generales;Publicos
+1236000117;GRUPO QUIRONSALUD PONTEVEDRA;C-36-000124;Galicia;Pontevedra;Pontevedra;Hospitales Generales;Privados
+0129001092;HC MARBELLA INTERNATIONAL HOSPITAL;16145;Andalucía;Málaga;Marbella;Hospitales Generales;Privados
+0129000185;HELICOPTEROS SANITARIOS HOSPITAL;11596;Andalucía;Málaga;Marbella;Hospitales Generales;Privados
+0118000553;HLA HOSPITAL UNIVERSITARIO INMACULADA;16069;Andalucía;Granada;Granada;Hospitales Generales;Privados
+0129001082;HM GALVEZ;16103;Andalucía;Málaga;Málaga;Hospitales Generales;Privados
+1328026468;HM HOSPITALES 1.989, S.A.;CH0117;Madrid, Comunidad de;Madrid;Rivas-Vaciamadrid;Hospitales Generales;Privados
+1328030390;HM HOSPITALES 1989, S.A.;CH0119;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+0129001081;HM MALAGA;16102;Andalucía;Málaga;Málaga;Hospitales Generales;Privados
+1215000176;HM MODELO-BELEN;C-15-000190;Galicia;Coruña, A;Coruña, A;Hospitales Generales;Privados
+0908005143;HM NOU  DELFOS;H08000120;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+0724001718;HM REGLA;24-C11-0008;Castilla y León;León;León;Hospitales Generales;Privados
+0908005148;HM SANT JORDI;H08000191;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+0333002526;HOSPITAL  BEGOÑA;644;Asturias, Principado de;Asturias;Gijón;Hospitales Generales;Privados
+0129001087;HOSPITAL  DE ANTEQUERA;16127;Andalucía;Málaga;Antequera;Hospitales Generales;Publicos
+0407000001;HOSPITAL  DE MANACOR;1000;Balears, Illes;Balears, Illes;Manacor;Hospitales Generales;Publicos
+0123000213;HOSPITAL  SAN AGUSTIN;16085;Andalucía;Jaén;Linares;Hospitales Generales;Publicos
+1046000667;HOSPITAL  UNIVERSITARIO DE MANISES;9472;Comunitat Valenciana;Valencia/València;Manises;Hospitales Generales;Publicos
+0123000216;HOSPITAL ALTO GUADALQUIVIR;16089;Andalucía;Jaén;Andújar;Hospitales Generales;Publicos
+1620000005;HOSPITAL BIDASOA (OSI BIDASOA);20 C.1.1. 21;País Vasco;Gipuzkoa;Hondarribia;Hospitales Generales;Publicos
+1110000572;HOSPITAL CAMPO ARAÑUELO;100054;Extremadura;Cáceres;Navalmoral de la Mata;Hospitales Generales;Publicos
+0407000010;HOSPITAL CAN MISSES;1017;Balears, Illes;Balears, Illes;Eivissa;Hospitales Generales;Publicos
+0333001050;HOSPITAL CARMEN Y SEVERO OCHOA;2249;Asturias, Principado de;Asturias;Cangas del Narcea;Hospitales Generales;Publicos
+1046000568;HOSPITAL CATOLICO CASA DE SALUD;664;Comunitat Valenciana;Valencia/València;València;Hospitales Generales;Privados
+1328019438;HOSPITAL CENTRAL DE LA DEFENSA GOMEZ ULLA;404A0000;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Publicos
+0114003688;HOSPITAL CENTRO DE ANDALUCIA;56362;Andalucía;Córdoba;Lucena;Hospitales Generales;Privados
+1110000563;HOSPITAL CIUDAD DE CORIA;100041;Extremadura;Cáceres;Coria;Hospitales Generales;Publicos
+0535000319;HOSPITAL CIUDAD DE TELDE;663;Canarias;Palmas, Las;Telde;Hospitales Generales;Privados
+0129001071;HOSPITAL CIVIL;16093/71;Andalucía;Málaga;Málaga;Hospitales Generales;Publicos
+0908005153;HOSPITAL CLINIC DE BARCELONA;H08000307;Cataluña;Barcelona;Barcelona;Hospitales Generales;Publicos
+0908005151;HOSPITAL CLINIC DE BARCELONA, SEU PLATO;H08000258;Cataluña;Barcelona;Barcelona;Hospitales Generales;Publicos
+1003000144;HOSPITAL CLINICA BENIDORM;30;Comunitat Valenciana;Alicante/Alacant;Benidorm;Hospitales Generales;Privados
+1046000342;HOSPITAL CLINICO UNIVERSITARIO DE VALENCIA;1978;Comunitat Valenciana;Valencia/València;València;Hospitales Generales;Publicos
+0747001312;HOSPITAL CLINICO UNIVERSITARIO DE VALLADOLID;47-C11-0001;Castilla y León;Valladolid;Valladolid;Hospitales Generales;Publicos
+0250000071;HOSPITAL CLINICO UNIVERSITARIO LOZANO BLESA;5010041;Aragón;Zaragoza;Zaragoza;Hospitales Generales;Publicos
+1430000060;HOSPITAL CLINICO UNIVERSITARIO VIRGEN DE LA ARRIXACA;1980003;Murcia, Región de;Murcia;Murcia;Hospitales Generales;Publicos
+1952000109;HOSPITAL COMARCAL;109;Melilla;Melilla;Melilla;Hospitales Generales;Publicos
+0943000766;HOSPITAL COMARCAL D'AMPOSTA;H43002858;Cataluña;Tarragona;Amposta;Hospitales Generales;Publicos
+0917000823;HOSPITAL COMARCAL DE BLANES;H17002551;Cataluña;Girona;Blanes;Hospitales Generales;Publicos
+0908005229;HOSPITAL COMARCAL DE L'ALT PENEDES;H08002664;Cataluña;Barcelona;Vilafranca del Penedès;Hospitales Generales;Publicos
+0639000456;HOSPITAL COMARCAL DE LAREDO;06/1998/00122;Cantabria;Cantabria;Laredo;Hospitales Generales;Publicos
+1012000288;HOSPITAL COMARCAL DE VINAROS;691;Comunitat Valenciana;Castellón/Castelló;Vinaròs;Hospitales Generales;Publicos
+1430000061;HOSPITAL COMARCAL DEL NOROESTE;1980005;Murcia, Región de;Murcia;Caravaca de la Cruz;Hospitales Generales;Publicos
+0925000579;HOSPITAL COMARCAL DEL PALLARS;H25001741;Cataluña;Lleida;Tremp;Hospitales Generales;Publicos
+0407000411;HOSPITAL COMARCAL D´INCA;2206;Balears, Illes;Balears, Illes;Inca;Hospitales Generales;Publicos
+0943000761;HOSPITAL COMARCAL MORA D'EBRE;H43002128;Cataluña;Tarragona;Móra d'Ebre;Hospitales Generales;Publicos
+0908005176;HOSPITAL COMARCAL SANT JAUME DE CALELLA;H08000850;Cataluña;Barcelona;Calella;Hospitales Generales;Privados
+0908016653;HOSPITAL CREUBLANCA MARESME;H08752280;Cataluña;Barcelona;Mataró;Hospitales Generales;Privados
+1648000006;HOSPITAL CRUZ ROJA DE BILBAO - VICTORIA EUGENIA;48 C.1.1. 35;País Vasco;Bizkaia;Bilbao;Hospitales Generales;Privados
+0114000537;HOSPITAL CRUZ ROJA DE CORDOBA;16065;Andalucía;Córdoba;Córdoba;Hospitales Generales;Privados
+0333002775;HOSPITAL CRUZ ROJA GIJON;897;Asturias, Principado de;Asturias;Gijón;Hospitales Generales;Privados
+0244001366;HOSPITAL DE ALCAÑIZ;4410010;Aragón;Teruel;Alcañiz;Hospitales Generales;Publicos
+0114001301;HOSPITAL DE ALTA RESOLUCION  DE PUENTE GENIL;27222;Andalucía;Córdoba;Puente Genil;Hospitales Generales;Publicos
+0118001566;HOSPITAL DE ALTA RESOLUCION DE  GUADIX;27676;Andalucía;Granada;Guadix;Hospitales Generales;Publicos
+0123002675;HOSPITAL DE ALTA RESOLUCION DE ALCALA LA REAL;35593;Andalucía;Jaén;Alcalá la Real;Hospitales Generales;Publicos
+0123000736;HOSPITAL DE ALTA RESOLUCION DE ALCAUDETE;27485;Andalucía;Jaén;Alcaudete;Hospitales Generales;Publicos
+0129002204;HOSPITAL DE ALTA RESOLUCION DE BENALMADENA;28481;Andalucía;Málaga;Benalmádena;Hospitales Generales;Publicos
+0141006017;HOSPITAL DE ALTA RESOLUCION DE ECIJA;45143;Andalucía;Sevilla;Écija;Hospitales Generales;Publicos
+0111004486;HOSPITAL DE ALTA RESOLUCION DE ESPECIALIDADES DE LA JANDA;44845;Andalucía;Cádiz;Vejer de la Frontera;Hospitales Generales;Publicos
+0129007460;HOSPITAL DE ALTA RESOLUCION DE ESTEPONA;57298;Andalucía;Málaga;Estepona;Hospitales Generales;Publicos
+0141006016;HOSPITAL DE ALTA RESOLUCION DE LEBRIJA;45140;Andalucía;Sevilla;Lebrija;Hospitales Generales;Publicos
+0118004203;HOSPITAL DE ALTA RESOLUCION DE LOJA;35905;Andalucía;Granada;Loja;Hospitales Generales;Publicos
+0141000554;HOSPITAL DE ALTA RESOLUCION DE MORON DE LA FRONTERA;16124;Andalucía;Sevilla;Morón de la Frontera;Hospitales Generales;Publicos
+0141001947;HOSPITAL DE ALTA RESOLUCION DE UTRERA;27569;Andalucía;Sevilla;Utrera;Hospitales Generales;Publicos
+0104001001;HOSPITAL DE ALTA RESOLUCION ELTOYO;27297;Andalucía;Almería;Almería;Hospitales Generales;Publicos
+0123000703;HOSPITAL DE ALTA RESOLUCION SIERRA DE SEGURA;27240;Andalucía;Jaén;Puente de Génave;Hospitales Generales;Publicos
+0141002262;HOSPITAL DE ALTA RESOLUCION SIERRA NORTE;29672;Andalucía;Sevilla;Constantina;Hospitales Generales;Publicos
+0114001599;HOSPITAL DE ALTA RESOLUCION VALLE DEL GUADIATO;31563;Andalucía;Córdoba;Peñarroya-Pueblonuevo;Hospitales Generales;Publicos
+0222000003;HOSPITAL DE BARBASTRO;2210011;Aragón;Huesca;Barbastro;Hospitales Generales;Publicos
+0908005211;HOSPITAL DE BARCELONA;H08002174;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+0118000554;HOSPITAL DE BAZA;16070;Andalucía;Granada;Baza;Hospitales Generales;Publicos
+0749000897;HOSPITAL DE BENAVENTE COMPLEJO ASISTENCIAL DE ZAMORA;49-C11-0004;Castilla y León;Zamora;Benavente;Hospitales Generales;Publicos
+0908005175;HOSPITAL DE BERGA;H08000836;Cataluña;Barcelona;Berga;Hospitales Generales;Publicos
+1726000542;HOSPITAL DE CALAHORRA;16040300110C1;Rioja, La;Rioja, La;Calahorra;Hospitales Generales;Publicos
+0917000809;HOSPITAL DE CAMPDEVANOL;H17001413;Cataluña;Girona;Campdevànol;Hospitales Generales;Privados
+0917001139;HOSPITAL DE CERDANYA / HOPITAL DE CERDAGNE;H17996462;Cataluña;Girona;Puigcerdà;Hospitales Generales;Publicos
+0917000810;HOSPITAL DE FIGUERES;H17001438;Cataluña;Girona;Figueres;Hospitales Generales;Privados
+0407001619;HOSPITAL DE FORMENTERA;2175;Balears, Illes;Balears, Illes;Formentera;Hospitales Generales;Publicos
+0802000003;HOSPITAL DE HELLIN;AB00044/00006387;Castilla - La Mancha;Albacete;Hellín;Hospitales Generales;Publicos
+0222000005;HOSPITAL DE JACA SALUD;2210016;Aragón;Huesca;Jaca;Hospitales Generales;Publicos
+0333004419;HOSPITAL DE JARRIO;5351;Asturias, Principado de;Asturias;Coaña;Hospitales Generales;Publicos
+0333002776;HOSPITAL DE JOVE;898;Asturias, Principado de;Asturias;Gijón;Hospitales Generales;Privados
+0129001077;HOSPITAL DE LA AXARQUIA;16098;Andalucía;Málaga;Vélez-Málaga;Hospitales Generales;Publicos
+0724001716;HOSPITAL DE LA REINA;24-C11-0006;Castilla y León;León;Ponferrada;Hospitales Generales;Privados
+1726000067;HOSPITAL DE LA RIOJA;18411300110C1;Rioja, La;Rioja, La;Logroño;Hospitales Generales;Publicos
+0908005140;HOSPITAL DE LA SANTA CREU I SANT PAU;H08000089;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+0129007039;HOSPITAL DE LA SERRANIA;49057;Andalucía;Málaga;Ronda;Hospitales Generales;Publicos
+1430000058;HOSPITAL DE LA VEGA LORENZO GUIRAO;1980001;Murcia, Región de;Murcia;Cieza;Hospitales Generales;Publicos
+0724001712;HOSPITAL DE LEON COMPLEJO ASISTENCIAL UNIVERSITARIO DE LEON;24-C11-0002;Castilla y León;León;León;Hospitales Generales;Publicos
+0908005155;HOSPITAL DE L'ESPERANÇA;H08000321;Cataluña;Barcelona;Barcelona;Hospitales Generales;Publicos
+0407001647;HOSPITAL DE LLEVANT;3492;Balears, Illes;Balears, Illes;Manacor;Hospitales Generales;Privados
+1046006312;HOSPITAL DE LLIRIA;15082;Comunitat Valenciana;Valencia/València;Llíria;Hospitales Generales;Publicos
+0908005237;HOSPITAL DE MATARO;H08002897;Cataluña;Barcelona;Mataró;Hospitales Generales;Publicos
+1620000006;HOSPITAL DE MENDARO - OSI BAJO DEBA;20 C.1.1. 23;País Vasco;Gipuzkoa;Mendaro;Hospitales Generales;Publicos
+1106000795;HOSPITAL DE MERIDA;060129;Extremadura;Badajoz;Mérida;Hospitales Generales;Publicos
+0908005190;HOSPITAL DE MOLLET;H08001082;Cataluña;Barcelona;Mollet del Vallès;Hospitales Generales;Privados
+0114000873;HOSPITAL DE MONTILLA;19771;Andalucía;Córdoba;Montilla;Hospitales Generales;Publicos
+0538004230;HOSPITAL DE OFRA;7873;Canarias;Santa Cruz de Tenerife;Santa Cruz de Tenerife;Hospitales Generales;Publicos
+0917000820;HOSPITAL DE PALAMOS;H17001580;Cataluña;Girona;Palamós;Hospitales Generales;Privados
+0121000150;HOSPITAL DE RIOTINTO;16080;Andalucía;Huelva;Minas de Riotinto;Hospitales Generales;Publicos
+0908005208;HOSPITAL DE SABADELL;H08002103;Cataluña;Barcelona;Sabadell;Hospitales Generales;Publicos
+0908005194;HOSPITAL DE SANT CELONI.;H08001170;Cataluña;Barcelona;Sant Celoni;Hospitales Generales;Privados
+0908005217;HOSPITAL DE SANT JOAN DE DEU (MANRESA);H08002280;Cataluña;Barcelona;Manresa;Hospitales Generales;Privados
+0908005288;HOSPITAL DE SANT JOAN DESPI MOISES BROGGI;H08858656;Cataluña;Barcelona;Sant Joan Despí;Hospitales Generales;Publicos
+0943000754;HOSPITAL DE SANT PAU I SANTA TECLA;H43001893;Cataluña;Tarragona;Tarragona;Hospitales Generales;Privados
+0908005207;HOSPITAL DE TERRASSA.;H08002086;Cataluña;Barcelona;Terrassa;Hospitales Generales;Publicos
+0943000760;HOSPITAL DE TORTOSA VERGE DE LA CINTA;H43001974;Cataluña;Tarragona;Tortosa;Hospitales Generales;Publicos
+0908005210;HOSPITAL DE VILADECANS;H08002142;Cataluña;Barcelona;Viladecans;Hospitales Generales;Publicos
+1106000801;HOSPITAL DE ZAFRA;060208;Extremadura;Badajoz;Zafra;Hospitales Generales;Publicos
+1620000009;HOSPITAL DE ZUMARRAGA (OSI GOIERRI - ALTO UROLA);20 C.1.1. 30;País Vasco;Gipuzkoa;Zumarraga;Hospitales Generales;Publicos
+0908005150;HOSPITAL DEL MAR;H08000240;Cataluña;Barcelona;Barcelona;Hospitales Generales;Publicos
+0333002574;HOSPITAL DEL ORIENTE DE ASTURIAS FRANCISCO GRANDE COVIAN;691;Asturias, Principado de;Asturias;Parres;Hospitales Generales;Publicos
+0538002380;HOSPITAL DEL SUR;6766;Canarias;Santa Cruz de Tenerife;Arona;Hospitales Generales;Publicos
+0943000771;HOSPITAL DEL VENDRELL;H43655381;Cataluña;Tarragona;Vendrell, El;Hospitales Generales;Privados
+0908005253;HOSPITAL D'IGUALADA;H08634977;Cataluña;Barcelona;Igualada;Hospitales Generales;Publicos
+0123000211;HOSPITAL DOCTOR  SAGAZ;16083/56;Andalucía;Jaén;Jaén;Hospitales Generales;Publicos
+0118004857;HOSPITAL DOCTOR OLORIZ;16073/140;Andalucía;Granada;Granada;Hospitales Generales;Publicos
+0917000819;HOSPITAL D'OLOT I COMARCAL DE LA GARROTXA;H17001565;Cataluña;Girona;Olot;Hospitales Generales;Privados
+1106000792;HOSPITAL DON BENITO-VILLANUEVA DE LA SERENA;060093;Extremadura;Badajoz;Don Benito;Hospitales Generales;Publicos
+0908005154;HOSPITAL DOS DE MAIG;H08000314;Cataluña;Barcelona;Barcelona;Hospitales Generales;Publicos
+0908005166;HOSPITAL EGARSAT;H08000579;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+0129001084;HOSPITAL EL ANGEL;16105;Andalucía;Málaga;Málaga;Hospitales Generales;Privados
+0724001713;HOSPITAL EL BIERZO;24-C11-0003;Castilla y León;León;Ponferrada;Hospitales Generales;Publicos
+1328000021;HOSPITAL EL ESCORIAL;CH0027;Madrid, Comunidad de;Madrid;San Lorenzo de El Escorial;Hospitales Generales;Publicos
+0908005144;HOSPITAL EL PILAR;H08000138;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+0141000543;HOSPITAL EL TOMILLAR;16115/86;Andalucía;Sevilla;Alcalá de Guadaíra;Hospitales Generales;Publicos
+0250000082;HOSPITAL ERNEST LLUCH MARTIN;5010044;Aragón;Zaragoza;Calatayud;Hospitales Generales;Publicos
+0141000537;HOSPITAL FÃ?TIMA;16110;Andalucía;Sevilla;Sevilla;Hospitales Generales;Privados
+1328000006;HOSPITAL FUENSANTA;CH0006;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+1430000051;HOSPITAL G. UNIVERSITARIO J.M. MORALES MESEGUER;1950001;Murcia, Región de;Murcia;Murcia;Hospitales Generales;Publicos
+1648000015;HOSPITAL GALDAKAO-USANSOLO ASOCIADO A LA UPV/EHU;48 C.1.1. 48;País Vasco;Bizkaia;Usansolo;Hospitales Generales;Publicos
+1531000730;HOSPITAL GARCIA ORCOYEN;C10103;Navarra, Comunidad Foral de;Navarra;Estella-Lizarra;Hospitales Generales;Publicos
+0802000755;HOSPITAL GENERAL DE ALMANSA;0206306/0003415;Castilla - La Mancha;Albacete;Almansa;Hospitales Generales;Publicos
+0535001908;HOSPITAL GENERAL DE FUERTEVENTURA;4250;Canarias;Palmas, Las;Puerto del Rosario;Hospitales Generales;Publicos
+0908005179;HOSPITAL GENERAL DE GRANOLLERS.;H08000890;Cataluña;Barcelona;Granollers;Hospitales Generales;Privados
+0250004610;HOSPITAL GENERAL DE LA DEFENSA EN ZARAGOZA;404A0010;Aragón;Zaragoza;Zaragoza;Hospitales Generales;Publicos
+0908005180;HOSPITAL GENERAL DE L'HOSPITALET;H08000917;Cataluña;Barcelona;Hospitalet de Llobregat, L';Hospitales Generales;Publicos
+1106000794;HOSPITAL GENERAL DE LLERENA;060114;Extremadura;Badajoz;Llerena;Hospitales Generales;Publicos
+1046000577;HOSPITAL GENERAL DE ONTINYENT;707;Comunitat Valenciana;Valencia/València;Ontinyent;Hospitales Generales;Publicos
+0740000778;HOSPITAL GENERAL DE SEGOVIA COMPLEJO ASISTENCIAL UNIVERSITARIO DE SEGOVIA;40-C11-0001;Castilla y León;Segovia;Segovia;Hospitales Generales;Publicos
+0813000931;HOSPITAL GENERAL DE TOMELLOSO;1306233/0003147;Castilla - La Mancha;Ciudad Real;Tomelloso;Hospitales Generales;Publicos
+0813000584;HOSPITAL GENERAL DE VALDEPEÑAS;1302602/1303260;Castilla - La Mancha;Ciudad Real;Valdepeñas;Hospitales Generales;Publicos
+0802000780;HOSPITAL GENERAL DE VILLARROBLEDO;0206345/0003252;Castilla - La Mancha;Albacete;Villarrobledo;Hospitales Generales;Publicos
+0813000450;HOSPITAL GENERAL LA MANCHA CENTRO;1301150/0003085;Castilla - La Mancha;Ciudad Real;Alcázar de San Juan;Hospitales Generales;Publicos
+0845000810;HOSPITAL GENERAL NUESTRA SEÑORA DEL PRADO;4502093/4502093;Castilla - La Mancha;Toledo;Talavera de la Reina;Hospitales Generales;Publicos
+0908005228;HOSPITAL GENERAL PENITENCIARI;H08002640;Cataluña;Barcelona;Terrassa;Hospitales Generales;Publicos
+0111000283;HOSPITAL GENERAL SANTA MARIA DEL PUERTO;16045;Andalucía;Cádiz;Puerto de Santa María, El;Hospitales Generales;Privados
+0813000595;HOSPITAL GENERAL UNIVERSITARIO  DE CIUDAD REAL;1303370/0003115;Castilla - La Mancha;Ciudad Real;Ciudad Real;Hospitales Generales;Publicos
+0802000130;HOSPITAL GENERAL UNIVERSITARIO ALBACETE;AB02213/00001767;Castilla - La Mancha;Albacete;Albacete;Hospitales Generales;Publicos
+1012000180;HOSPITAL GENERAL UNIVERSITARIO DE CASTELLON;2043;Comunitat Valenciana;Castellón/Castelló;Castelló de la Plana;Hospitales Generales;Publicos
+1003000142;HOSPITAL GENERAL UNIVERSITARIO DE ELCHE;2867;Comunitat Valenciana;Alicante/Alacant;Elx/Elche;Hospitales Generales;Publicos
+1003000200;HOSPITAL GENERAL UNIVERSITARIO DE ELDA-VIRGEN DE LA SALUD;503;Comunitat Valenciana;Alicante/Alacant;Elda;Hospitales Generales;Publicos
+1046000290;HOSPITAL GENERAL UNIVERSITARIO DE REQUENA;1129;Comunitat Valenciana;Valencia/València;Requena;Hospitales Generales;Publicos
+1003000220;HOSPITAL GENERAL UNIVERSITARIO DR. BALMIS;600;Comunitat Valenciana;Alicante/Alacant;Alacant/Alicante;Hospitales Generales;Publicos
+1328000027;HOSPITAL GENERAL UNIVERSITARIO GREGORIO MARAÑON;CH0034;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Publicos
+1430000047;HOSPITAL GENERAL UNIVERSITARIO LOS ARCOS DEL MAR MENOR;11200001;Murcia, Región de;Murcia;San Javier;Hospitales Generales;Publicos
+1430000005;HOSPITAL GENERAL UNIVERSITARIO REINA SOFIA;10400002;Murcia, Región de;Murcia;Murcia;Hospitales Generales;Publicos
+1430000036;HOSPITAL GENERAL UNIVERSITARIO SANTA LUCIA;11000010;Murcia, Región de;Murcia;Cartagena;Hospitales Generales;Publicos
+1003000135;HOSPITAL GENERAL UNIVERSITARIO VIRGEN DE LOS LIRIOS;1980;Comunitat Valenciana;Alicante/Alacant;Alcoi/Alcoy;Hospitales Generales;Publicos
+0250005838;HOSPITAL HERNAN CORTES MIRAFLORES;5010059;Aragón;Zaragoza;Zaragoza;Hospitales Generales;Privados
+1328000064;HOSPITAL HLA UNIVERSITARIO MONCLOA;CH0077;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+1215000181;HOSPITAL HM ROSALEDA-HM LA ESPERANZA;C-15-000196;Galicia;Coruña, A;Santiago de Compostela;Hospitales Generales;Privados
+0724001714;HOSPITAL HM SAN FRANCISCO;24-C11-0004;Castilla y León;León;León;Hospitales Generales;Privados
+0737001405;HOSPITAL HM SANTISIMA TRINIDAD;37-C11-0003;Castilla y León;Salamanca;Salamanca;Hospitales Generales;Privados
+1003000333;HOSPITAL IMED ELCHE;10735;Comunitat Valenciana;Alicante/Alacant;Elx/Elche;Hospitales Generales;Privados
+1046000390;HOSPITAL IMED GANDIA;2776;Comunitat Valenciana;Valencia/València;Gandia;Hospitales Generales;Privados
+1003000176;HOSPITAL IMED LEVANTE;4303;Comunitat Valenciana;Alicante/Alacant;Benidorm;Hospitales Generales;Privados
+1003000229;HOSPITAL IMED SAN JORGE;705;Comunitat Valenciana;Alicante/Alacant;Alcoi/Alcoy;Hospitales Generales;Privados
+0114000529;HOSPITAL INFANTA  MARGARITA;16058;Andalucía;Córdoba;Cabra;Hospitales Generales;Publicos
+0121000146;HOSPITAL INFANTA ELENA;16077;Andalucía;Huelva;Huelva;Hospitales Generales;Publicos
+0538002288;HOSPITAL INSULAR NUESTRA SEÑORA DE LOS REYES;4164;Canarias;Santa Cruz de Tenerife;Valverde;Hospitales Generales;Publicos
+1003006642;HOSPITAL INTERNACIONAL HCB DENIA;18504;Comunitat Valenciana;Alicante/Alacant;Dénia;Hospitales Generales;Privados
+0129001083;HOSPITAL INTERNACIONAL HM SANTA ELENA;16104;Andalucía;Málaga;Torremolinos;Hospitales Generales;Privados
+0111000295;HOSPITAL JEREZ PUERTA DEL SUR;16126;Andalucía;Cádiz;Jerez de la Frontera;Hospitales Generales;Privados
+0407000009;HOSPITAL JUANEDA MIRAMAR;1016;Balears, Illes;Balears, Illes;Palma;Hospitales Generales;Privados
+0407000003;HOSPITAL JUANEDA MURO;1005;Balears, Illes;Balears, Illes;Muro;Hospitales Generales;Privados
+0819000025;HOSPITAL LA ANTIGUA;GU03693/00003061;Castilla - La Mancha;Guadalajara;Guadalajara;Hospitales Generales;Privados
+0104000320;HOSPITAL LA INMACULADA;16042;Andalucía;Almería;Huércal-Overa;Hospitales Generales;Publicos
+0141000540;HOSPITAL LA MERCED;16114;Andalucía;Sevilla;Osuna;Hospitales Generales;Publicos
+1328000053;HOSPITAL LA MILAGROSA S.A.;CH0064;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+0535000320;HOSPITAL LA PALOMA;834;Canarias;Palmas, Las;Palmas de Gran Canaria, Las;Hospitales Generales;Privados
+1430000053;HOSPITAL LA VEGA GRUPO HLA;1950003;Murcia, Región de;Murcia;Murcia;Hospitales Generales;Privados
+0742001402;HOSPITAL LATORRE;42-C11-0002;Castilla y León;Soria;Soria;Hospitales Generales;Privados
+1328000073;HOSPITAL LOS MADROÑOS;CH0088;Madrid, Comunidad de;Madrid;Brunete;Hospitales Generales;Privados
+0737001404;HOSPITAL LOS MONTALVOS (COMPLEJO ASISTENCIAL UNIVERSITARIO DE SALAMANCA);37-C11-0002;Castilla y León;Salamanca;Carrascal de Barregas;Hospitales Generales;Publicos
+0114000532;HOSPITAL LOS MORALES;16062/24;Andalucía;Córdoba;Córdoba;Hospitales Generales;Publicos
+0129001075;HOSPITAL MARITIMO DE  TORREMOLINOS;16096/66;Andalucía;Málaga;Torremolinos;Hospitales Generales;Publicos
+0114000533;HOSPITAL MATERNO - INFANTIL DEL H.U. REINA SOFIA;16062/25;Andalucía;Córdoba;Córdoba;Hospitales Generales;Publicos
+0104002838;HOSPITAL MATERNO INFANTIL;16038/231;Andalucía;Almería;Almería;Hospitales Generales;Publicos
+0407000423;HOSPITAL MATEU ORFILA;2247;Balears, Illes;Balears, Illes;Maó;Hospitales Generales;Publicos
+0250000087;HOSPITAL MAZ;5010051;Aragón;Zaragoza;Zaragoza;Hospitales Generales;Privados
+1003000237;HOSPITAL MEDIMAR INTERNACIONAL;80;Comunitat Valenciana;Alicante/Alacant;Alacant/Alicante;Hospitales Generales;Privados
+0747001314;HOSPITAL MEDINA DEL CAMPO;47-C11-0003;Castilla y León;Valladolid;Medina del Campo;Hospitales Generales;Publicos
+0104000322;HOSPITAL MEDITERRANEO;16044;Andalucía;Almería;Almería;Hospitales Generales;Privados
+0123003127;HOSPITAL METROPOLITANO DE JAEN;60863;Andalucía;Jaén;Jaén;Hospitales Generales;Privados
+0639000455;HOSPITAL MOMPIA;06/1998/00119;Cantabria;Cantabria;Santa Cruz de Bezana;Hospitales Generales;Privados
+0908005135;HOSPITAL MUNICIPAL DE BADALONA;H08000032;Cataluña;Barcelona;Badalona;Hospitales Generales;Publicos
+0123000210;HOSPITAL NEUROTRAUMATOLOGICO DEL H.U. DE JAEN;16083/55;Andalucía;Jaén;Jaén;Hospitales Generales;Publicos
+1046000388;HOSPITAL NISA AGUAS VIVAS;2669;Comunitat Valenciana;Valencia/València;Carcaixent;Hospitales Generales;Privados
+1328000010;HOSPITAL NUESTRA SEÑORA DE AMERICA;CH0012;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+0250000083;HOSPITAL NUESTRA SEÑORA DE GRACIA;5010045;Aragón;Zaragoza;Zaragoza;Hospitales Generales;Publicos
+0538002289;HOSPITAL NUESTRA SEÑORA DE GUADALUPE;5572;Canarias;Santa Cruz de Tenerife;San Sebastián de la Gomera;Hospitales Generales;Publicos
+0111000292;HOSPITAL NUESTRA SEÑORA DE LA SALUD HLA SL;16055;Andalucía;Cádiz;Cádiz;Hospitales Generales;Privados
+0705000769;HOSPITAL NUESTRA SEÑORA DE SONSOLES;05-C11-0001;Castilla y León;Ávila;Ávila;Hospitales Generales;Publicos
+0244000002;HOSPITAL OBISPO POLANCO;4410005;Aragón;Teruel;Teruel;Hospitales Generales;Publicos
+0129001424;HOSPITAL OCHOA;19311;Andalucía;Málaga;Marbella;Hospitales Generales;Privados
+0114003703;HOSPITAL PALMA DEL RIO;16062/232;Andalucía;Córdoba;Córdoba;Hospitales Generales;Publicos
+1328000077;HOSPITAL PARDO DE ARAVACA;CH0092;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+0538000116;HOSPITAL PARQUE;270;Canarias;Santa Cruz de Tenerife;Santa Cruz de Tenerife;Hospitales Generales;Privados
+0845000006;HOSPITAL PARQUE MARAZUELA;TO00059/00005425;Castilla - La Mancha;Toledo;Talavera de la Reina;Hospitales Generales;Privados
+1110000697;HOSPITAL PARQUE SAN FRANCISCO;100113;Extremadura;Cáceres;Cáceres;Hospitales Generales;Privados
+1106000744;HOSPITAL PARQUE VEGAS ALTAS;06006354;Extremadura;Badajoz;Don Benito;Hospitales Generales;Privados
+1106000799;HOSPITAL PARQUE VIA DE LA PLATA;060188;Extremadura;Badajoz;Zafra;Hospitales Generales;Privados
+1106000803;HOSPITAL PERPETUO SOCORRO;060220;Extremadura;Badajoz;Badajoz;Hospitales Generales;Publicos
+0114000531;HOSPITAL PROVINCIAL;16062/23;Andalucía;Córdoba;Córdoba;Hospitales Generales;Publicos
+0705000771;HOSPITAL PROVINCIAL DE AVILA;05-C190-0001;Castilla y León;Ávila;Ávila;Hospitales Generales;Publicos
+0749000896;HOSPITAL PROVINCIAL DE ZAMORA COMPLEJO ASISTENCIAL DE ZAMORA;49-C11-0003;Castilla y León;Zamora;Zamora;Hospitales Generales;Publicos
+0845000003;HOSPITAL PROVINCIAL NTRA.SRA.DE LA MISERICORDIA;TO00018/00009961;Castilla - La Mancha;Toledo;Toledo;Hospitales Generales;Publicos
+1215000182;HOSPITAL PUBLICO DA BARBANZA;C-15-000198;Galicia;Coruña, A;Ribeira;Hospitales Generales;Publicos
+1227000094;HOSPITAL PUBLICO DA MARIÑA;C-27-000095;Galicia;Lugo;Burela;Hospitales Generales;Publicos
+1227000095;HOSPITAL PUBLICO DE MONFORTE;C-27-000096;Galicia;Lugo;Monforte de Lemos;Hospitales Generales;Publicos
+1232000112;HOSPITAL PUBLICO DE VALDEORRAS;C-32-000115;Galicia;Ourense;Barco de Valdeorras, O;Hospitales Generales;Publicos
+1232000113;HOSPITAL PUBLICO DE VERIN;C-32-000116;Galicia;Ourense;Verín;Hospitales Generales;Publicos
+1236000127;HOSPITAL PUBLICO DO SALNES;C-36-000137;Galicia;Pontevedra;Vilagarcía de Arousa;Hospitales Generales;Publicos
+1215000183;HOSPITAL PUBLICO VIRXE DA XUNQUEIRA;C-15-000199;Galicia;Coruña, A;Cee;Hospitales Generales;Publicos
+0123003108;HOSPITAL PUERTA DE ANDALUCIA;16083/226;Andalucía;Jaén;Jaén;Hospitales Generales;Publicos
+0111002394;HOSPITAL QUIRON CAMPO DE GIBRALTAR;35959;Andalucía;Cádiz;Barrios, Los;Hospitales Generales;Privados
+0538000120;HOSPITAL QUIRON SALUD COSTA ADEJE;410;Canarias;Santa Cruz de Tenerife;Adeje;Hospitales Generales;Privados
+0908005273;HOSPITAL QUIRON SALUD DEL VALLES - CLINICA DEL VALLES;H08752995;Cataluña;Barcelona;Sabadell;Hospitales Generales;Privados
+1227000097;HOSPITAL QUIRON SALUD LUGO;C-27-000098;Galicia;Lugo;Lugo;Hospitales Generales;Privados
+0538000536;HOSPITAL QUIRON SALUD TENERIFE;500;Canarias;Santa Cruz de Tenerife;Santa Cruz de Tenerife;Hospitales Generales;Privados
+1328023818;HOSPITAL QUIRON SALUD VALLE DEL HENARES;CH0116;Madrid, Comunidad de;Madrid;Torrejón de Ardoz;Hospitales Generales;Privados
+0538000115;HOSPITAL QUIRON SALUD VIDA;345;Canarias;Santa Cruz de Tenerife;Orotava, La;Hospitales Generales;Privados
+0802000031;HOSPITAL QUIRONSALUD  ALBACETE;AB00146/00000249;Castilla - La Mancha;Albacete;Albacete;Hospitales Generales;Privados
+1215000174;HOSPITAL QUIRONSALUD A CORUÑA;C-15-000188;Galicia;Coruña, A;Coruña, A;Hospitales Generales;Privados
+0908015383;HOSPITAL QUIRONSALUD BADALONA;H08731025;Cataluña;Barcelona;Badalona;Hospitales Generales;Privados
+0908005142;HOSPITAL QUIRONSALUD BARCELONA;H08000113;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+1648000017;HOSPITAL QUIRONSALUD BIZKAIA;48 C.1.1. 7639;País Vasco;Bizkaia;Erandio;Hospitales Generales;Privados
+1110000695;HOSPITAL QUIRONSALUD CACERES;100092;Extremadura;Cáceres;Cáceres;Hospitales Generales;Privados
+0813000043;HOSPITAL QUIRONSALUD CIUDAD REAL;CR01020/00000015;Castilla - La Mancha;Ciudad Real;Ciudad Real;Hospitales Generales;Privados
+1106000798;HOSPITAL QUIRONSALUD CLIDEBA;060172;Extremadura;Badajoz;Badajoz;Hospitales Generales;Privados
+0114003668;HOSPITAL QUIRONSALUD CORDOBA;47784;Andalucía;Córdoba;Córdoba;Hospitales Generales;Privados
+0121001251;HOSPITAL QUIRONSALUD HUELVA;38458;Andalucía;Huelva;Huelva;Hospitales Generales;Privados
+0141000727;HOSPITAL QUIRONSALUD INFANTA LUISA;19088;Andalucía;Sevilla;Sevilla;Hospitales Generales;Privados
+0129002504;HOSPITAL QUIRONSALUD MALAGA;30647;Andalucía;Málaga;Málaga;Hospitales Generales;Privados
+0129001088;HOSPITAL QUIRONSALUD MARBELLA;16128;Andalucía;Málaga;Marbella;Hospitales Generales;Privados
+1430000055;HOSPITAL QUIRONSALUD MURCIA;1970001;Murcia, Región de;Murcia;Murcia;Hospitales Generales;Privados
+0407001618;HOSPITAL QUIRONSALUD PALMAPLANAS;1022;Balears, Illes;Balears, Illes;Palma;Hospitales Generales;Privados
+0141000534;HOSPITAL QUIRONSALUD SAGRADO CORAZON;16037;Andalucía;Sevilla;Sevilla;Hospitales Generales;Privados
+1328000060;HOSPITAL QUIRONSALUD SAN JOSE;CH0071;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+0802000048;HOSPITAL QUIRONSALUD SANTA CRISTINA;AB00210/00004963;Castilla - La Mancha;Albacete;Albacete;Hospitales Generales;Privados
+0407001688;HOSPITAL QUIRONSALUD SON VERI;3570;Balears, Illes;Balears, Illes;Llucmajor;Hospitales Generales;Privados
+1328000070;HOSPITAL QUIRONSALUD SUR;CH0084;Madrid, Comunidad de;Madrid;Alcorcón;Hospitales Generales;Privados
+0845000584;HOSPITAL QUIRONSALUD TOLEDO;TO04036/00010213;Castilla - La Mancha;Toledo;Toledo;Hospitales Generales;Privados
+1003000167;HOSPITAL QUIRONSALUD TORREVIEJA;3823;Comunitat Valenciana;Alicante/Alacant;Torrevieja;Hospitales Generales;Privados
+1046000421;HOSPITAL QUIRONSALUD VALENCIA;3452;Comunitat Valenciana;Valencia/València;València;Hospitales Generales;Privados
+1601000004;HOSPITAL QUIRONSALUD VITORIA;01 C.1.1. 5;País Vasco;Araba/Álava;Vitoria-Gasteiz;Hospitales Generales;Privados
+0250006840;HOSPITAL QUIRONSALUD ZARAGOZA;5010061;Aragón;Zaragoza;Zaragoza;Hospitales Generales;Privados
+1430000063;HOSPITAL RAFAEL MENDEZ;1980007;Murcia, Región de;Murcia;Lorca;Hospitales Generales;Publicos
+0816000342;HOSPITAL RECOLETAS CUENCA, S.L.U.;1600354/0003145;Castilla - La Mancha;Cuenca;Cuenca;Hospitales Generales;Privados
+0709001371;HOSPITAL RECOLETAS DE BURGOS;09-C11-0005;Castilla y León;Burgos;Burgos;Hospitales Generales;Privados
+0129003159;HOSPITAL RECOLETAS MARBELLA SLU;34904;Andalucía;Málaga;Marbella;Hospitales Generales;Privados
+0747001315;HOSPITAL RECOLETAS SALUD CAMPO GRANDE;47-C11-0004;Castilla y León;Valladolid;Valladolid;Hospitales Generales;Privados
+1232000115;HOSPITAL RECOLETAS SALUD COSAGA;C-32-000118;Galicia;Ourense;Ourense;Hospitales Generales;Privados
+1232000114;HOSPITAL RECOLETAS SALUD EL CARMEN;C-32-000117;Galicia;Ourense;Ourense;Hospitales Generales;Privados
+0747001316;HOSPITAL RECOLETAS SALUD FELIPE II;47-C11-0005;Castilla y León;Valladolid;Valladolid;Hospitales Generales;Privados
+0111004493;HOSPITAL RECOLETAS SALUD LOPEZ CANO;52401;Andalucía;Cádiz;Cádiz;Hospitales Generales;Privados
+0734000720;HOSPITAL RECOLETAS SALUD PALENCIA;34-C11-0003;Castilla y León;Palencia;Palencia;Hospitales Generales;Privados
+0740000779;HOSPITAL RECOLETAS SALUD SEGOVIA;40-C11-0002;Castilla y León;Segovia;Segovia;Hospitales Generales;Privados
+0141000538;HOSPITAL RECOLETAS SALUD VICTORIA EUGENIA;16111;Andalucía;Sevilla;Sevilla;Hospitales Generales;Privados
+0749000898;HOSPITAL RECOLETAS SALUD ZAMORA;49-C11-0005;Castilla y León;Zamora;Zamora;Hospitales Generales;Privados
+1531000729;HOSPITAL REINA SOFIA;C10102;Navarra, Comunidad Foral de;Navarra;Tudela;Hospitales Generales;Publicos
+0908005196;HOSPITAL RESIDENCIA SANT CAMIL - CONSORCI SANITARI DE L'ALT PENEDES I GARRAF;H08001195;Cataluña;Barcelona;Sant Pere de Ribes;Hospitales Generales;Publicos
+1106001097;HOSPITAL RIBERA BADAJOZ;060286;Extremadura;Badajoz;Badajoz;Hospitales Generales;Privados
+0333002781;HOSPITAL RIBERA COVADONGA;902;Asturias, Principado de;Asturias;Gijón;Hospitales Generales;Privados
+1215000178;HOSPITAL RIBERA JUAN CARDONA;C-15-000192;Galicia;Coruña, A;Ferrol;Hospitales Generales;Privados
+1227000096;HOSPITAL RIBERA POLUSA;C-27-000097;Galicia;Lugo;Lugo;Hospitales Generales;Privados
+1236000115;HOSPITAL RIBERA POVISA;C-36-000122;Galicia;Pontevedra;Vigo;Hospitales Generales;Privados
+0734000718;HOSPITAL RIO CARRION COMPLEJO ASISTENCIAL UNIVERSITARIO DE PALENCIA;34-C11-0001;Castilla y León;Palencia;Palencia;Hospitales Generales;Publicos
+0250000068;HOSPITAL ROYO VILLANOVA;5010033;Aragón;Zaragoza;Zaragoza;Hospitales Generales;Publicos
+1328000030;HOSPITAL RUBER INTERNACIONAL;CH0039;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+1328000013;HOSPITAL RUBER JUAN BRAVO;CH0017;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+0747001317;HOSPITAL SAGRADO CORAZON;47-C11-0006;Castilla y León;Valladolid;Valladolid;Hospitales Generales;Privados
+0111004473;HOSPITAL SAN  CARLOS DE SAN FERNANDO;16051/115;Andalucía;Cádiz;San Fernando;Hospitales Generales;Publicos
+0111000284;HOSPITAL SAN  JUAN GRANDE;16047;Andalucía;Cádiz;Jerez de la Frontera;Hospitales Generales;Privados
+0141000546;HOSPITAL SAN  LAZARO;16116/82;Andalucía;Sevilla;Sevilla;Hospitales Generales;Publicos
+0141001379;HOSPITAL SAN AGUSTIN;23123;Andalucía;Sevilla;Dos Hermanas;Hospitales Generales;Privados
+1328000014;HOSPITAL SAN CAMILO;CH0018;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+1003000179;HOSPITAL SAN CARLOS DE DENIA GRUPO HLA;435;Comunitat Valenciana;Alicante/Alacant;Dénia;Hospitales Generales;Privados
+1648000014;HOSPITAL SAN ELOY;48 C.1.1. 46;País Vasco;Bizkaia;Barakaldo;Hospitales Generales;Publicos
+1328000059;HOSPITAL SAN FRANCISCO DE ASIS;CH0070;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+0535000323;HOSPITAL SAN JOSE;1034;Canarias;Palmas, Las;Palmas de Gran Canaria, Las;Hospitales Generales;Privados
+0845000713;HOSPITAL SAN JOSE SOLIMAT;4500876/0003129;Castilla - La Mancha;Toledo;Toledo;Hospitales Generales;Privados
+1531000737;HOSPITAL SAN JUAN DE DIOS;C10111;Navarra, Comunidad Foral de;Navarra;Pamplona/Iruña;Hospitales Generales;Privados
+1648000016;HOSPITAL SAN JUAN DE DIOS;48 C.1.1. 53;País Vasco;Bizkaia;Santurtzi;Hospitales Generales;Privados
+0114000536;HOSPITAL SAN JUAN DE DIOS DE CORDOBA;16064;Andalucía;Córdoba;Córdoba;Hospitales Generales;Privados
+0141000552;HOSPITAL SAN JUAN DE DIOS DE SEVILLA;16121;Andalucía;Sevilla;Sevilla;Hospitales Generales;Privados
+0141000555;HOSPITAL SAN JUAN DE DIOS DEL ALJARAFE;16129;Andalucía;Sevilla;Bormujos;Hospitales Generales;Publicos
+0724001717;HOSPITAL SAN JUAN DE DIOS LEON;24-C11-0007;Castilla y León;León;San Andrés del Rabanedo;Hospitales Generales;Privados
+0538001244;HOSPITAL SAN JUAN DE DIOS TENERIFE;3;Canarias;Santa Cruz de Tenerife;Santa Cruz de Tenerife;Hospitales Generales;Privados
+0123000214;HOSPITAL SAN JUAN DE LA CRUZ;16087;Andalucía;Jaén;Úbeda;Hospitales Generales;Publicos
+1110000306;HOSPITAL SAN PEDRO DE ALCANTARA;100015;Extremadura;Cáceres;Cáceres;Hospitales Generales;Publicos
+0118000563;HOSPITAL SAN RAFAEL;16075;Andalucía;Granada;Granada;Hospitales Generales;Privados
+0111000285;HOSPITAL SAN RAFAEL;16049;Andalucía;Cádiz;Cádiz;Hospitales Generales;Privados
+1215000175;HOSPITAL SAN RAFAEL;C-15-000189;Galicia;Coruña, A;Coruña, A;Hospitales Generales;Privados
+1328000040;HOSPITAL SAN RAFAEL;CH0050;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+0734000719;HOSPITAL SAN TELMO COMPLEJO ASISTENCIAL UNIVERSITARIO DE PALENCIA;34-C11-0002;Castilla y León;Palencia;Palencia;Hospitales Generales;Publicos
+0908005251;HOSPITAL SANITAS CIMA;H08621946;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+0118000562;HOSPITAL SANTA ANA;16074;Andalucía;Granada;Motril;Hospitales Generales;Publicos
+0813000578;HOSPITAL SANTA BARBARA;1302068/0003116;Castilla - La Mancha;Ciudad Real;Puertollano;Hospitales Generales;Publicos
+0742000617;HOSPITAL SANTA BARBARA (COMPLEJO ASISTENCIAL UNIVERSITARIO DE SORIA);42-C11-0001;Castilla y León;Soria;Soria;Hospitales Generales;Publicos
+0917000816;HOSPITAL SANTA CATERINA-IAS;H17001526;Cataluña;Girona;Salt;Hospitales Generales;Publicos
+0925000576;HOSPITAL SANTA MARIA;H25001685;Cataluña;Lleida;Lleida;Hospitales Generales;Publicos
+1430000062;HOSPITAL SANTA MARIA DEL ROSELL;1980006;Murcia, Región de;Murcia;Cartagena;Hospitales Generales;Publicos
+0705000770;HOSPITAL SANTA TERESA;05-C11-0003;Castilla y León;Ávila;Ávila;Hospitales Generales;Privados
+0709001370;HOSPITAL SANTIAGO APOSTOL;09-C11-0004;Castilla y León;Burgos;Miranda de Ebro;Hospitales Generales;Publicos
+0709001369;HOSPITAL SANTOS REYES;09-C11-0003;Castilla y León;Burgos;Aranda de Duero;Hospitales Generales;Publicos
+1106000804;HOSPITAL SIBERIA-SERENA;060231;Extremadura;Badajoz;Talarrubias;Hospitales Generales;Publicos
+0639000989;HOSPITAL SIERRALLANA;06/2005/00121;Cantabria;Cantabria;Torrelavega;Hospitales Generales;Publicos
+0407001617;HOSPITAL SON LLATZER;1020;Balears, Illes;Balears, Illes;Palma;Hospitales Generales;Publicos
+1106000805;HOSPITAL TIERRA DE BARROS;060242;Extremadura;Badajoz;Almendralejo;Hospitales Generales;Publicos
+0925000572;HOSPITAL UNIVERSITARI ARNAU DE VILANOVA DE LLEIDA;H25001621;Cataluña;Lleida;Lleida;Hospitales Generales;Publicos
+0908005181;HOSPITAL UNIVERSITARI DE BELLVITGE;H08000924;Cataluña;Barcelona;Hospitalet de Llobregat, L';Hospitales Generales;Publicos
+0917000813;HOSPITAL UNIVERSITARI DE GIRONA DR. JOSEP TRUETA;H17001484;Cataluña;Girona;Girona;Hospitales Generales;Publicos
+0943001036;HOSPITAL UNIVERSITARI DE SANT JOAN DE REUS;H43001830;Cataluña;Tarragona;Reus;Hospitales Generales;Publicos
+0908005209;HOSPITAL UNIVERSITARI DE VIC;H08002135;Cataluña;Barcelona;Vic;Hospitales Generales;Publicos
+0908005206;HOSPITAL UNIVERSITARI GENERAL DE CATALUNYA;H08002061;Cataluña;Barcelona;Sant Cugat del Vallès;Hospitales Generales;Privados
+0908005205;HOSPITAL UNIVERSITARI GERMANS TRIAS I PUJOL DE BADALONA;H08002022;Cataluña;Barcelona;Badalona;Hospitales Generales;Publicos
+0943000755;HOSPITAL UNIVERSITARI JOAN XXIII DE TARRAGONA;H43001903;Cataluña;Tarragona;Tarragona;Hospitales Generales;Publicos
+0908005200;HOSPITAL UNIVERSITARI MUTUA DE TERRASSA;H08001276;Cataluña;Barcelona;Terrassa;Hospitales Generales;Privados
+0908005152;HOSPITAL UNIVERSITARI QUIR¿N DEXEUS;H08000272;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+0908005137;HOSPITAL UNIVERSITARI SAGRAT COR;H08000057;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+0407000872;HOSPITAL UNIVERSITARI SON ESPASES;2977;Balears, Illes;Balears, Illes;Palma;Hospitales Generales;Publicos
+0908005282;HOSPITAL UNIVERSITARI VALL D'HEBRON;H08810319;Cataluña;Barcelona;Barcelona;Hospitales Generales;Publicos
+1601000510;HOSPITAL UNIVERSITARIO ARABA (SEDE TXAGORRITXU Y SEDE SANTIAGO);01 C.1.1. 8701;País Vasco;Araba/Álava;Vitoria-Gasteiz;Hospitales Generales;Publicos
+1046000651;HOSPITAL UNIVERSITARIO ARNAU DE VILANOVA;914;Comunitat Valenciana;Valencia/València;València;Hospitales Generales;Publicos
+1648000005;HOSPITAL UNIVERSITARIO BASURTO;48 C.1.1. 31;País Vasco;Bizkaia;Bilbao;Hospitales Generales;Publicos
+0333005240;HOSPITAL UNIVERSITARIO CENTRAL DE ASTURIAS;5913;Asturias, Principado de;Asturias;Oviedo;Hospitales Generales;Publicos
+1328000043;HOSPITAL UNIVERSITARIO CLINICO SAN CARLOS;CH0053;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Publicos
+0118004562;HOSPITAL UNIVERSITARIO CLINICO SAN CECILIO;50446;Andalucía;Granada;Granada;Hospitales Generales;Publicos
+0129001066;HOSPITAL UNIVERSITARIO COSTA DEL SOL;16091;Andalucía;Málaga;Marbella;Hospitales Generales;Publicos
+1648000013;HOSPITAL UNIVERSITARIO CRUCES;48 C.1.1. 45;País Vasco;Bizkaia;Barakaldo;Hospitales Generales;Publicos
+1106000332;HOSPITAL UNIVERSITARIO DE BADAJOZ;060021;Extremadura;Badajoz;Badajoz;Hospitales Generales;Publicos
+0709001373;HOSPITAL UNIVERSITARIO DE BURGOS COMPLEJO ASISTENCIAL UNIVER. DE BURGOS;09-C11-0007;Castilla y León;Burgos;Burgos;Hospitales Generales;Publicos
+0333002780;HOSPITAL UNIVERSITARIO DE CABUEÑES;901;Asturias, Principado de;Asturias;Gijón;Hospitales Generales;Publicos
+1110001384;HOSPITAL UNIVERSITARIO DE CACERES;10104855;Extremadura;Cáceres;Cáceres;Hospitales Generales;Publicos
+0538001821;HOSPITAL UNIVERSITARIO DE CANARIAS;3854;Canarias;Santa Cruz de Tenerife;San Cristóbal de La Laguna;Hospitales Generales;Publicos
+1851000001;HOSPITAL UNIVERSITARIO DE CEUTA;C.1.1/001;Ceuta;Ceuta;Ceuta;Hospitales Generales;Publicos
+0816001413;HOSPITAL UNIVERSITARIO DE CUENCA;1607544/0006945;Castilla - La Mancha;Cuenca;Cuenca;Hospitales Generales;Publicos
+1003000248;HOSPITAL UNIVERSITARIO DE DENIA;9098;Comunitat Valenciana;Alicante/Alacant;Dénia;Hospitales Generales;Publicos
+1328000071;HOSPITAL UNIVERSITARIO DE FUENLABRADA;CH0086;Madrid, Comunidad de;Madrid;Fuenlabrada;Hospitales Generales;Publicos
+1328000062;HOSPITAL UNIVERSITARIO DE GETAFE;CH0075;Madrid, Comunidad de;Madrid;Getafe;Hospitales Generales;Publicos
+0535001830;HOSPITAL UNIVERSITARIO DE GRAN CANARIA DR. NEGRIN;4094;Canarias;Palmas, Las;Palmas de Gran Canaria, Las;Hospitales Generales;Publicos
+0819000009;HOSPITAL UNIVERSITARIO DE GUADALAJARA;GU02320/00008614;Castilla - La Mancha;Guadalajara;Guadalajara;Hospitales Generales;Publicos
+0123000208;HOSPITAL UNIVERSITARIO DE JAEN;16083;Andalucía;Jaén;Jaén;Hospitales Generales;Publicos
+0111000290;HOSPITAL UNIVERSITARIO DE JEREZ DE LA FRONTERA;16052;Andalucía;Cádiz;Jerez de la Frontera;Hospitales Generales;Publicos
+0111004317;HOSPITAL UNIVERSITARIO DE LA LINEA DE LA CONCEPCION;50595;Andalucía;Cádiz;Línea de la Concepción, La;Hospitales Generales;Publicos
+1012000178;HOSPITAL UNIVERSITARIO DE LA PLANA;1979;Comunitat Valenciana;Castellón/Castelló;Vila-real;Hospitales Generales;Publicos
+1328000023;HOSPITAL UNIVERSITARIO DE LA PRINCESA;CH0029;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Publicos
+1046000423;HOSPITAL UNIVERSITARIO DE LA RIBERA;3479;Comunitat Valenciana;Valencia/València;Alzira;Hospitales Generales;Publicos
+1952000244;HOSPITAL UNIVERSITARIO DE MELILLA;240;Melilla;Melilla;Melilla;Hospitales Generales;Publicos
+1328000026;HOSPITAL UNIVERSITARIO DE MOSTOLES;CH0032;Madrid, Comunidad de;Madrid;Móstoles;Hospitales Generales;Publicos
+1531002230;HOSPITAL UNIVERSITARIO DE NAVARRA;C10117;Navarra, Comunidad Foral de;Navarra;Pamplona/Iruña;Hospitales Generales;Publicos
+0104000321;HOSPITAL UNIVERSITARIO DE PONIENTE;16043;Andalucía;Almería;Ejido, El;Hospitales Generales;Publicos
+0111000291;HOSPITAL UNIVERSITARIO DE PUERTO REAL;16054;Andalucía;Cádiz;Puerto Real;Hospitales Generales;Publicos
+1046000383;HOSPITAL UNIVERSITARIO DE SAGUNTO;2560;Comunitat Valenciana;Valencia/València;Sagunt/Sagunto;Hospitales Generales;Publicos
+0737001403;HOSPITAL UNIVERSITARIO DE SALAMANCA (COMPLEJO ASISTENCIAL UNIVERSITARIO DE;37-C11-0001;Castilla y León;Salamanca;Salamanca;Hospitales Generales;Publicos
+0845002598;HOSPITAL UNIVERSITARIO DE TOLEDO (HUT);4507993/0006436;Castilla - La Mancha;Toledo;Toledo;Hospitales Generales;Publicos
+1328000089;HOSPITAL UNIVERSITARIO DE TORREJON;CH0104;Madrid, Comunidad de;Madrid;Torrejón de Ardoz;Hospitales Generales;Publicos
+1003000233;HOSPITAL UNIVERSITARIO DE TORREVIEJA;7657;Comunitat Valenciana;Alicante/Alacant;Torrevieja;Hospitales Generales;Publicos
+1328000081;HOSPITAL UNIVERSITARIO DEL HENARES;CH0096;Madrid, Comunidad de;Madrid;Coslada;Hospitales Generales;Publicos
+1328000085;HOSPITAL UNIVERSITARIO DEL SURESTE;CH0100;Madrid, Comunidad de;Madrid;Arganda del Rey;Hospitales Generales;Publicos
+1328000084;HOSPITAL UNIVERSITARIO DEL TAJO;CH0099;Madrid, Comunidad de;Madrid;Aranjuez;Hospitales Generales;Publicos
+1620000010;HOSPITAL UNIVERSITARIO DONOSTIA;20 C.1.1. 56;País Vasco;Gipuzkoa;Donostia/San Sebastián;Hospitales Generales;Publicos
+0535002243;HOSPITAL UNIVERSITARIO DR. JOSE MOLINA OROSA;4150;Canarias;Palmas, Las;Arrecife;Hospitales Generales;Publicos
+1046000325;HOSPITAL UNIVERSITARIO DR. PESET ALEIXANDRE;1572;Comunitat Valenciana;Valencia/València;València;Hospitales Generales;Publicos
+0908005231;APTIMA CENTRE CLINIC - MUTUA DE TERRASSA;H08002713;Cataluña;Barcelona;Terrassa;Hospitales Generales;Privados
+0908005160;CENTRE DE PREVENCIO I REHABILITACIO ASEPEYO;H08000459;Cataluña;Barcelona;Sant Cugat del Vallès;Hospitales Generales;Privados
+0908005145;CENTRE HOSPITALARI POLICLINICA BARCELONA;H08000145;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+0943000750;CENTRE MQ REUS;H43001815;Cataluña;Tarragona;Reus;Hospitales Generales;Privados
+0123003109;CENTRO HOSPITALARIO DE ALTA RESOLUCION DE CAZORLA;52656;Andalucía;Jaén;Cazorla;Hospitales Generales;Publicos
+0333003415;CENTRO MEDICO DE ASTURIAS;744;Asturias, Principado de;Asturias;Oviedo;Hospitales Generales;Privados
+1236000123;CENTRO MEDICO PINTADO;C-36-000132;Galicia;Pontevedra;Vigo;Hospitales Generales;Privados
+0908005171;CENTRO MEDICO TEKNON,  GRUPO QUIRONSALUD;H08000642;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+1531000738;CLINICA ARCANGEL SAN MIGUEL - PAMPLONA;C10112;Navarra, Comunidad Foral de;Navarra;Pamplona/Iruña;Hospitales Generales;Privados
+0333002562;CLINICA ASTURIAS;680;Asturias, Principado de;Asturias;Oviedo;Hospitales Generales;Privados
+0917000812;CLINICA BOFILL;H17001460;Cataluña;Girona;Girona;Hospitales Generales;Privados
+0535000315;CLINICA CAJAL;1023;Canarias;Palmas, Las;Palmas de Gran Canaria, Las;Hospitales Generales;Privados
+1328000065;CLINICA CEMTRO;CH0079;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+0908005138;CLINICA CORACHAN;H08000064;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+0908005261;CLINICA CREU BLANCA;H08678950;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+0123000215;CLINICA CRISTO REY;16088;Andalucía;Jaén;Jaén;Hospitales Generales;Privados
+0908005149;CLINICA DIAGONAL;H08000226;Cataluña;Barcelona;Esplugues de Llobregat;Hospitales Generales;Privados
+0819000193;CLINICA DOCTOR SANZ VAZQUEZ;1903647/0003028;Castilla - La Mancha;Guadalajara;Guadalajara;Hospitales Generales;Privados
+0917000814;CLINICA GIRONA;H17001491;Cataluña;Girona;Girona;Hospitales Generales;Privados
+1648000010;CLINICA GUIMON, S.A.;48 C.1.1. 41;País Vasco;Bizkaia;Bilbao;Hospitales Generales;Privados
+1648002635;CLINICA IMQ ZORROTZAURRE;48 C.1.1. 8375;País Vasco;Bizkaia;Bilbao;Hospitales Generales;Privados
+1648000012;CLINICA INDAUTXU, S.A.;48 C.1.1. 43;País Vasco;Bizkaia;Bilbao;Hospitales Generales;Privados
+0407000008;CLINICA JUANEDA;1015;Balears, Illes;Balears, Illes;Palma;Hospitales Generales;Privados
+0407004406;CLINICA JUANEDA CIUTADELLA;4999;Balears, Illes;Balears, Illes;Ciutadella de Menorca;Hospitales Generales;Privados
+0407000006;CLINICA JUANEDA MAHON;1009;Balears, Illes;Balears, Illes;Maó;Hospitales Generales;Privados
+1328000007;CLINICA LA LUZ, S.L.;CH0008;Madrid, Comunidad de;Madrid;Madrid;Hospitales Generales;Privados
+0111000297;CLINICA LOS ALAMOS;16134;Andalucía;Cádiz;Jerez de la Frontera;Hospitales Generales;Privados
+1726000080;CLINICA LOS MANZANOS;10940701900C1;Rioja, La;Rioja, La;Lardero;Hospitales Generales;Privados
+0121000151;CLINICA LOS NARANJOS;16081;Andalucía;Huelva;Huelva;Hospitales Generales;Privados
+0407003152;CLINICA LUZ DE PALMA;4427;Balears, Illes;Balears, Illes;Palma;Hospitales Generales;Privados
+0908005161;CLINICA MC COPERNIC;H08000466;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+0908005268;CLINICA MC LONDRES;H08683332;Cataluña;Barcelona;Sant Cugat del Vallès;Hospitales Generales;Privados
+0925000577;CLINICA MI NOVA ALIANÇA;H25001692;Cataluña;Lleida;Lleida;Hospitales Generales;Privados
+0250000035;CLINICA MONTPELLIER, GRUPO HLA,  S.A.U;5010021;Aragón;Zaragoza;Zaragoza;Hospitales Generales;Privados
+0908005165;CLINICA NOSTRA SENYORA DEL REMEI;H08000554;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+0925000575;CLINICA PERPETUO SOCORRO DE LERIDA, GRUPO HLA, SLU;H25001653;Cataluña;Lleida;Lleida;Hospitales Generales;Privados
+0724001715;CLINICA PONFERRADA RECOLETAS;24-C11-0005;Castilla y León;León;Ponferrada;Hospitales Generales;Privados
+0917000815;CLINICA QUIRURGICA ONYAR;H17001501;Cataluña;Girona;Girona;Hospitales Generales;Privados
+0407000004;CLINICA ROTGER;1006;Balears, Illes;Balears, Illes;Palma;Hospitales Generales;Privados
+0908005167;CLINICA SAGRADA FAMILIA;H08000586;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados
+0917000807;CLINICA SALUS INFIRMORUM;H17001389;Cataluña;Girona;Banyoles;Hospitales Generales;Privados
+1531000735;CLINICA SAN FERMIN;C10109;Navarra, Comunidad Foral de;Navarra;Pamplona/Iruña;Hospitales Generales;Privados
+0908005202;CLINICA SANT JOSEP;H08001290;Cataluña;Barcelona;Vic;Hospitales Generales;Privados
+0908005186;CLINICA SANT JOSEP (MANRESA);H08001011;Cataluña;Barcelona;Manresa;Hospitales Generales;Privados
+0917000811;CLINICA SANTA CREU;H17001452;Cataluña;Girona;Figueres;Hospitales Generales;Privados
+0141000539;CLINICA SANTA ISABEL;16113;Andalucía;Sevilla;Sevilla;Hospitales Generales;Privados
+1620000008;CLINICA SANTA MARIA DE LA ASUNCION (INVIZA S. A.);20 C.1.1. 27;País Vasco;Gipuzkoa;Tolosa;Hospitales Generales;Privados
+1110000696;CLINICA SOQUIMEX;100106;Extremadura;Cáceres;Plasencia;Hospitales Generales;Privados
+0943000759;CLINICA TERRES DE L'EBRE;H43001967;Cataluña;Tarragona;Tortosa;Hospitales Generales;Publicos
+0908005139;CLINICA TRES TORRES;H08000071;Cataluña;Barcelona;Barcelona;Hospitales Generales;Privados

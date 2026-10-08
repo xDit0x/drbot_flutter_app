@@ -25,8 +25,8 @@ class _RootPageState extends State<RootPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final current = selectedSheetFeature ?? dock[currentPageIndex];
-    final current = sheet[1];
+    final current = selectedSheetFeature ?? dock[currentPageIndex];
+    // final current = sheet[1];
 
     return Scaffold(
       body: Stack(
