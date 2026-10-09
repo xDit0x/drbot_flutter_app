@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart' hide State;
 import 'package:flutter/material.dart';
-import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
 import 'package:flutter_learning/core/configs/theme/app_colors.dart';
 
 import 'package:flutter_learning/domain/entities/clinical/allergy.dart';
@@ -27,9 +26,9 @@ class _PersonalInfoViewState extends State<PersonalInfoView> {
     super.initState();
   }
 
-  void _showMessage(String message, SnackbarRootType selection) {
-    SnackbarRoot.show(context, message, selection: selection);
-  }
+  // void _showMessage(String message, SnackbarRootType selection) {
+  //   SnackbarRoot.show(context, message, selection: selection);
+  // }
 
   Widget _buildClinicalInfo(AsyncSnapshot<Either> snapshot) {
     if (snapshot.connectionState == ConnectionState.waiting) {

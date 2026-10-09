@@ -10,96 +10,110 @@ import 'package:flutter_learning/presentation/settings/screen_reader_page.dart';
 import 'package:flutter_learning/presentation/settings/biometric_service.dart';
 import 'package:flutter_learning/presentation/settings/change_password_page.dart';
 
-class SettingsPage extends StatefulWidget
-{
+class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage>
-{
-
+class _SettingsPageState extends State<SettingsPage> {
   bool _vibrationEnabled = true;
   final BiometricService _biometricService = BiometricService();
   bool _biometricEnabled = false;
 
   @override
-  void initState()
-  {
+  void initState() {
     super.initState();
-    _loadVibration();
-    _loadBiometricPreference();
+    try {
+      _loadVibration();
+    } catch (_) {
+      _vibrationEnabled = true;
+    }
+    try {
+      _loadBiometricPreference();
+    } catch (_) {
+      _biometricEnabled = false;
+    }
   }
 
-  Future<void> _loadVibration() async
-  {
-    final preference = await SharedPreferences.getInstance();
-    
-    if(!mounted) { return; }
+  Future<void> _loadVibration() async {
+    try {
+      final preference = await SharedPreferences.getInstance();
 
-    setState(() {
-      _vibrationEnabled = preference.getBool('vibrationEnabled') ?? true;
-    }); 
+      if (!mounted) {
+        return;
+      }
+
+      setState(() {
+        _vibrationEnabled = preference.getBool('vibrationEnabled') ?? true;
+      });
+    } catch (_) {
+      _vibrationEnabled = true;
+    }
   }
 
-  Future<void> _setVibration(bool value) async
-  {
-    final preference = await SharedPreferences.getInstance();
-    await preference.setBool('vibrationEnabled', value);
-    
-    if(!mounted) { return; }
-
+  Future<void> _setVibration(bool value) async {
+    if (!mounted) return;
     setState(() {
       _vibrationEnabled = value;
-    }); 
+    });
 
-    if(value)
-    {
+    try {
+      final preference = await SharedPreferences.getInstance();
+      await preference.setBool('vibrationEnabled', value);
+    } catch (_) {}
+
+    if (value) {
       await HapticFeedback.selectionClick();
     }
   }
 
-  Future<void> _loadBiometricPreference() async
-  {
-    final preference = await SharedPreferences.getInstance();
-
-    if(!mounted) { return; }
-    
-    setState(()
-    {
-      _biometricEnabled = preference.getBool('biometricEnabled') ?? false;
-    });
+  Future<void> _loadBiometricPreference() async {
+    try {
+      final preference = await SharedPreferences.getInstance();
+      if (!mounted) return;
+      setState(() {
+        _biometricEnabled = preference.getBool('biometricEnabled') ?? false;
+      });
+    } catch (_) {}
   }
 
-  Future<void> _onBiometricChanged(bool enabled) async
-  {
-    if(enabled)
-    {
+  Future<void> _onBiometricChanged(bool enabled) async {
+    if (enabled) {
       final available = await _biometricService.hasEnrolledBiometrics();
 
-      if(!available)
-      {
-        if(!mounted)
-        {
+      if (!available) {
+        if (!mounted) {
           return;
         }
 
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Configura una huella o reconocimiento facial en el dispositivo')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Configura una huella o reconocimiento facial en el dispositivo',
+            ),
+          ),
+        );
 
         return;
       }
-      
+
       final authenticated = await _biometricService.authenticated();
-      if(!authenticated) { return; }
+      if (!authenticated) {
+        return;
+      }
     }
 
-    final preference = await SharedPreferences.getInstance();
-    await preference.setBool('biometricEnabled', enabled);
+    if (!mounted) return;
+    setState(() {
+      _biometricEnabled = enabled;
+    });
 
-    if(!mounted) { return; }
-    setState(() { _biometricEnabled = enabled; });
+    try {
+      final preference = await SharedPreferences.getInstance();
+      await preference.setBool('biometricEnabled', enabled);
+    } catch (_) {}
   }
 
   Future<void> _deleteAccount() async
@@ -198,33 +212,23 @@ class _SettingsPageState extends State<SettingsPage>
     }
   }
 
-  Widget _section(String title, List<Widget> children)
-  {
+  Widget _section(String title, List<Widget> children) {
     return Column(
-      crossAxisAlignment : CrossAxisAlignment.start,
-      
-      children: 
-      [
-        Padding
-        (
+      crossAxisAlignment: CrossAxisAlignment.start,
+
+      children: [
+        Padding(
           padding: const EdgeInsets.fromLTRB(16, 20, 16, 8),
 
-          child: 
-            Text 
-            (
-              title,
-              style: const TextStyle
-              (
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
+          child: Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
         ),
-        Card
-        (
+        Card(
           margin: const EdgeInsets.symmetric(horizontal: 12),
           child: Column(children: children),
-        )
+        ),
       ],
     );
   }

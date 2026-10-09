@@ -125,7 +125,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             ),
                             child: IconButton(
                               onPressed: () {
-                                HapticFeedback.mediumImpact();
+                                HapticFeedback.heavyImpact();
                                 // _removeAppointment(context, appointment);
                               },
                               icon: const Icon(
