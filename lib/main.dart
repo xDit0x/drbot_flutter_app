@@ -12,11 +12,9 @@ import 'package:flutter_learning/core/configs/theme/app_theme.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_learning/presentation/settings/font_scale.dart';
 
-Future<void> main() async 
-{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  try 
-  {
+  try {
     HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: kIsWeb
           ? HydratedStorageDirectory.web
@@ -27,43 +25,40 @@ Future<void> main() async
   }
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await initializeDependencies(); //inicializar dependencias de autenticacion
-  await loadFontScale();
+  try {
+    await loadFontScale();
+  } catch (_) {
+    fontScale.value = 1.0;
+  }
 
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget 
-{
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) 
-  {
-    return MultiBlocProvider
-    (
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
       providers: [BlocProvider(create: (_) => ThemeCubit())],
-      child: BlocBuilder<ThemeCubit, ThemeMode>
-      (
-        builder: (context, mode) => MaterialApp
-        (
+      child: BlocBuilder<ThemeCubit, ThemeMode>(
+        builder: (context, mode) => MaterialApp(
           title: 'DrBot',
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: mode,
           debugShowCheckedModeBanner: false,
-          
-          builder: (context, child) 
-          {
-            return ValueListenableBuilder<double>
-            (
+
+          builder: (context, child) {
+            return ValueListenableBuilder<double>(
               valueListenable: fontScale,
-              builder: (context, scale, _) 
-              {
+              builder: (context, scale, _) {
                 final mediaQuery = MediaQuery.of(context);
 
-                return MediaQuery
-                (
-                  data: mediaQuery.copyWith(textScaler: TextScaler.linear(scale)),
+                return MediaQuery(
+                  data: mediaQuery.copyWith(
+                    textScaler: TextScaler.linear(scale),
+                  ),
                   child: child ?? const SizedBox.shrink(),
                 );
               },

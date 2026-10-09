@@ -3,13 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class BiometricLockGate extends StatefulWidget 
-{
-  const BiometricLockGate
-  ({
-    required this.child,
-    super.key,
-  });
+class BiometricLockGate extends StatefulWidget {
+  const BiometricLockGate({required this.child, super.key});
 
   final Widget child;
 
@@ -17,8 +12,8 @@ class BiometricLockGate extends StatefulWidget
   State<BiometricLockGate> createState() => _BiometricLockGateState();
 }
 
-class _BiometricLockGateState extends State<BiometricLockGate> with WidgetsBindingObserver 
-{
+class _BiometricLockGateState extends State<BiometricLockGate>
+    with WidgetsBindingObserver {
   final LocalAuthentication _localAuth = LocalAuthentication();
 
   bool _enabled = false;
@@ -27,45 +22,44 @@ class _BiometricLockGateState extends State<BiometricLockGate> with WidgetsBindi
   bool _authenticating = false;
 
   @override
-  void initState() 
-  {
+  void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _loadPreference();
   }
 
-  Future<void> _loadPreference() async 
-  {
-    final preferences = await SharedPreferences.getInstance();
-    final enabled = preferences.getBool('biometricEnabled') ?? false;
-
-    if (!mounted) return;
-
-    setState(() 
-    {
-      _enabled = enabled;
-      _locked = enabled;
-      _loading = false;
-    });
-
-    if (enabled) 
-    {
-      await _unlock();
+  Future<void> _loadPreference() async {
+    try {
+      final preferences = await SharedPreferences.getInstance();
+      final enabled = preferences.getBool('biometricEnabled') ?? false;
+      if (!mounted) return;
+      setState(() {
+        _enabled = enabled;
+        _locked = enabled;
+        _loading = false;
+      });
+      if (enabled) await _unlock();
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _enabled = false;
+        _locked = false;
+        _loading = false;
+      });
     }
   }
 
-  Future<void> _unlock() async 
-  {
-    if (!_enabled || _authenticating || !mounted) { return; }
+  Future<void> _unlock() async {
+    if (!_enabled || _authenticating || !mounted) {
+      return;
+    }
 
     setState(() => _authenticating = true);
 
     var authenticated = false;
 
-    try 
-    {
-      authenticated = await _localAuth.authenticate
-      (
+    try {
+      authenticated = await _localAuth.authenticate(
         localizedReason: 'Desbloquea Dr. Bot',
         biometricOnly: true,
       );
@@ -73,20 +67,19 @@ class _BiometricLockGateState extends State<BiometricLockGate> with WidgetsBindi
       authenticated = false;
     }
 
-    if (!mounted) { return; }
+    if (!mounted) {
+      return;
+    }
 
-    setState(() 
-    {
+    setState(() {
       _authenticating = false;
-      if (authenticated) 
-      {
+      if (authenticated) {
         _locked = false;
       }
     });
   }
 
-  Future<void> _unlockWithPassword() async 
-  {
+  Future<void> _unlockWithPassword() async {
     final user = FirebaseAuth.instance.currentUser;
     final email = user?.email;
 
@@ -103,9 +96,7 @@ class _BiometricLockGateState extends State<BiometricLockGate> with WidgetsBindi
             controller: controller,
             obscureText: true,
             autofocus: true,
-            decoration: const InputDecoration(
-              labelText: 'Contraseña',
-            ),
+            decoration: const InputDecoration(labelText: 'Contraseña'),
           ),
           actions: [
             TextButton(
@@ -131,10 +122,7 @@ class _BiometricLockGateState extends State<BiometricLockGate> with WidgetsBindi
 
     try {
       await user.reauthenticateWithCredential(
-        EmailAuthProvider.credential(
-          email: email,
-          password: password,
-        ),
+        EmailAuthProvider.credential(email: email, password: password),
       );
 
       if (!mounted) return;
@@ -144,12 +132,11 @@ class _BiometricLockGateState extends State<BiometricLockGate> with WidgetsBindi
 
       final message =
           e.code == 'wrong-password' || e.code == 'invalid-credential'
-              ? 'La contraseña no es correcta.'
-              : 'No se pudo verificar la contraseña.';
+          ? 'La contraseña no es correcta.'
+          : 'No se pudo verificar la contraseña.';
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message)),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(message)));
     } finally {
       if (mounted) {
         setState(() => _authenticating = false);
@@ -157,81 +144,63 @@ class _BiometricLockGateState extends State<BiometricLockGate> with WidgetsBindi
     }
   }
 
-  Future<void> _signOut() async 
-  {
+  Future<void> _signOut() async {
     final preferences = await SharedPreferences.getInstance();
     await preferences.remove('biometricEnabled');
     await FirebaseAuth.instance.signOut();
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) 
-  {
-    if (!_enabled) { return; }
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (!_enabled) {
+      return;
+    }
 
-    if (state == AppLifecycleState.paused) 
-    {
+    if (state == AppLifecycleState.paused) {
       setState(() => _locked = true);
-    } 
-    else if (state == AppLifecycleState.resumed && _locked) 
-    {
+    } else if (state == AppLifecycleState.resumed && _locked) {
       _unlock();
     }
   }
 
   @override
-  void dispose() 
-  {
+  void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) 
-  {
-    if (_loading) 
-    {
-      return const Scaffold
-      (
-        body: Center(child: CircularProgressIndicator()),
-      );
+  Widget build(BuildContext context) {
+    if (_loading) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
-    if (!_enabled || !_locked) 
-    {
+    if (!_enabled || !_locked) {
       return widget.child;
     }
 
-    return Scaffold
-    (
-      body: Center
-      (
-        child: Column
-        (
+    return Scaffold(
+      body: Center(
+        child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: 
-          [
+          children: [
             const Icon(Icons.fingerprint, size: 64),
             const SizedBox(height: 16),
             const Text('Dr. Bot está bloqueado'),
             const SizedBox(height: 16),
-            ElevatedButton
-            (
+            ElevatedButton(
               onPressed: _authenticating ? null : () => _unlock(),
-              child: Text(_authenticating ? 'Comprobando…' : 'Desbloquear con huella'),
+              child: Text(
+                _authenticating ? 'Comprobando…' : 'Desbloquear con huella',
+              ),
             ),
-            
-            TextButton
-            (
+
+            TextButton(
               onPressed: _authenticating ? null : () => _unlockWithPassword(),
               child: const Text('Usar contraseña'),
             ),
-            
-            TextButton
-            (
-              onPressed: _signOut,
-              child: const Text('Cerrar sesión'),
-            ),
+
+            TextButton(onPressed: _signOut, child: const Text('Cerrar sesión')),
           ],
         ),
       ),
