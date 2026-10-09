@@ -6,6 +6,7 @@ import 'package:flutter_learning/core/configs/theme/app_colors.dart';
 import 'package:flutter_learning/domain/entities/appointments/appointment.dart';
 import 'package:flutter_learning/domain/usecases/appointments/get_appointments.dart';
 import 'package:flutter_learning/domain/usecases/appointments/remove_appointment.dart';
+import 'package:flutter_learning/presentation/appointments/widgets/remove_confirmation_dialog.dart';
 import 'package:flutter_learning/service_locator.dart';
 
 class AppointmentPage extends StatefulWidget {
@@ -18,51 +19,19 @@ class AppointmentPage extends StatefulWidget {
 class _AppointmentPageState extends State<AppointmentPage> {
   late Future<Either> _future;
 
-  Future<void> _removeAppointment(
-    BuildContext btnCtx,
-    Appointment appointment,
-  ) async {
-    final RenderBox button = btnCtx.findRenderObject()! as RenderBox;
-    final RenderBox overlay =
-        Navigator.of(btnCtx).context.findRenderObject()! as RenderBox;
-    final topLeft = button.localToGlobal(Offset.zero, ancestor: overlay);
-
-    const gap = 8.0;
-
-    var position = RelativeRect.fromLTRB(
-      topLeft.dx,
-      topLeft.dy,
-      overlay.size.width - button.size.width,
-      overlay.size.height - button.size.height,
-    );
-    final confirm = await showMenu<bool>(
-      color: Theme.of(context).colorScheme.surfaceContainerHigh,
-      popUpAnimationStyle: AnimationStyle(
-        curve: Curves.fastOutSlowIn,
-        duration: Duration(milliseconds: 150),
+  Future<void> _removeAppointment(Appointment appointment) async {
+    final confirm = await showDialog<bool>(
+      animationStyle: AnimationStyle(
+        duration: Duration(milliseconds: 250),
+        reverseCurve: Curves.fastOutSlowIn,
       ),
-      context: btnCtx,
-      position: position,
-      items: [
-        PopupMenuItem(
-          value: true,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Icon(Icons.delete_rounded, color: Colors.red, size: 26),
-              const SizedBox(width: 8),
-              // Text(
-              //   '¿Confirmar eliminación?',
-              //   style: TextStyle(
-              //     color: Theme.of(context).colorScheme.inverseSurface,
-              //     fontWeight: FontWeight.w600,
-              //   ),
-              // ),
-            ],
-          ),
-        ),
-      ],
+      barrierColor: Colors.black.withAlpha(150),
+      context: context,
+      builder: (dialogContext) => RemoveConfirmationDialog(
+        context: context,
+        appointment: appointment,
+        dialogContext: dialogContext,
+      ),
     );
 
     if (confirm != true) return;
@@ -196,17 +165,15 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                   .colorScheme
                                   .surfaceContainerHigh,
                             ),
-                            child: Builder(
-                              builder: (btnCtx) => IconButton(
-                                onPressed: () {
-                                  HapticFeedback.heavyImpact();
-                                  _removeAppointment(btnCtx, appointment);
-                                },
-                                icon: const Icon(
-                                  size: 26,
-                                  Icons.delete_rounded,
-                                  color: Color.fromARGB(255, 255, 0, 0),
-                                ),
+                            child: IconButton(
+                              onPressed: () {
+                                HapticFeedback.heavyImpact();
+                                _removeAppointment(appointment);
+                              },
+                              icon: const Icon(
+                                size: 26,
+                                Icons.delete_rounded,
+                                color: Color.fromARGB(255, 255, 0, 0),
                               ),
                             ),
                           ),

@@ -53,13 +53,13 @@ class AppointmentFirebaseServiceImpl implements AppointmentFirebaseService {
         return Left('Sesión no válida. Vuelve a iniciar sesión.');
       }
       await FirebaseFirestore.instance
-          .collection('users')
+          .collection('Users')
           .doc(uid)
           .collection('appointments')
           .doc(id)
           .delete();
       return Right(true);
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseException catch (e) {
       if (e.code == 'permission-denied') {
         return Left('Sin permiso. Revisa las reglas de Firestore');
       }
