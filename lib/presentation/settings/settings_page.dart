@@ -34,28 +34,31 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Future<void> _loadVibration() async {
-    final preference = await SharedPreferences.getInstance();
+    try {
+      final preference = await SharedPreferences.getInstance();
 
-    if (!mounted) {
-      return;
+      if (!mounted) {
+        return;
+      }
+
+      setState(() {
+        _vibrationEnabled = preference.getBool('vibrationEnabled') ?? true;
+      });
+    } catch (_) {
+      _vibrationEnabled = true;
     }
-
-    setState(() {
-      _vibrationEnabled = preference.getBool('vibrationEnabled') ?? true;
-    });
   }
 
   Future<void> _setVibration(bool value) async {
-    final preference = await SharedPreferences.getInstance();
-    await preference.setBool('vibrationEnabled', value);
-
-    if (!mounted) {
-      return;
-    }
-
+    if (!mounted) return;
     setState(() {
       _vibrationEnabled = value;
     });
+
+    try {
+      final preference = await SharedPreferences.getInstance();
+      await preference.setBool('vibrationEnabled', value);
+    } catch (_) {}
 
     if (value) {
       await HapticFeedback.selectionClick();
@@ -63,15 +66,13 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Future<void> _loadBiometricPreference() async {
-    final preference = await SharedPreferences.getInstance();
-
-    if (!mounted) {
-      return;
-    }
-
-    setState(() {
-      _biometricEnabled = preference.getBool('biometricEnabled') ?? false;
-    });
+    try {
+      final preference = await SharedPreferences.getInstance();
+      if (!mounted) return;
+      setState(() {
+        _biometricEnabled = preference.getBool('biometricEnabled') ?? false;
+      });
+    } catch (_) {}
   }
 
   Future<void> _onBiometricChanged(bool enabled) async {
@@ -100,15 +101,15 @@ class _SettingsPageState extends State<SettingsPage> {
       }
     }
 
-    final preference = await SharedPreferences.getInstance();
-    await preference.setBool('biometricEnabled', enabled);
-
-    if (!mounted) {
-      return;
-    }
+    if (!mounted) return;
     setState(() {
       _biometricEnabled = enabled;
     });
+
+    try {
+      final preference = await SharedPreferences.getInstance();
+      await preference.setBool('biometricEnabled', enabled);
+    } catch (_) {}
   }
 
   // Changes: Añadir ajustes de borrado de cuenta
