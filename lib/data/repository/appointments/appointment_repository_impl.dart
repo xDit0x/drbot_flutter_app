@@ -8,4 +8,9 @@ class AppointmentRepositoryImpl implements AppointmentRepository {
   Future<Either<dynamic, dynamic>> getAppointments() {
     return sl<AppointmentFirebaseService>().getAppointments();
   }
+
+  @override
+  Future<Either<dynamic, dynamic>> removeAppointment(String id) {
+    return sl<AppointmentFirebaseService>().removeAppointment(id);
+  }
 }
