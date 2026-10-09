@@ -11,6 +11,7 @@ import 'package:flutter_learning/data/sources/clinical/clinical_firebase_service
 import 'package:flutter_learning/domain/repository/auth/auth.dart';
 import 'package:flutter_learning/domain/repository/contact/contact_repository.dart';
 import 'package:flutter_learning/domain/usecases/appointments/get_appointments.dart';
+import 'package:flutter_learning/domain/usecases/appointments/remove_appointment.dart';
 import 'package:flutter_learning/domain/usecases/auth/sign_in.dart';
 import 'package:flutter_learning/domain/usecases/auth/sign_up.dart';
 import 'package:flutter_learning/domain/usecases/clinical/get_clinical_info.dart';
@@ -46,6 +47,8 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<AppointmentRepository>(AppointmentRepositoryImpl());
 
   sl.registerSingleton<GetAppointmentsUseCase>(GetAppointmentsUseCase());
+
+  sl.registerSingleton<RemoveAppointmentUseCase>(RemoveAppointmentUseCase());
 
   sl.registerSingleton<AppointmentFirebaseService>(
     AppointmentFirebaseServiceImpl(),

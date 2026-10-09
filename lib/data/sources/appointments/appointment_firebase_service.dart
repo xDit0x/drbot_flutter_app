@@ -6,6 +6,7 @@ import 'package:flutter_learning/domain/entities/appointments/appointment.dart';
 
 abstract class AppointmentFirebaseService {
   Future<Either> getAppointments();
+  Future<Either> removeAppointment(String id);
 }
 
 class AppointmentFirebaseServiceImpl implements AppointmentFirebaseService {
@@ -41,6 +42,31 @@ class AppointmentFirebaseServiceImpl implements AppointmentFirebaseService {
     } catch (e) {
       debugPrint('Appointments read error $e');
       return Left('Error inesperado al cargar las citas.');
+    }
+  }
+
+  @override
+  Future<Either<dynamic, dynamic>> removeAppointment(String id) async {
+    try {
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      if (uid == null) {
+        return Left('Sesión no válida. Vuelve a iniciar sesión.');
+      }
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('appointments')
+          .doc(id)
+          .delete();
+      return Right(true);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'permission-denied') {
+        return Left('Sin permiso. Revisa las reglas de Firestore');
+      }
+      return Left('No se pudo eliminar la cita.');
+    } catch (e) {
+      debugPrint('Appointments remove error $e');
+      return Left('Error inesperado al eliminar la cita.');
     }
   }
 }

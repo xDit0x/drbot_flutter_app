@@ -1,9 +1,11 @@
 import 'package:dartz/dartz.dart' hide State;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
 import 'package:flutter_learning/core/configs/theme/app_colors.dart';
 import 'package:flutter_learning/domain/entities/appointments/appointment.dart';
 import 'package:flutter_learning/domain/usecases/appointments/get_appointments.dart';
+import 'package:flutter_learning/domain/usecases/appointments/remove_appointment.dart';
 import 'package:flutter_learning/service_locator.dart';
 
 class AppointmentPage extends StatefulWidget {
@@ -15,6 +17,77 @@ class AppointmentPage extends StatefulWidget {
 
 class _AppointmentPageState extends State<AppointmentPage> {
   late Future<Either> _future;
+
+  Future<void> _removeAppointment(
+    BuildContext btnCtx,
+    Appointment appointment,
+  ) async {
+    final RenderBox button = btnCtx.findRenderObject()! as RenderBox;
+    final RenderBox overlay =
+        Navigator.of(btnCtx).context.findRenderObject()! as RenderBox;
+    final topLeft = button.localToGlobal(Offset.zero, ancestor: overlay);
+
+    const gap = 8.0;
+
+    var position = RelativeRect.fromLTRB(
+      topLeft.dx,
+      topLeft.dy,
+      overlay.size.width - button.size.width,
+      overlay.size.height - button.size.height,
+    );
+    final confirm = await showMenu<bool>(
+      color: Theme.of(context).colorScheme.surfaceContainerHigh,
+      popUpAnimationStyle: AnimationStyle(
+        curve: Curves.fastOutSlowIn,
+        duration: Duration(milliseconds: 150),
+      ),
+      context: btnCtx,
+      position: position,
+      items: [
+        PopupMenuItem(
+          value: true,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Icon(Icons.delete_rounded, color: Colors.red, size: 26),
+              const SizedBox(width: 8),
+              // Text(
+              //   '¿Confirmar eliminación?',
+              //   style: TextStyle(
+              //     color: Theme.of(context).colorScheme.inverseSurface,
+              //     fontWeight: FontWeight.w600,
+              //   ),
+              // ),
+            ],
+          ),
+        ),
+      ],
+    );
+
+    if (confirm != true) return;
+
+    final result = await sl<RemoveAppointmentUseCase>().call(
+      params: appointment.id,
+    );
+    if (!mounted) return;
+
+    result.fold(
+      (l) => SnackbarRoot.show(
+        context,
+        l.toString(),
+        selection: SnackbarRootType.bad,
+      ),
+      (r) {
+        SnackbarRoot.show(
+          context,
+          'Cita eliminada',
+          selection: SnackbarRootType.ok,
+        );
+        setState(_load); // recarga el FutureBuilder
+      },
+    );
+  }
 
   @override
   void initState() {
@@ -123,15 +196,17 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                   .colorScheme
                                   .surfaceContainerHigh,
                             ),
-                            child: IconButton(
-                              onPressed: () {
-                                HapticFeedback.heavyImpact();
-                                // _removeAppointment(context, appointment);
-                              },
-                              icon: const Icon(
-                                size: 26,
-                                Icons.delete_rounded,
-                                color: Color.fromARGB(255, 255, 0, 0),
+                            child: Builder(
+                              builder: (btnCtx) => IconButton(
+                                onPressed: () {
+                                  HapticFeedback.heavyImpact();
+                                  _removeAppointment(btnCtx, appointment);
+                                },
+                                icon: const Icon(
+                                  size: 26,
+                                  Icons.delete_rounded,
+                                  color: Color.fromARGB(255, 255, 0, 0),
+                                ),
                               ),
                             ),
                           ),
@@ -146,17 +221,4 @@ class _AppointmentPageState extends State<AppointmentPage> {
       },
     );
   }
-}
-
-Future<void> _removeAppointment(
-  BuildContext context,
-  Appointment appointment,
-  RelativeRect deletePosition,
-) async {
-  final selection;
-  await showMenu(
-    context: context,
-    items: [CheckedPopupMenuItem(child: Text("test"))],
-    position: deletePosition,
-  );
 }
