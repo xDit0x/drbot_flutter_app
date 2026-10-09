@@ -1,3 +1,5 @@
+import 'package:flutter_learning/domain/entities/clinical/medical_center.dart';
+
 enum AppointmentStatus {
   scheduled('Programada'),
   completed('Completada'),
@@ -21,6 +23,7 @@ class Appointment {
   final String? doctorId;
   final String specialty;
   final AppointmentStatus status;
+  final MedicalCenter medicalCenter;
 
   const Appointment({
     required this.id,
@@ -29,6 +32,7 @@ class Appointment {
     required this.specialty,
     this.date,
     this.doctorId,
+    required this.medicalCenter,
   });
 
   factory Appointment.fromMap(String id, Map<String, dynamic> map) {
@@ -45,6 +49,7 @@ class Appointment {
       status: AppointmentStatus.fromName((map['status'] as String?)),
       date: date,
       specialty: (map['specialty'] ?? '').toString(),
+      medicalCenter: MedicalCenter.fromMap((map['medicalCenter'])),
     );
   }
 }
