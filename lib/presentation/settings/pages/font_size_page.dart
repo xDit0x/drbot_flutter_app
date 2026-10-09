@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_learning/presentation/settings/font_scale.dart';
+import 'package:flutter_learning/presentation/settings/widgets/font_scale.dart';
 
 class FontSizePage extends StatefulWidget
 {

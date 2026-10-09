@@ -3,7 +3,7 @@ import 'package:flutter_learning/core/configs/assets/app_vectors.dart';
 import 'package:flutter_learning/presentation/appointments/pages/appointment.dart';
 import 'package:flutter_learning/presentation/profile/pages/profile.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_learning/presentation/settings/settings_page.dart';
+import 'package:flutter_learning/presentation/settings/pages/settings_page.dart';
 
 class RootDestination {
   final Widget icon;

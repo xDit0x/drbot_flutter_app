@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_learning/presentation/auth/pages/signin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_learning/presentation/settings/font_size_page.dart';
-import 'package:flutter_learning/presentation/settings/about_page.dart';
-import 'package:flutter_learning/presentation/settings/screen_reader_page.dart';
-import 'package:flutter_learning/presentation/settings/biometric_service.dart';
-import 'package:flutter_learning/presentation/settings/change_password_page.dart';
+import 'package:flutter_learning/presentation/settings/pages/font_size_page.dart';
+import 'package:flutter_learning/presentation/settings/pages/about_page.dart';
+import 'package:flutter_learning/presentation/settings/pages/screen_reader_page.dart';
+import 'package:flutter_learning/presentation/settings/widgets/biometric_service.dart';
+import 'package:flutter_learning/presentation/settings/pages/change_password_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});

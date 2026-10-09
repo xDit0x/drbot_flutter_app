@@ -10,7 +10,7 @@ import 'package:flutter_learning/service_locator.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:flutter_learning/core/configs/theme/app_theme.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter_learning/presentation/settings/font_scale.dart';
+import 'package:flutter_learning/presentation/settings/widgets/font_scale.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
