@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_learning/domain/models/auth/create_user_request.dart';
 import 'package:flutter_learning/domain/models/auth/signin_user_request.dart';
 
 abstract class AuthFirebaseService {
   Future<Either> signUp(CreateUserReq createUserRequest);
   Future<Either> signIn(SigninUserRequest signinUserRequest);
+  Future<Either> sendPasswordResetEmail(String email);
 }
 
 class AuthFirebaseServieImpl extends AuthFirebaseService {
@@ -53,6 +55,34 @@ class AuthFirebaseServieImpl extends AuthFirebaseService {
         message = 'Ya existe una cuenta con ese correo';
       }
       return Left(message);
+    }
+  }
+
+  @override
+  Future<Either<dynamic, dynamic>> sendPasswordResetEmail(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+
+      return Right('Correo de recuperación enviado');
+    } on FirebaseException catch (e) {
+      String message = '';
+      if (e.code == 'invalid-email') {
+        message = 'El correo no es válido';
+      } else if (e.code == 'user-not-found') {
+        message = 'No existe una cuenta con ese correo';
+      } else if (e.code == 'user-disabled') {
+        message = 'Esa cuenta está deshabilitada';
+      } else if (e.code == 'too-many-requests') {
+        message = 'Demasiados intentos, inténtalo más tarde';
+      } else if (e.code == 'network-request-failed') {
+        message = 'Sin conexión, revisa tu red';
+      } else {
+        message = 'No se pudo enviar el correo';
+      }
+      return Left(message);
+    } catch (e) {
+      debugPrint('Error sending Password Reset Email $e');
+      return Left('Error de conexión');
     }
   }
 }

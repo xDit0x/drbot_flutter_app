@@ -15,4 +15,9 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Either> signUp(CreateUserReq createUserRequest) async {
     return await sl<AuthFirebaseService>().signUp(createUserRequest);
   }
+
+  @override
+  Future<Either<dynamic, dynamic>> sendPasswordResetEmail(String email) async {
+    return await sl<AuthFirebaseService>().sendPasswordResetEmail(email);
+  }
 }

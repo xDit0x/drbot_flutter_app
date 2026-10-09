@@ -5,7 +5,6 @@ import 'package:flutter_learning/presentation/pages/help_page.dart';
 import 'package:flutter_learning/presentation/profile/pages/profile.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_learning/presentation/settings/pages/settings_page.dart';
-import 'package:flutter_learning/presentation/help/pages/help_page.dart';
 
 class RootDestination {
   final Widget icon;
@@ -78,6 +77,11 @@ class RootDestination {
       icon: Icon(Icons.history_rounded, size: 30),
       label: 'Historial clínico',
       page: Center(child: Text('Historial clínico')),
+    ),
+    RootDestination(
+      icon: Icon(Icons.medical_information_rounded, size: 30),
+      label: 'Mis tarjetas',
+      page: Center(child: Text('Mis tarjetas')),
     ),
   ];
 }
