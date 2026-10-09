@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/core/configs/assets/app_vectors.dart';
 import 'package:flutter_learning/presentation/appointments/pages/appointment.dart';
+import 'package:flutter_learning/presentation/pages/help_page.dart';
 import 'package:flutter_learning/presentation/profile/pages/profile.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_learning/presentation/settings/pages/settings_page.dart';
+import 'package:flutter_learning/presentation/help/pages/help_page.dart';
 
 class RootDestination {
   final Widget icon;
@@ -65,7 +67,7 @@ class RootDestination {
     RootDestination(
       icon: Icon(Icons.help_center_rounded, size: 30),
       label: 'Ayuda',
-      page: Center(child: Text('Ayuda')),
+      page: const HelpPage(),
     ),
     RootDestination(
       icon: Icon(Icons.medication_liquid_rounded, size: 30),
