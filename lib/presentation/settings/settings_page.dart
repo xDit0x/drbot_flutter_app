@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_learning/presentation/auth/pages/signin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_learning/presentation/settings/font_size_page.dart';
 import 'package:flutter_learning/presentation/settings/about_page.dart';
 import 'package:flutter_learning/presentation/settings/screen_reader_page.dart';
 import 'package:flutter_learning/presentation/settings/biometric_service.dart';
+import 'package:flutter_learning/presentation/settings/change_password_page.dart';
 
 class SettingsPage extends StatefulWidget
 {
@@ -98,20 +102,101 @@ class _SettingsPageState extends State<SettingsPage>
     setState(() { _biometricEnabled = enabled; });
   }
 
-  // Changes: Añadir ajustes de borrado de cuenta
-  /*
   Future<void> _deleteAccount() async
   {
     final confirm = await showDialog<bool>
     (
-      context,
+      context: context,
       builder: (dialogContext) => AlertDialog
       (
-        title: const Text
-      )
+        title: const Text('¿Desea darse de baja?'),
+        actions: 
+        [
+          TextButton
+          (
+            onPressed: () => Navigator.pop(dialogContext, false), 
+            child: const Text('Cancelar'),
+          ),
+          TextButton
+          (
+            onPressed: () => Navigator.pop(dialogContext, true), 
+            child: const Text('Continuar'),
+          ),
+        ],
+      ),
     );
+    
+    if(confirm != true) { return; }
+
+    final user = FirebaseAuth.instance.currentUser;
+    final email = user?.email;
+
+    if(user == null || email == null) { return; }
+
+    String password = '';
+
+    final passw = await showDialog<String>
+    (
+      context: context,
+      builder: (dialogContext) => AlertDialog
+      (
+        title: const Text('Verifique su identidad'),
+        content: TextField
+        (
+          obscureText: true,
+          decoration: const InputDecoration
+          (
+            labelText: 'Contraseña actual'
+          ),
+          onChanged: (value) => password = value,
+        ),
+        actions: 
+        [
+          TextButton
+          (
+            onPressed: () => Navigator.pop(dialogContext), 
+            child: const Text('Cancelar'),
+          ),
+          TextButton
+          (
+            onPressed: () => Navigator.pop(dialogContext, password), 
+            child: const Text('Eliminar cuenta'),
+          ),
+        ], 
+      ),
+    );
+
+
+    if(passw == null || passw.isEmpty) { return; }
+
+    try
+    {
+      final credencialUser = EmailAuthProvider.credential(email: email, password: passw);
+
+      await user.reauthenticateWithCredential(credencialUser);
+
+      await FirebaseFirestore.instance.collection('Users').doc(user.uid).delete();
+
+      await user.delete();
+
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('La cuenta se ha eliminado correctamente')));
+
+      Navigator.of(context).pushAndRemoveUntil
+      (
+        MaterialPageRoute<void>
+        (
+          builder: (_) => const SignInPage(),
+        ),
+        (route) => false,
+      );
+    }
+    on FirebaseAuthException catch (e)
+    {
+      if(!mounted) { return; }
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No se ha podido eliminar la cuenta: $e')));
+    }
   }
-  */
 
   Widget _section(String title, List<Widget> children)
   {
@@ -196,12 +281,22 @@ class _SettingsPageState extends State<SettingsPage>
               (
                 icon: Icons.lock_outline, 
                 title:  'Cambiar contraseña',
+                onTap: () 
+                {
+                  Navigator.push
+                  (
+                    context, 
+                    MaterialPageRoute(builder: (_) => const ChangePasswordPage())
+                  );
+                }
               ),
 
               _option
               (
                 icon: Icons.person_remove_outlined, 
                 title:  'Darse de baja',
+                onTap: _deleteAccount,
+
               ),
             ]
           ),

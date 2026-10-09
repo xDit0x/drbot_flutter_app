@@ -7,6 +7,8 @@ import 'package:flutter_learning/data/sources/clinical/medical_center_csv.dart';
 import 'package:flutter_learning/domain/entities/clinical/medical_center.dart';
 
 import 'package:flutter_learning/presentation/profile/widgets/medical_center_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class ClinicInfoView extends StatefulWidget {
   const ClinicInfoView({super.key});
@@ -38,77 +40,127 @@ class _ClinicInfoViewState extends State<ClinicInfoView> {
 
       if (!mounted) return;
 
-      setState(() {
+      setState(() 
+      {
         _healthCenter = assigned.healthCenter;
         _hospital = assigned.hospital;
         _loadingAssignedCenters = false;
       });
-    } catch (error) {
+    } 
+    catch (error) 
+    {
       if (!mounted) return;
 
-      setState(() {
+      setState(() 
+      {
         _assignedCentersError = error.toString();
         _loadingAssignedCenters = false;
       });
     }
   }
 
-  Future<void> _chooseCenter({required bool hospital}) async {
+  Future<void> _chooseCenter({required bool hospital}) async 
+  {
     setState(() => _savingCenter = true);
 
-    try {
-      final List<MedicalCenter> centers = hospital
-          ? await _csvService.loadHospitals()
-          : await _csvService.loadHealthCenters();
+    try 
+    {
+      final alreadySelected = hospital ? _hospital : _healthCenter;
+
+      if(alreadySelected != null)
+      {
+        _showMessage('Para cambiar el centro de salud, solicita el cambio a los administradores', SnackbarRootType.bad);
+        return;
+      }
+      if(hospital && _healthCenter == null)
+      {
+        _showMessage('Primero seleccione un centro de salud de referencia', SnackbarRootType.bad);
+        return;
+      }
+
+      final List<MedicalCenter> loadedCenters = hospital ? await _csvService.loadHospitals() : await _csvService.loadHealthCenters();
+      final List<MedicalCenter> centers = [];
+      
+      for(final center in loadedCenters)
+      {
+        final mismaComunidad = _healthCenter != null && center.region.trim().toLowerCase() == _healthCenter!.region.trim().toLowerCase();
+
+        if(!hospital || mismaComunidad)
+        {
+          centers.add(center);
+        }
+      }
 
       if (!mounted) return;
 
-      final selectedCenter = await showDialog<MedicalCenter>(
+      final selectedCenter = await showDialog<MedicalCenter>
+      (
         context: context,
-        builder: (context) =>
-            MedicalCenterPicker(centers: centers, hospitals: hospital),
+        builder: (context) => MedicalCenterPicker(centers: centers, hospitals: hospital),
       );
 
       if (!mounted || selectedCenter == null) return;
 
-      if (hospital) {
+      if (hospital) 
+      {
         await _assignedService.saveHospital(selectedCenter);
-      } else {
+      } 
+      else 
+      {
         await _assignedService.saveHealthCenter(selectedCenter);
       }
 
       if (!mounted) return;
 
-      setState(() {
-        if (hospital) {
+      setState(() 
+      {
+        if (hospital) 
+        {
           _hospital = selectedCenter;
-        } else {
+        } 
+        else 
+        {
           _healthCenter = selectedCenter;
         }
       });
 
-      _showMessage(
-        hospital
-            ? 'Hospital de referencia guardado.'
-            : 'Centro de salud de referencia guardado.',
-        SnackbarRootType.ok,
-      );
-    } catch (error) {
-      _showMessage(
-        'No se pudo cargar o guardar el centro: $error',
-        SnackbarRootType.bad,
-      );
-    } finally {
-      if (mounted) {
-        setState(() => _savingCenter = false);
-      }
+      _showMessage( hospital ? 'Hospital de referencia guardado.' : 'Centro de salud de referencia guardado.', SnackbarRootType.ok);
+    } 
+    catch (error) 
+    {
+      _showMessage('No se pudo cargar o guardar el centro: $error', SnackbarRootType.bad);
+    } 
+    finally 
+    {
+      if (mounted) { setState(() => _savingCenter = false); }
     }
   }
 
-  void _showMessage(String message, SnackbarRootType selection) {
-    SnackbarRoot.show(context, message, selection: selection);
+  Future<void> _requestCenterChange({required bool hospital}) async
+  {
+    const emailAdmin = 'correo_admin@drbot.com';
+    final center = hospital ? _hospital : _healthCenter;
+    final centerType = hospital ? 'hospital' : 'centro de salud';
+
+    final uri = Uri
+    (
+      scheme: 'mailto',
+      path: emailAdmin,
+      query: 'subject=${Uri.encodeComponent('Solicitud de cambio de centro')}'
+      '&body=${Uri.encodeComponent('Solicito cambiar mi $centerType de referencia. ')}'
+      '\nCentro actual: ${center?.name ?? 'Sin asignar'}'
+      '\nComunidad autónoma: ${center?.region ?? ''}'
+    );
+
+    if(!await launchUrl(uri) && mounted)
+    {
+      _showMessage('No se pudo abrir la aplicación de correo', SnackbarRootType.bad);
+    }
   }
 
+  void _showMessage(String message, SnackbarRootType selection) { SnackbarRoot.show(context, message, selection: selection); }
+
+  
   // Widget _buildClinicalInfo(AsyncSnapshot<Either> snapshot) {
   //   if (snapshot.connectionState == ConnectionState.waiting) {
   //     return const Padding(
@@ -130,43 +182,50 @@ class _ClinicInfoViewState extends State<ClinicInfoView> {
   //   if (result == null) return const SizedBox.shrink();
   // }
 
-  Widget _buildReferenceTile({
-    required String title,
-    required IconData icon,
-    required MedicalCenter? center,
-  }) {
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      leading: Icon(icon),
-      title: Text(title),
-      subtitle: Text(
-        center == null
-            ? 'Sin asignar'
-            : '${center.name} · ${center.municipality}, ${center.province}',
-      ),
-    );
-  }
-
-  Widget _buildReferenceButton({required bool hospital}) {
-    return SizedBox(
-      width: double.infinity,
-      child: OutlinedButton.icon(
-        onPressed: _savingCenter
-            ? null
-            : () => _chooseCenter(hospital: hospital),
-        icon: _savingCenter
-            ? const SizedBox(
-                width: 16,
-                height: 16,
-                child: CircularProgressIndicator(strokeWidth: 2),
-              )
-            : const Icon(Icons.search),
-        label: Text(
-          hospital
-              ? 'Elegir hospital de referencia'
-              : 'Elegir centro de salud de referencia',
+  Widget _buildReferenceTile
+  (
+    {
+      required String title,
+      required IconData icon,
+      required MedicalCenter? center,
+    }) 
+    {
+      return ListTile
+      (
+        contentPadding: EdgeInsets.zero,
+        leading: Icon(icon),
+        title: Text(title),
+        subtitle: Text
+        (
+          center == null ? 'Sin asignar' : '${center.name} · ${center.municipality}, ${center.province}',
         ),
-      ),
+      );
+    }
+
+  Widget _buildReferenceButton({required bool hospital}) 
+  {
+    final selectedCenter = hospital ? _hospital : _healthCenter;
+
+    if(selectedCenter != null)
+    {
+      return TextButton.icon
+      (
+        onPressed: () => _requestCenterChange(hospital: hospital), 
+        icon: Icon(Icons.email_outlined), 
+        label: const Text('Solicitar cambio al administrador')
+      );
+    }
+
+    return IconButton
+    (
+      tooltip: hospital ? 'Elegir hospital de referncia' : 'Elegir centro de salud de referencia', 
+      onPressed: _savingCenter ? null : () => _chooseCenter(hospital: hospital),
+      icon: _savingCenter ? const SizedBox
+      (
+        width: 20,
+        height: 20,
+        child: CircularProgressIndicator(strokeWidth: 2,),
+      ) : const Icon(Icons.search)
     );
   }
 
