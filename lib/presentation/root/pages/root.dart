@@ -12,7 +12,7 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
-  int currentPageIndex = 1;
+  int currentPageIndex = 0;
   RootDestination? selectedSheetFeature; // patrón null-aware, si se selecciona una del dock, ya no es null, asique el body coge la página del sheet, si no se ha seleccionado niguna del features, es null -> coge del dock
 
   final dock = RootDestination.rootDestinations

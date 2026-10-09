@@ -4,14 +4,25 @@ import 'package:flutter_learning/presentation/auth/pages/signin.dart';
 import 'package:flutter_learning/presentation/root/pages/root.dart';
 import 'package:flutter_learning/presentation/settings/widgets/biometric_lock_gate.dart';
 
-class AuthGate extends StatelessWidget
-{
+class AuthGate extends StatefulWidget {
   const AuthGate({super.key});
+
+  @override
+  State<AuthGate> createState() => _AuthGateState();
+}
+
+class _AuthGateState extends State<AuthGate> {
+  // El stream se crea UNA vez: si se creara en el build, cada rebuild
+  // (p. ej. cambio de tema) generaría un objeto nuevo, el StreamBuilder
+  // se re-suscribiría, pasaría por waiting (spinner) y remontaría RootPage
+  // perdiendo todo su estado (incluida la pestaña del perfil).
+  late final Stream<User?> _authStateChanges =
+      FirebaseAuth.instance.authStateChanges();
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
+      stream: _authStateChanges,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) 
         {
