@@ -149,6 +149,9 @@ class _MedicalCardsPageState extends State<MedicalCardPage>
                 number: publicNumber,
               ),
 
+            if(hasPublic && hasPrivate)
+              const SizedBox(height: 24),
+            
             if(hasPrivate)
               _buildCard
               (
