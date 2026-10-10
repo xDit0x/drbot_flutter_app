@@ -7,6 +7,7 @@ class MedicalCenter
   final String municipality;
   final String type;
   final String dependence;
+  final List<String> insurers;
 
   const MedicalCenter({
     required this.code,
@@ -16,6 +17,8 @@ class MedicalCenter
     required this.municipality,
     required this.type,
     required this.dependence,
+    this.insurers = const[]
+    
   });
 
   Map<String, dynamic> toMap()
@@ -28,12 +31,16 @@ class MedicalCenter
       'municipality': municipality,
       'type': type,
       'dependence': dependence,
+      'insurers': insurers,
     };
   }
 
   factory MedicalCenter.fromMap(Map<String, dynamic> map)
   {
-    return MedicalCenter(
+    final rawInsurers = map['insurers'];
+
+    return MedicalCenter
+    (
       code: (map['code'] ?? '').toString(),
       name: (map['name'] ?? '').toString(),
       region: (map['region'] ?? '').toString(),
@@ -41,6 +48,7 @@ class MedicalCenter
       municipality: (map['municipality'] ?? '').toString(),
       type: (map['type'] ?? '').toString(),
       dependence: (map['dependence'] ?? '').toString(),
+      insurers: rawInsurers is List ? rawInsurers.map((value) => value.toString()).toList() : const [],
     );
   }
 }

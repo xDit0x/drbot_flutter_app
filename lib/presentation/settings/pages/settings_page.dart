@@ -189,9 +189,28 @@ class _SettingsPageState extends State<SettingsPage> {
 
       await user.reauthenticateWithCredential(credencialUser);
 
-      await FirebaseFirestore.instance.collection('Users').doc(user.uid).delete();
+      final userDoc = FirebaseFirestore.instance.collection('Users').doc(user.uid);
 
-      await user.delete();
+      final document = await userDoc.get();
+      final savedData = document.data();
+
+      await userDoc.delete();
+
+      try 
+      {
+        await user.delete();
+      } 
+      catch (_) 
+      {
+        if (savedData != null && FirebaseAuth.instance.currentUser != null) 
+        {
+          await userDoc.set(savedData, SetOptions(merge: true));
+        }
+        
+        rethrow;
+      }
+
+      if (!mounted) { return; }
 
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('La cuenta se ha eliminado correctamente')));
 
@@ -208,7 +227,12 @@ class _SettingsPageState extends State<SettingsPage> {
     {
       if(!mounted) { return; }
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No se ha podido eliminar la cuenta: $e')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No se ha podido eliminar la cuenta: ${e.message} ?? e.code')));
+    }
+    catch (e)
+    {
+      if(!mounted) { return; }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No se han podido eliminar los datos: $e')));
     }
   }
 

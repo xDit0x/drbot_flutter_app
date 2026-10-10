@@ -9,6 +9,8 @@ import 'package:flutter_learning/domain/usecases/auth/sign_up.dart';
 import 'package:flutter_learning/presentation/auth/pages/signin.dart';
 import 'package:flutter_learning/presentation/root/pages/root.dart';
 import 'package:flutter_learning/service_locator.dart';
+import 'package:flutter_learning/presentation/auth/pages/insurance_selection_page.dart';
+import 'package:flutter_learning/domain/models/auth/create_user_request.dart';
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
@@ -40,21 +42,30 @@ class SignUpPage extends StatelessWidget {
             SizedBox(height: 20),
             BasicAppButton(
               onPressed: () async {
-                if (_email.text.trim().isEmpty || _password.text.isEmpty) {
+                if (_fullname.text.trim().isEmpty || _email.text.trim().isEmpty || _password.text.isEmpty) {
                   SnackbarRoot.show(
                     context,
-                    'Introduce el email y la contraseña',
+                    'Complete todos los campos',
                     selection: SnackbarRootType.warning,
                   );
                   return;
                 }
-                var result = await sl<SignUpUseCase>().call(
-                  params: CreateUserReq(
+
+                final result = await sl<SignUpUseCase>().call(
+                  params: CreateUserReq
+                  (
                     fullName: _fullname.text.toString(),
                     email: _email.text.toString(),
                     password: _password.text.toString(),
+                    publicCoverty: false,
+                    privateCoverty: false,
+                    privateCompany: null,
                   ),
                 );
+                
+
+                if(!context.mounted) { return; }
+
                 result.fold(
                   (l) {
                     //LEFT = no ha ido bien
@@ -68,9 +79,9 @@ class SignUpPage extends StatelessWidget {
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (BuildContext context) => const RootPage(),
+                        builder: (BuildContext context) => const InsuranceSelectionPage(),
                       ),
-                      (route) => false,
+                      (route) => route.isFirst,
                     );
                   },
                 );

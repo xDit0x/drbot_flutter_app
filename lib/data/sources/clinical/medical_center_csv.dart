@@ -32,9 +32,16 @@ class MedicalCenterCsv
 
     if(rows.isEmpty) { return []; }
 
-    final headers = rows.first.map((value) => value.replaceFirst('\uFEFF', '').trim().toLowerCase()).toList();
+    String normalizeHeader(String value)
+    {
+      return value.replaceFirst('\uFEFF', '').trim().toLowerCase().replaceAll('á', 'a').replaceAll('é', 'e')
+      .replaceAll('í', 'i').replaceAll('ó', 'o').replaceAll('ú', 'u');
+    }
 
-    int column(String name) => headers.indexOf(name.toLowerCase());
+    final headers = rows.first.map(normalizeHeader).toList();
+
+    int column(String name) => headers.indexOf(normalizeHeader(name));
+
 
     final codeColumn = column('Código de Centro Normalizado REGCESS (CCN)');
     final nameColumn = column('Nombre de Centro');
@@ -42,7 +49,8 @@ class MedicalCenterCsv
     final provinceColumn = column('Provincia');
     final municipalityColumn = column('Municipio');
     final typeColumn = column('Clase de Centro');
-    final dependeceColumn = column('Dependencia Funcional');
+    final dependenceColumn = column('Dependencia Funcional');
+    final insurerColumn = column('Aseguradoras');
 
     String valueAt(List<String> row, int index)
     {
@@ -50,15 +58,23 @@ class MedicalCenterCsv
       return row[index].trim();
     }
 
-    return rows.skip(1).map((row) => MedicalCenter(
-      code: valueAt(row, codeColumn),
-      name: valueAt(row, nameColumn),
-      region: valueAt(row, regionColumn),
-      province: valueAt(row, provinceColumn),
-      municipality: valueAt(row, municipalityColumn),
-      type: valueAt(row, typeColumn),
-      dependence: valueAt(row, dependeceColumn),
-    )).toList(); 
+
+    return rows.skip(1).map((row) 
+    {
+      final insurers = valueAt(row, insurerColumn).split(',').map((name) => name.trim().toUpperCase()).where((name) => name.isNotEmpty).toList();
+
+      return MedicalCenter
+      (
+        code: valueAt(row, codeColumn),
+        name: valueAt(row, nameColumn),
+        region: valueAt(row, regionColumn),
+        province: valueAt(row, provinceColumn),
+        municipality: valueAt(row, municipalityColumn),
+        type: valueAt(row, typeColumn),
+        dependence: valueAt(row, dependenceColumn),
+        insurers: insurers,
+      );
+    }).toList();
   }
 
   String _decode(List<int> bytes)

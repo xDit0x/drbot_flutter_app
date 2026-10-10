@@ -8,7 +8,7 @@ class AboutPage extends StatelessWidget
   Future<String> _getVersion() async
   {
     final info = await PackageInfo.fromPlatform();
-    return 'Versión ${info.version}+${info.buildNumber}';
+    return 'Versión ${info.version}';
   }
 
   @override
@@ -36,7 +36,7 @@ class AboutPage extends StatelessWidget
               [
                 Image.asset
                 (
-                  'assets/images/drbot_icon4.png',
+                  'assets/images/drbot_logo_transparente.png',
                   width: 120,
                   height: 120,
                 ),

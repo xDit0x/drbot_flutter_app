@@ -44,6 +44,11 @@ class AuthFirebaseServieImpl extends AuthFirebaseService {
       await FirebaseFirestore.instance.collection('Users').doc(uid).set({
         'fullName': createUserRequest.fullName,
         'email': data.user?.email,
+        'publicCoverage': createUserRequest.publicCoverty,
+        'privateCoverage': createUserRequest.privateCoverty,
+        'privateCompany': createUserRequest.privateCompany,
+        'referenceHealthCenter': createUserRequest.healthCenter?.toMap(),
+        'referenceHospital': createUserRequest.hospital?.toMap()
       }, SetOptions(merge: true));
       return Right('El registro fue completado');
     } on FirebaseAuthException catch (e) {

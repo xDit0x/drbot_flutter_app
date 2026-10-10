@@ -1,145 +1,43 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
-
-import 'package:flutter_learning/data/sources/clinical/assigned_center_service.dart';
-import 'package:flutter_learning/data/sources/clinical/medical_center_csv.dart';
-
 import 'package:flutter_learning/domain/entities/clinical/medical_center.dart';
-
-import 'package:flutter_learning/presentation/profile/widgets/medical_center_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
-class ClinicInfoView extends StatefulWidget {
+class ClinicInfoView extends StatefulWidget 
+{
   const ClinicInfoView({super.key});
 
   @override
   State<ClinicInfoView> createState() => _ClinicInfoViewState();
 }
 
-class _ClinicInfoViewState extends State<ClinicInfoView> {
-  final MedicalCenterCsv _csvService = MedicalCenterCsv();
-  final AssignedCenterService _assignedService = AssignedCenterService();
+class _ClinicInfoViewState extends State<ClinicInfoView> 
+{
+  late final Future<Map<String, dynamic>?> _userData = _loadUserData();
 
-  MedicalCenter? _healthCenter;
-  MedicalCenter? _hospital;
-
-  bool _loadingAssignedCenters = true;
-  bool _savingCenter = false;
-  String? _assignedCentersError;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadAssignedCenters();
-  }
-
-  Future<void> _loadAssignedCenters() async {
-    try {
-      final assigned = await _assignedService.load();
-
-      if (!mounted) return;
-
-      setState(() 
-      {
-        _healthCenter = assigned.healthCenter;
-        _hospital = assigned.hospital;
-        _loadingAssignedCenters = false;
-      });
-    } 
-    catch (error) 
-    {
-      if (!mounted) return;
-
-      setState(() 
-      {
-        _assignedCentersError = error.toString();
-        _loadingAssignedCenters = false;
-      });
-    }
-  }
-
-  Future<void> _chooseCenter({required bool hospital}) async 
+  Future<Map<String, dynamic>?> _loadUserData() async
   {
-    setState(() => _savingCenter = true);
+    final uid = FirebaseAuth.instance.currentUser?.uid;
 
-    try 
-    {
-      final alreadySelected = hospital ? _hospital : _healthCenter;
+    if(uid == null) { return null; }
 
-      if(alreadySelected != null)
-      {
-        _showMessage('Para cambiar el centro de salud, solicita el cambio a los administradores', SnackbarRootType.bad);
-        return;
-      }
-      if(hospital && _healthCenter == null)
-      {
-        _showMessage('Primero seleccione un centro de salud de referencia', SnackbarRootType.bad);
-        return;
-      }
+    final document = await FirebaseFirestore.instance.collection('Users').doc(uid).get();
+    return document.data();
 
-      final List<MedicalCenter> loadedCenters = hospital ? await _csvService.loadHospitals() : await _csvService.loadHealthCenters();
-      final List<MedicalCenter> centers = [];
-      
-      for(final center in loadedCenters)
-      {
-        final mismaComunidad = _healthCenter != null && center.region.trim().toLowerCase() == _healthCenter!.region.trim().toLowerCase();
-
-        if(!hospital || mismaComunidad)
-        {
-          centers.add(center);
-        }
-      }
-
-      if (!mounted) return;
-
-      final selectedCenter = await showDialog<MedicalCenter>
-      (
-        context: context,
-        builder: (context) => MedicalCenterPicker(centers: centers, hospitals: hospital),
-      );
-
-      if (!mounted || selectedCenter == null) return;
-
-      if (hospital) 
-      {
-        await _assignedService.saveHospital(selectedCenter);
-      } 
-      else 
-      {
-        await _assignedService.saveHealthCenter(selectedCenter);
-      }
-
-      if (!mounted) return;
-
-      setState(() 
-      {
-        if (hospital) 
-        {
-          _hospital = selectedCenter;
-        } 
-        else 
-        {
-          _healthCenter = selectedCenter;
-        }
-      });
-
-      _showMessage( hospital ? 'Hospital de referencia guardado.' : 'Centro de salud de referencia guardado.', SnackbarRootType.ok);
-    } 
-    catch (error) 
-    {
-      _showMessage('No se pudo cargar o guardar el centro: $error', SnackbarRootType.bad);
-    } 
-    finally 
-    {
-      if (mounted) { setState(() => _savingCenter = false); }
-    }
+  }
+  MedicalCenter? _readCenter(Object? value)
+  {
+    if(value is! Map) { return null; }
+    return MedicalCenter.fromMap(Map<String, dynamic>.from(value));
   }
 
-  Future<void> _requestCenterChange({required bool hospital}) async
+
+  Future<void> _requestCenterChange({required bool hospital, required MedicalCenter? center}) async
   {
     const emailAdmin = 'correo_admin@drbot.com';
-    final center = hospital ? _hospital : _healthCenter;
     final centerType = hospital ? 'hospital' : 'centro de salud';
 
     final uri = Uri
@@ -182,102 +80,128 @@ class _ClinicInfoViewState extends State<ClinicInfoView> {
   //   if (result == null) return const SizedBox.shrink();
   // }
 
-  Widget _buildReferenceTile
+  Widget _buildCenterSection
   (
     {
       required String title,
       required IconData icon,
       required MedicalCenter? center,
+      required bool hospital
     }) 
     {
-      return ListTile
+      return Column
       (
-        contentPadding: EdgeInsets.zero,
-        leading: Icon(icon),
-        title: Text(title),
-        subtitle: Text
-        (
-          center == null ? 'Sin asignar' : '${center.name} · ${center.municipality}, ${center.province}',
-        ),
+        children: 
+        [
+          ListTile
+          (
+            contentPadding: EdgeInsets.zero,
+            leading: Icon(icon),
+            title: Text(title),
+            subtitle: Text
+            (
+              center == null ? 'Sin asignar' : '${center.name}\n${center.municipality}, ${center.province} - ${center.region}',
+            ),
+            isThreeLine: center != null,
+          ),
+          Align
+          (
+            alignment: Alignment.centerLeft,
+            child: TextButton.icon
+            (
+              onPressed: () { _requestCenterChange(hospital: hospital, center: center);}, 
+              icon: const Icon(Icons.email_outlined),
+              label: const Text('Contactar con administración')
+            ),
+          )
+        ]
       );
     }
-
-  Widget _buildReferenceButton({required bool hospital}) 
-  {
-    final selectedCenter = hospital ? _hospital : _healthCenter;
-
-    if(selectedCenter != null)
-    {
-      return TextButton.icon
-      (
-        onPressed: () => _requestCenterChange(hospital: hospital), 
-        icon: Icon(Icons.email_outlined), 
-        label: const Text('Solicitar cambio al administrador')
-      );
-    }
-
-    return IconButton
-    (
-      tooltip: hospital ? 'Elegir hospital de referncia' : 'Elegir centro de salud de referencia', 
-      onPressed: _savingCenter ? null : () => _chooseCenter(hospital: hospital),
-      icon: _savingCenter ? const SizedBox
-      (
-        width: 20,
-        height: 20,
-        child: CircularProgressIndicator(strokeWidth: 2,),
-      ) : const Icon(Icons.search)
-    );
-  }
 
   @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 72),
-      children: [
-        const Text(
-          'Centros de referencia',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              children: [
-                if (_loadingAssignedCenters)
-                  const LinearProgressIndicator()
-                else ...[
-                  if (_assignedCentersError != null)
-                    Text(
-                      'No se cargaron las referencias: $_assignedCentersError',
-                    ),
-                  _buildReferenceTile(
-                    title: 'Centro de salud de referencia',
-                    icon: Icons.medical_services_outlined,
-                    center: _healthCenter,
-                  ),
-                  const SizedBox(height: 8),
-                  _buildReferenceButton(hospital: false),
-                  const Divider(),
-                  _buildReferenceTile(
-                    title: 'Hospital de referencia',
-                    icon: Icons.local_hospital_outlined,
-                    center: _hospital,
-                  ),
-                ],
-                const SizedBox(height: 8),
-                _buildReferenceButton(hospital: true),
-                const Padding(
-                  padding: EdgeInsets.only(top: 8),
-                  child: Text(
-                    'Busca por nombre, municipio o provincia o código REGCESS. ',
-                    style: TextStyle(fontSize: 12),
-                  ),
-                ),
-              ],
+  Widget build(BuildContext context) 
+  {
+    return FutureBuilder<Map<String, dynamic>?>
+    (
+      future: _userData,
+      builder: (context, snapshot)
+      {
+        if(snapshot.connectionState == ConnectionState.waiting)
+        {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if(snapshot.hasError)
+        {
+          return Center(child: Text('No se pudieron los datos de centros de referencia'));
+        }
+        
+        final data = snapshot.data;
+
+        if(data == null)
+        {
+          return Center(child: Text('No se encotraron los datos del usuario'));
+        }
+
+        final hasPublicCoverage = data['publicCoverage'] == true;
+        final hasPrivateCoverage = data['privateCoverage'] == true;
+        final privateCompany = data['privateCompany'] as String?;
+
+        final healthCenter = _readCenter(data['referenceHealthCenter']);
+        final hospital = _readCenter(data['referenceHospital']);
+
+        final coverages = <String>
+        [
+          if(hasPublicCoverage) 'Seguridad Social',
+          if(hasPrivateCoverage) 'Seguro privado${privateCompany == null ? '' : ' - $privateCompany'}'
+        ];
+
+        return ListView
+        (
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 72),
+          children: 
+          [
+            const Text('Cobertura sanitaria', style: TextStyle(fontWeight: FontWeight.bold)),
+            Card
+            (
+              child: Padding
+              (
+                padding: const EdgeInsets.all(12),
+                child: Text(coverages.isEmpty ? 'Sin cobertura registrada' : coverages.join('\n'))
+              ),
             ),
-          ),
-        ),
-      ],
-    );
+            const SizedBox(height: 16,),
+            const Text('Centros de Referencia', style: TextStyle(fontWeight: FontWeight.bold)),
+            Card
+            (
+              child: Padding
+              (
+                padding: const EdgeInsets.all(12),
+                child: Column 
+                (
+                  children: 
+                  [ 
+                    _buildCenterSection
+                    (
+                      title: 'Centro de salud de referencia',
+                      icon: Icons.medical_services_outlined,
+                      center: healthCenter,
+                      hospital: false
+                    ),
+                    const Divider(),
+                    _buildCenterSection(
+                      title: 'Hospital de referencia', 
+                      icon: Icons.local_hospital_outlined, 
+                      center: hospital, 
+                      hospital: true)
+                  ]
+                ),
+                
+              ),
+            ),
+          ],
+        );
+      }
+    );   
   }
 }
