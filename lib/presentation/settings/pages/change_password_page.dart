@@ -89,45 +89,70 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: AppBar(title: const Text('Cambiar contraseña')),
-      body: SafeArea(
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            padding: const EdgeInsets.all(20),
-            children: [
-              TextFormField(
-                controller: _currentPassword,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Contraseña actual',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) => value == null || value.isEmpty
-                    ? 'Introduzca su contraseña actual'
-                    : null,
+      appBar: AppBar(
+        title: Text(
+          'Cambiar contraseña',
+          style: TextStyle(
+            color: scheme.inverseSurface,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: Center(
+        child: SafeArea(
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: _currentPassword,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Contraseña actual',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) => value == null || value.isEmpty
+                        ? 'Introduzca su contraseña actual'
+                        : null,
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    controller: _newPassword,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Contraseña nueva',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) => value == null || value.length < 6
+                        ? 'Debe tener al menos 6 carácteres'
+                        : null,
+                  ),
+                  const SizedBox(height: 35),
+                  FilledButton(
+                    onPressed: _loading ? null : _changePassword,
+                    child: _loading
+                        ? const CircularProgressIndicator()
+                        : Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 45,
+                              vertical: 22,
+                            ),
+                            child: const Text(
+                              'Guardar contraseña',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _newPassword,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Nueva contraseña',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) => value == null || value.length < 6
-                    ? 'Debe tener al menos 6 carácteres'
-                    : null,
-              ),
-              const SizedBox(height: 24),
-              FilledButton(
-                onPressed: _loading ? null : _changePassword,
-                child: _loading
-                    ? const CircularProgressIndicator()
-                    : const Text('Guardar contraseña'),
-              ),
-            ],
+            ),
           ),
         ),
       ),

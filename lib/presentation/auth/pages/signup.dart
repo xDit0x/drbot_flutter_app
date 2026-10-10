@@ -7,10 +7,9 @@ import 'package:flutter_learning/core/configs/theme/app_colors.dart';
 import 'package:flutter_learning/domain/models/auth/create_user_request.dart';
 import 'package:flutter_learning/domain/usecases/auth/sign_up.dart';
 import 'package:flutter_learning/presentation/auth/pages/signin.dart';
-import 'package:flutter_learning/presentation/root/pages/root.dart';
+
 import 'package:flutter_learning/service_locator.dart';
 import 'package:flutter_learning/presentation/auth/pages/insurance_selection_page.dart';
-import 'package:flutter_learning/domain/models/auth/create_user_request.dart';
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
@@ -42,7 +41,9 @@ class SignUpPage extends StatelessWidget {
             SizedBox(height: 20),
             BasicAppButton(
               onPressed: () async {
-                if (_fullname.text.trim().isEmpty || _email.text.trim().isEmpty || _password.text.isEmpty) {
+                if (_fullname.text.trim().isEmpty ||
+                    _email.text.trim().isEmpty ||
+                    _password.text.isEmpty) {
                   SnackbarRoot.show(
                     context,
                     'Complete todos los campos',
@@ -52,8 +53,7 @@ class SignUpPage extends StatelessWidget {
                 }
 
                 final result = await sl<SignUpUseCase>().call(
-                  params: CreateUserReq
-                  (
+                  params: CreateUserReq(
                     fullName: _fullname.text.toString(),
                     email: _email.text.toString(),
                     password: _password.text.toString(),
@@ -62,9 +62,10 @@ class SignUpPage extends StatelessWidget {
                     privateCompany: null,
                   ),
                 );
-                
 
-                if(!context.mounted) { return; }
+                if (!context.mounted) {
+                  return;
+                }
 
                 result.fold(
                   (l) {
@@ -79,7 +80,8 @@ class SignUpPage extends StatelessWidget {
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (BuildContext context) => const InsuranceSelectionPage(),
+                        builder: (BuildContext context) =>
+                            const InsuranceSelectionPage(),
                       ),
                       (route) => route.isFirst,
                     );

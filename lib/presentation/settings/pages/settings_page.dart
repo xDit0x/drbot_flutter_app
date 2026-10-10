@@ -123,16 +123,20 @@ class _SettingsPageState extends State<SettingsPage> {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text(
+        title: Text(
           '¿Desea darse de baja?',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+            color: scheme.inverseSurface,
+          ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, false),
             child: Text(
               'Cancelar',
-              style: TextStyle(color: scheme.inversePrimary, fontSize: 16),
+              style: TextStyle(color: scheme.inverseSurface, fontSize: 16),
             ),
           ),
           FilledButton(
@@ -173,6 +177,7 @@ class _SettingsPageState extends State<SettingsPage> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            SizedBox(height: 12),
             TextField(
               obscureText: true,
               decoration: InputDecoration(
@@ -197,10 +202,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 onPressed: () => Navigator.pop(dialogContext),
                 child: Text(
                   'Cancelar',
-                  style: TextStyle(color: scheme.inversePrimary, fontSize: 18),
+                  style: TextStyle(color: scheme.inverseSurface, fontSize: 18),
                 ),
               ),
-              SizedBox(height: 12),
+              SizedBox(height: 6),
               FilledButton(
                 style: FilledButton.styleFrom(backgroundColor: Colors.red),
                 onPressed: () {
