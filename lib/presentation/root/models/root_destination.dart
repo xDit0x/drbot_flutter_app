@@ -34,7 +34,7 @@ class RootDestination {
     ),
     RootDestination(
       icon: SvgPicture.asset(AppVectors.addAppointment, width: 30),
-      label: 'Añadir',
+      label: 'Nueva cita',
       page: Center(child: Text('Añadir cita')),
       pinnedToDock: true,
     ),

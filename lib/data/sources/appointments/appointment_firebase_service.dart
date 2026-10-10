@@ -3,10 +3,12 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_learning/domain/entities/appointments/appointment.dart';
+import 'package:flutter_learning/domain/models/appointments/book_appointment_request.dart';
 
 abstract class AppointmentFirebaseService {
   Future<Either> getAppointments();
   Future<Either> removeAppointment(String id);
+  Future<Either> createAppointment(BookAppointmentRequest request);
 }
 
 class AppointmentFirebaseServiceImpl implements AppointmentFirebaseService {
@@ -67,6 +69,58 @@ class AppointmentFirebaseServiceImpl implements AppointmentFirebaseService {
     } catch (e) {
       debugPrint('Appointments remove error $e');
       return Left('Error inesperado al eliminar la cita.');
+    }
+  }
+
+  @override
+  Future<Either<dynamic, dynamic>> createAppointment(
+    BookAppointmentRequest request,
+  ) async {
+    try {
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+
+      if (uid == null) return Left('Sesión no válida. Vuelva a iniciar sesión');
+
+      final slotRef = FirebaseFirestore.instance
+          .collection('Slots')
+          .doc(request.slotId);
+
+      final appointmentRef = FirebaseFirestore.instance
+          .collection('Users')
+          .doc(uid)
+          .collection('appointments')
+          .doc();
+
+      final result = await FirebaseFirestore.instance.runTransaction<String>((
+        transaction,
+      ) async {
+        final existing = await transaction.get(slotRef);
+        if (existing.exists) {
+          return 'taken';
+        }
+        transaction.set(slotRef, {
+          'doctorId': request.doctorId,
+          'dateKey': request.dateKey,
+          'time': request.time,
+          'date': request.date,
+          'uid': uid,
+          'createdAt': FieldValue.serverTimestamp(),
+        });
+        transaction.set(appointmentRef, request.toMap());
+        return 'ok';
+      });
+      if (result == 'taken') {
+        return Left('Esa hora ya está reservada. Elige otra');
+      }
+      return Right(true);
+    } on FirebaseException catch (e) {
+      if (e.code == 'permission-denied') {
+        return Left('Sin permiso. Revisa las reglas de Firestore');
+      }
+      return Left('No se pudo crear la cita');
+    } catch (e) {
+      debugPrint('createAppointment error $e');
+      return Left('Error inesperado al crear la cita');
     }
   }
 }

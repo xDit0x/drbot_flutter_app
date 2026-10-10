@@ -1,6 +1,7 @@
 import 'package:flutter_learning/domain/entities/clinical/medical_center.dart';
 
 enum AppointmentStatus {
+  requested('Solicitada'),
   scheduled('Programada'),
   completed('Completada'),
   cancelled('Cancelada');
@@ -24,15 +25,19 @@ class Appointment {
   final String specialty;
   final AppointmentStatus status;
   final MedicalCenter medicalCenter;
+  final String? centerCode;
+  final bool referralConfirmed;
 
   const Appointment({
     required this.id,
     required this.doctorName,
     required this.status,
     required this.specialty,
+    required this.medicalCenter,
     this.date,
     this.doctorId,
-    required this.medicalCenter,
+    this.centerCode,
+    this.referralConfirmed = false,
   });
 
   factory Appointment.fromMap(String id, Map<String, dynamic> map) {
@@ -43,13 +48,40 @@ class Appointment {
     } else if (rawDate is String) {
       date = DateTime.tryParse(rawDate);
     }
+
+    final rawCenter = map['medicalCenter'];
+
     return Appointment(
       id: id,
       doctorName: (map['doctorName'] ?? '').toString(),
-      status: AppointmentStatus.fromName((map['status'] as String?)),
+      doctorId: map['doctorId']?.toString(),
+      status: AppointmentStatus.fromName(map['status'] as String?),
       date: date,
       specialty: (map['specialty'] ?? '').toString(),
-      medicalCenter: MedicalCenter.fromMap((map['medicalCenter'])),
+      medicalCenter: rawCenter is Map
+          ? MedicalCenter.fromMap(Map<String, dynamic>.from(rawCenter))
+          : const MedicalCenter(
+              code: '',
+              name: '',
+              region: '',
+              province: '',
+              municipality: '',
+              type: '',
+              dependence: '',
+            ),
+      centerCode: map['centerCode']?.toString(),
+      referralConfirmed: map['referralConfirmed'] == true,
     );
   }
+
+  Map<String, dynamic> toMap() => {
+    'date': date,
+    'doctorName': doctorName,
+    'doctorId': doctorId,
+    'specialty': specialty,
+    'status': status.name,
+    'medicalCenter': medicalCenter.toMap(),
+    'centerCode': centerCode,
+    'referralConfirmed': referralConfirmed,
+  };
 }

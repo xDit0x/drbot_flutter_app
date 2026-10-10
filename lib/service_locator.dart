@@ -1,16 +1,22 @@
 import 'package:flutter_learning/data/repository/appointments/appointment_repository_impl.dart';
+import 'package:flutter_learning/data/repository/appointments/doctor_repository.dart';
 import 'package:flutter_learning/data/repository/auth/auth_repository_impl.dart';
 import 'package:flutter_learning/data/repository/contact/contact_repository_impl.dart';
 import 'package:flutter_learning/data/sources/appointments/appointment_firebase_service.dart';
+import 'package:flutter_learning/data/sources/appointments/doctor_firebase_service.dart';
 import 'package:flutter_learning/data/sources/contact/contact_firebase_service.dart';
 import 'package:flutter_learning/domain/repository/appointments/appointment_repository.dart';
+import 'package:flutter_learning/domain/repository/appointments/doctor_repository.dart';
 import 'package:flutter_learning/domain/repository/clinical/clinical_repository.dart';
 import 'package:flutter_learning/data/repository/clinical/clinical_repository_impl.dart';
 import 'package:flutter_learning/data/sources/auth/auth_firebase_service.dart';
 import 'package:flutter_learning/data/sources/clinical/clinical_firebase_service.dart';
 import 'package:flutter_learning/domain/repository/auth/auth.dart';
 import 'package:flutter_learning/domain/repository/contact/contact_repository.dart';
+import 'package:flutter_learning/domain/usecases/appointments/create_appointment.dart';
 import 'package:flutter_learning/domain/usecases/appointments/get_appointments.dart';
+import 'package:flutter_learning/domain/usecases/appointments/get_booked_slots.dart';
+import 'package:flutter_learning/domain/usecases/appointments/get_doctors_by_center.dart';
 import 'package:flutter_learning/domain/usecases/appointments/remove_appointment.dart';
 import 'package:flutter_learning/domain/usecases/auth/delete_account.dart';
 import 'package:flutter_learning/domain/usecases/auth/send_password_reset_email.dart';
@@ -56,9 +62,19 @@ Future<void> initializeDependencies() async {
 
   sl.registerSingleton<GetAppointmentsUseCase>(GetAppointmentsUseCase());
 
+  sl.registerSingleton<CreateAppointmentUseCase>(CreateAppointmentUseCase());
+
   sl.registerSingleton<RemoveAppointmentUseCase>(RemoveAppointmentUseCase());
 
   sl.registerSingleton<AppointmentFirebaseService>(
     AppointmentFirebaseServiceImpl(),
   );
+
+  sl.registerSingleton<DoctorFirebaseService>(DoctorFirebaseServiceImpl());
+
+  sl.registerSingleton<DoctorRepository>(DoctorRepositoryImpl());
+
+  sl.registerSingleton<GetBookedSlotsUseCase>(GetBookedSlotsUseCase());
+
+  sl.registerSingleton<GetDoctorsByCenterUseCase>(GetDoctorsByCenterUseCase());
 }

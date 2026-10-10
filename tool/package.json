@@ -1,0 +1,11 @@
+{
+  "name": "drbot-seed",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "seed": "node seed_doctors.mjs"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.0.0"
+  }
+}
