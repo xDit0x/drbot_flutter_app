@@ -189,29 +189,6 @@ class _InsuranceSelectionPageState extends State<InsuranceSelectionPage>
                 }
               ),
             ),
-            
-            Card
-            (
-              child: CheckboxListTile
-              (
-                value: _hasPrivate,
-                title: const Text('Seguro privado'),
-                subtitle:  const Text('Cobertura sanitaria privada'),
-                secondary: const Icon(Icons.medical_services_outlined),
-                onChanged: (value)
-                {
-                  setState(()
-                  {
-                    _hasPrivate = value ?? false;
-                    if(!_hasPrivate)
-                    {
-                      _privateCompany = null;
-                    }
-                    _errorMessage = null;
-                  });
-                }
-              ),
-            ),
             if(_hasPublic)
               TextFormField
               (
@@ -235,6 +212,31 @@ class _InsuranceSelectionPageState extends State<InsuranceSelectionPage>
                   return null;
                 }
               ),
+
+            const SizedBox(height: 16),
+
+            Card
+            (
+              child: CheckboxListTile
+              (
+                value: _hasPrivate,
+                title: const Text('Seguro privado'),
+                subtitle:  const Text('Cobertura sanitaria privada'),
+                secondary: const Icon(Icons.medical_services_outlined),
+                onChanged: (value)
+                {
+                  setState(()
+                  {
+                    _hasPrivate = value ?? false;
+                    if(!_hasPrivate)
+                    {
+                      _privateCompany = null;
+                    }
+                    _errorMessage = null;
+                  });
+                }
+              ),
+            ),
 
             if(_hasPrivate) ...
             [
@@ -263,6 +265,8 @@ class _InsuranceSelectionPageState extends State<InsuranceSelectionPage>
                 });},
               ),
 
+              const SizedBox(height: 12),
+              
               TextFormField
               (
                   controller: _privateCardController,
