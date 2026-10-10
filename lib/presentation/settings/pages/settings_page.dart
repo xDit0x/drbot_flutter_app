@@ -25,7 +25,6 @@ class _SettingsPageState extends State<SettingsPage> {
   bool _vibrationEnabled = true;
   final BiometricService _biometricService = BiometricService();
   bool _biometricEnabled = false;
-  late final ColorScheme scheme = Theme.of(context).colorScheme;
 
   @override
   void initState() {
@@ -120,6 +119,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Future<void> _deleteAccount() async {
+    final scheme = Theme.of(context).colorScheme;
     final confirm = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
