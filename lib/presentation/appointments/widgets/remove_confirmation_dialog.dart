@@ -77,7 +77,7 @@ class RemoveConfirmationDialog extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Dr/Dra. ${appointment.doctorName.trimLeft()}',
+                  '${appointment.doctorName.trimLeft()}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 16,

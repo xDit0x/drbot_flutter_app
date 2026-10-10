@@ -169,7 +169,8 @@ class _InsuranceSelectionPageState extends State<InsuranceSelectionPage> {
             ),
             const SizedBox(height: 16),
             Card(
-              child: CheckboxListTile(
+              child: CheckboxListTile
+              (
                 value: _hasPublic,
                 title: const Text('Seguridad social'),
                 subtitle: const Text('Cobertura sanitaria pública'),
@@ -180,26 +181,10 @@ class _InsuranceSelectionPageState extends State<InsuranceSelectionPage> {
                     _errorMessage = null;
                   });
                 },
+                
               ),
             ),
 
-            Card(
-              child: CheckboxListTile(
-                value: _hasPrivate,
-                title: const Text('Seguro privado'),
-                subtitle: const Text('Cobertura sanitaria privada'),
-                secondary: const Icon(Icons.medical_services_outlined),
-                onChanged: (value) {
-                  setState(() {
-                    _hasPrivate = value ?? false;
-                    if (!_hasPrivate) {
-                      _privateCompany = null;
-                    }
-                    _errorMessage = null;
-                  });
-                },
-              ),
-            ),
             if (_hasPublic)
               TextFormField(
                 controller: _publicCardController,
@@ -218,6 +203,24 @@ class _InsuranceSelectionPageState extends State<InsuranceSelectionPage> {
                   return null;
                 },
               ),
+              
+            Card(
+              child: CheckboxListTile(
+                value: _hasPrivate,
+                title: const Text('Seguro privado'),
+                subtitle: const Text('Cobertura sanitaria privada'),
+                secondary: const Icon(Icons.medical_services_outlined),
+                onChanged: (value) {
+                  setState(() {
+                    _hasPrivate = value ?? false;
+                    if (!_hasPrivate) {
+                      _privateCompany = null;
+                    }
+                    _errorMessage = null;
+                  });
+                },
+              ),
+            ),
 
             if (_hasPrivate) ...[
               const SizedBox(height: 16),
