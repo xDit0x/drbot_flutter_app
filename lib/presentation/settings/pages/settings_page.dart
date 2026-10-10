@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
 import 'package:flutter_learning/domain/usecases/auth/delete_account.dart';
 import 'package:flutter_learning/presentation/auth/pages/signin.dart';
+import 'package:flutter_learning/presentation/auth/pages/signup_or_signin.dart';
 import 'package:flutter_learning/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_learning/presentation/settings/pages/font_size_page.dart';
@@ -261,7 +262,7 @@ class _SettingsPageState extends State<SettingsPage> {
           leading: Icon(Icons.person_remove_outlined),
         );
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute<void>(builder: (_) => const SignInPage()),
+          MaterialPageRoute<void>(builder: (_) => const SignupOrSigninPage()),
           (route) => false,
         );
       },
@@ -307,8 +308,6 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Ajustes')),
-
       body: ListView(
         padding: EdgeInsets.only(
           bottom: 100 + MediaQuery.of(context).padding.bottom,
