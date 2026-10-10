@@ -31,21 +31,22 @@ class AppTheme {
       fillColor: Colors.transparent,
       hintStyle: TextStyle(
         color: Color(0xff383838),
-        fontWeight: FontWeight.w800,
+        fontWeight: FontWeight.w400,
       ),
-      contentPadding: EdgeInsets.all(12),
+      labelStyle: TextStyle(fontWeight: FontWeight.w700),
+      contentPadding: EdgeInsets.all(25),
 
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(30),
-        borderSide: const BorderSide(color: Colors.black, width: 0.4),
+        borderSide: const BorderSide(color: Colors.black, width: 1),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(30),
-        borderSide: const BorderSide(color: Colors.black, width: 0.4),
+        borderSide: const BorderSide(color: Colors.black, width: 1),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(30),
-        borderSide: const BorderSide(color: Colors.black, width: 1.5),
+        borderSide: const BorderSide(color: Colors.black, width: 1.8),
       ),
     ),
 
