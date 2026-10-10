@@ -27,6 +27,8 @@ class Appointment {
   final MedicalCenter medicalCenter;
   final String? centerCode;
   final bool referralConfirmed;
+  final String? principalDisease;
+  final String? medicalReport;
 
   const Appointment({
     required this.id,
@@ -38,6 +40,8 @@ class Appointment {
     this.doctorId,
     this.centerCode,
     this.referralConfirmed = false,
+    this.principalDisease,
+    this.medicalReport,
   });
 
   factory Appointment.fromMap(String id, Map<String, dynamic> map) {
@@ -71,6 +75,8 @@ class Appointment {
             ),
       centerCode: map['centerCode']?.toString(),
       referralConfirmed: map['referralConfirmed'] == true,
+      principalDisease: map['principalDisease']?.toString(),
+      medicalReport: map['medicalReport']?.toString(),
     );
   }
 
@@ -83,5 +89,7 @@ class Appointment {
     'medicalCenter': medicalCenter.toMap(),
     'centerCode': centerCode,
     'referralConfirmed': referralConfirmed,
+    'principalDisease': principalDisease,
+    'medicalReport': medicalReport,
   };
 }

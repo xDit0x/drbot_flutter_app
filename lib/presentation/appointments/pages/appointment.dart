@@ -58,6 +58,36 @@ class _AppointmentPageState extends State<AppointmentPage> {
     );
   }
 
+  void _showMedicalReport(Appointment appointment) {
+    showDialog<void>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Informe de atención'),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Diagnóstico principal', style: TextStyle(fontWeight: FontWeight.bold)),
+              const SizedBox(height: 4),
+              Text(appointment.principalDisease ?? 'No indicado'),
+              const SizedBox(height: 16),
+              const Text('Resumen e indicaciones', style: TextStyle(fontWeight: FontWeight.bold)),
+              const SizedBox(height: 4),
+              Text(appointment.medicalReport ?? 'No hay informe disponible.'),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cerrar'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -159,6 +189,12 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
+                              Text('Estado: ' + appointment.status.label),
+                              if (appointment.status == AppointmentStatus.completed)
+                                TextButton(
+                                  onPressed: () => _showMedicalReport(appointment),
+                                  child: const Text('Ver informe de atención'),
+                                ),
                             ],
                           ),
                           trailing: Container(

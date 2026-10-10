@@ -6,7 +6,9 @@ import 'package:flutter_learning/presentation/help/pages/help_page.dart';
 import 'package:flutter_learning/presentation/profile/pages/profile.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_learning/presentation/settings/pages/settings_page.dart';
-import 'package:flutter_learning/presentation/medical_cards/medical_card_page.dart';
+import 'package:flutter_learning/presentation/medical_documents/pages/medical_card_page.dart';
+import 'package:flutter_learning/presentation/medical_documents/pages/clinical_history_page.dart';
+import 'package:flutter_learning/presentation/medical_documents/pages/medical_documents_page.dart';
 
 class RootDestination {
   final Widget icon;
@@ -48,7 +50,7 @@ class RootDestination {
     RootDestination(
       icon: Icon(Icons.assignment, size: 30),
       label: 'Documentos',
-      page: Center(child: Text('Documentos')),
+      page: const MedicalDocumentsPage(),
     ),
     RootDestination(
       icon: Icon(Icons.calendar_today, size: 30),
@@ -78,7 +80,7 @@ class RootDestination {
     RootDestination(
       icon: Icon(Icons.history_rounded, size: 30),
       label: 'Historial clínico',
-      page: Center(child: Text('Historial clínico')),
+      page: const ClinicalHistoryPage(),
     ),
     RootDestination(
       icon: Icon(Icons.medical_information_rounded, size: 30),

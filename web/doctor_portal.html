@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b7f83">
+  <title>Portal médico | Dr. Bot</title>
+  <link rel="icon" type="image/png" href="/assets/images/drbot_logo_transparente.png">
+  <style>
+    :root{color-scheme:light;--ink:#18323a;--muted:#61777e;--line:#dbe7e8;--brand:#0b8589;--brand-dark:#08686d;--surface:#fff;--canvas:#f2f7f7;--danger:#b42318;--good:#147a4b}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--canvas);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+    button,input{font:inherit}
+    .topbar{background:#fff;border-bottom:1px solid var(--line)}
+    .topbar-inner{max-width:1100px;margin:auto;padding:17px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{font-weight:800;font-size:19px;color:var(--brand-dark);letter-spacing:.02em}
+    .brand small{display:block;font-size:12px;color:var(--muted);font-weight:500;letter-spacing:0}
+    main{max-width:1100px;margin:38px auto;padding:0 22px}
+    .panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 28px #16343a0b}
+    .login{max-width:440px;margin:8vh auto;padding:30px}
+    h1{font-size:26px;line-height:1.2;margin:0 0 8px}
+    h2{font-size:19px;margin:0}
+    p{margin:0}
+    .muted{color:var(--muted)}
+    .field{display:grid;gap:7px;margin-top:18px}
+    .field input{width:100%;padding:12px 13px;border:1px solid #bccdce;border-radius:10px;background:#fff;color:var(--ink)}
+    .field input:focus{outline:3px solid #0b858922;border-color:var(--brand)}
+    .btn{border:0;border-radius:10px;padding:11px 16px;background:var(--brand);color:#fff;font-weight:700;cursor:pointer}
+    .btn:hover{background:var(--brand-dark)}
+    .btn:disabled{opacity:.58;cursor:wait}
+    .btn-secondary{background:#e8f2f2;color:var(--brand-dark)}
+    .btn-secondary:hover{background:#dbecec}
+    .toolbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:23px}
+    .toolbar p{margin-top:5px}
+    .grid{display:grid;gap:16px}
+    .appointment{padding:20px}
+    .appointment-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+    .appointment-title{font-size:18px;font-weight:750;margin:0}
+    .badge{white-space:nowrap;border-radius:999px;padding:5px 10px;background:#edf2f3;color:#53676d;font-size:12px;font-weight:700}
+    .badge.completed{background:#e6f5ec;color:var(--good)}
+    .details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 22px;margin:17px 0}
+    .detail{min-width:0}
+    .detail b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+    .detail span{overflow-wrap:anywhere}
+    .upload-row{display:grid;gap:10px;border-top:1px solid var(--line);padding-top:15px}
+    .disease-input,.report-input{width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font:inherit}
+    .report-input{min-height:150px;resize:vertical}
+    .medical-report{white-space:pre-wrap;overflow-wrap:anywhere;margin:12px 0;padding:14px;border-radius:10px;background:#f6f9f9}
+    .medical-report b{display:block;margin-bottom:6px;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+    .doc-name{font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+    .notice{padding:12px 14px;border-radius:10px;background:#eef7f7;color:var(--brand-dark);margin:16px 0}
+    .notice.error{background:#fff0ef;color:var(--danger)}
+    .empty{text-align:center;padding:52px 20px}
+    [hidden]{display:none!important}
+    @media(max-width:620px){main{margin:25px auto;padding:0 14px}.topbar-inner{padding:14px}.toolbar{align-items:flex-start}.details{grid-template-columns:1fr}.appointment{padding:16px}.login{margin:5vh 14px;padding:23px}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">DR. BOT <small>Portal médico</small></div>
+      <button id="logout" class="btn btn-secondary" hidden>Cerrar sesión</button>
+    </div>
+  </header>
+  <main>
+    <section id="login-panel" class="panel login">
+      <h1>Acceso para médicos</h1>
+      <p class="muted">Inicia sesión con las credenciales médicas asignadas.</p>
+      <form id="login-form">
+        <label class="field">Correo electrónico
+          <input id="email" type="email" autocomplete="username" required>
+        </label>
+        <label class="field">Contraseña
+          <input id="password" type="password" autocomplete="current-password" required>
+        </label>
+        <button id="login-button" class="btn" style="width:100%;margin-top:20px">Iniciar sesión</button>
+      </form>
+      <div id="login-message" class="notice" role="status" hidden></div>
+    </section>
+
+    <section id="dashboard" hidden>
+      <div class="toolbar">
+        <div><h1 id="welcome">Citas asignadas</h1><p class="muted">Añade el diagnóstico y el informe para cerrar cada cita.</p></div>
+        <button id="refresh" class="btn btn-secondary">Actualizar</button>
+      </div>
+      <div id="page-message" class="notice" role="status" hidden></div>
+      <div id="appointments" class="grid"></div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+    import { getFirestore, collection, collectionGroup, getDocs, query, where, limit, serverTimestamp, writeBatch } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDgk-bPW7VKpYB_iQCZve64r9q6xmI6W34",
+      authDomain: "drbot-app.firebaseapp.com",
+      projectId: "drbot-app",
+      messagingSenderId: "668754273407",
+      appId: "1:668754273407:web:e5d504abcbc2d58794cb4a"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const loginPanel = document.getElementById("login-panel");
+    const dashboard = document.getElementById("dashboard");
+    const loginMessage = document.getElementById("login-message");
+    const pageMessage = document.getElementById("page-message");
+    const appointmentList = document.getElementById("appointments");
+    const loginButton = document.getElementById("login-button");
+    const logoutButton = document.getElementById("logout");
+    let doctor = null;
+    let currentRecords = [];
+
+    function message(element, text, isError) {
+      element.textContent = text;
+      element.classList.toggle("error", Boolean(isError));
+      element.hidden = !text;
+    }
+    function friendlyError(error) {
+      if (error.code === "auth/invalid-credential" || error.code === "functions/unauthenticated") return "Código de médico o contraseña incorrectos.";
+      if (error.code === "auth/too-many-requests") return "Demasiados intentos. Prueba más tarde.";
+      if (error.code === "permission-denied") return "No tienes permiso para guardar el informe. Revisa las reglas de Firestore.";
+      return error.message || "Ha ocurrido un error. Inténtalo de nuevo.";
+    }
+    function dateLabel(value) {
+      let date = null;
+      if (value && typeof value.toDate === "function") date = value.toDate();
+      else if (typeof value === "string") date = new Date(value);
+      if (!date || Number.isNaN(date.getTime())) return "Fecha no disponible";
+      return new Intl.DateTimeFormat("es-ES", {dateStyle:"medium", timeStyle:"short"}).format(date);
+    }
+    function detail(label, value) {
+      const box = document.createElement("div");
+      box.className = "detail";
+      const heading = document.createElement("b");
+      heading.textContent = label;
+      const text = document.createElement("span");
+      text.textContent = value || "No indicado";
+      box.append(heading, text);
+      return box;
+    }
+
+    async function resolveDoctor(user) {
+      const q = query(collection(db, "Doctors"), where("authUid", "==", user.uid), limit(1));
+      const result = await getDocs(q);
+      if (result.empty) throw new Error("La cuenta ha iniciado sesión, pero su UID no está vinculado a un médico en Doctors.authUid.");
+      const item = result.docs[0];
+      const doctorData = item.data();
+      const insurerData = doctorData.insurers && !Array.isArray(doctorData.insurers)
+        ? doctorData.insurers
+        : {};
+      doctor = {
+        id: item.id,
+        name: String(doctorData.name || insurerData.name || "Médico"),
+        specialty: String(doctorData.specialty || ""),
+        centerName: String(doctorData.centerName || "")
+      };
+      document.getElementById("welcome").textContent = "Citas de " + doctor.name;
+      await loadAppointments();
+    }
+
+    function millisOf(value) {
+      if (value && typeof value.toMillis === "function") return value.toMillis();
+      if (value && typeof value.toDate === "function") return value.toDate().getTime();
+      if (value instanceof Date) return value.getTime();
+      const parsed = new Date(value).getTime();
+      return Number.isFinite(parsed) ? parsed : null;
+    }
+
+    async function loadAppointments() {
+      appointmentList.replaceChildren();
+      message(pageMessage, "Cargando citas...", false);
+
+      const slotsQuery = query(
+        collection(db, "Slots"),
+        where("doctorId", "==", doctor.id)
+      );
+      const appointmentsQuery = query(
+        collectionGroup(db, "appointments"),
+        where("doctorId", "==", doctor.id)
+      );
+
+      const [slotsResult, appointmentsResult] = await Promise.all([
+        getDocs(slotsQuery),
+        getDocs(appointmentsQuery)
+      ]);
+
+      const appointmentBySlot = new Map();
+      for (const snapshot of appointmentsResult.docs) {
+        const data = snapshot.data();
+        const patientUid = snapshot.ref.parent.parent
+          ? snapshot.ref.parent.parent.id
+          : "";
+        const dateMillis = millisOf(data.date);
+        if (!patientUid || dateMillis === null) continue;
+        appointmentBySlot.set(patientUid + "|" + dateMillis, {
+          ref: snapshot.ref,
+          data
+        });
+      }
+
+      currentRecords = slotsResult.docs.map(snapshot => {
+        const slotData = snapshot.data();
+        const patientUid = String(slotData.uid || "");
+        const dateMillis = millisOf(slotData.date);
+        const appointment = dateMillis === null
+          ? null
+          : appointmentBySlot.get(patientUid + "|" + dateMillis);
+
+        return {
+          ref: snapshot.ref,
+          appointmentRef: appointment ? appointment.ref : null,
+          id: snapshot.id,
+          patientUid,
+          slotData,
+          appointmentData: appointment ? appointment.data : null,
+          data: { ...slotData, ...(appointment ? appointment.data : {}) }
+        };
+      });
+
+      currentRecords.sort((a, b) => (millisOf(a.data.date) || 0) - (millisOf(b.data.date) || 0));
+      message(pageMessage, "", false);
+
+      if (!currentRecords.length) {
+        const empty = document.createElement("div");
+        empty.className = "panel empty muted";
+        empty.textContent = "No hay citas asignadas a tu perfil.";
+        appointmentList.append(empty);
+        return;
+      }
+
+      currentRecords.forEach(record => appointmentList.append(renderAppointment(record)));
+    }
+
+    function renderAppointment(record) {
+      const data = record.data;
+      const center = data.medicalCenter || {};
+      const card = document.createElement("article");
+      card.className = "panel appointment";
+
+      const head = document.createElement("div");
+      head.className = "appointment-head";
+      const title = document.createElement("h2");
+      title.className = "appointment-title";
+      title.textContent = (data.specialty || doctor.specialty || "Cita médica") + " - " + dateLabel(data.date);
+      const badge = document.createElement("span");
+      badge.className = "badge" + (data.status === "completed" ? " completed" : "");
+      badge.textContent = data.status === "completed" ? "Completada" : (data.status || "Solicitada");
+      head.append(title, badge);
+
+      const details = document.createElement("div");
+      details.className = "details";
+      details.append(
+        detail("Paciente - UID", record.patientUid),
+        detail("Médico", data.doctorName || doctor.name),
+        detail("Centro", center.name || doctor.centerName),
+        detail("Municipio", [center.municipality, center.province].filter(Boolean).join(", ")),
+        detail("Diagnóstico principal", data.principalDisease || "Pendiente de registrar")
+      );
+      card.append(head, details);
+
+      if (data.status === "completed") {
+        const report = document.createElement("div");
+        report.className = "medical-report";
+        const reportTitle = document.createElement("b");
+        reportTitle.textContent = "Informe de atención";
+        const reportText = document.createElement("span");
+        reportText.textContent = data.medicalReport || "No hay informe de texto guardado para esta cita.";
+        report.append(reportTitle, reportText);
+        card.append(report);
+        const done = document.createElement("span");
+        done.className = "badge completed";
+        done.textContent = "Cita cerrada";
+        card.append(done);
+      } else if (!record.appointmentRef) {
+        const missing = document.createElement("p");
+        missing.className = "doc-name";
+        missing.textContent = "No se encontró el detalle de esta cita en el perfil del paciente.";
+        card.append(missing);
+      } else {
+        const form = document.createElement("div");
+        form.className = "upload-row";
+
+        const diseaseLabel = document.createElement("label");
+        diseaseLabel.textContent = "Diagnóstico principal";
+        const diseaseInput = document.createElement("input");
+        diseaseInput.className = "disease-input";
+        diseaseInput.type = "text";
+        diseaseInput.maxLength = 300;
+        diseaseInput.placeholder = "Escribe el diagnóstico principal";
+        diseaseInput.setAttribute("aria-label", "Diagnóstico principal");
+        diseaseLabel.append(diseaseInput);
+
+        const reportLabel = document.createElement("label");
+        reportLabel.textContent = "Informe de atención";
+        const reportInput = document.createElement("textarea");
+        reportInput.className = "report-input";
+        reportInput.maxLength = 20000;
+        reportInput.placeholder = "Escribe el resumen de la atención, indicaciones y seguimiento";
+        reportInput.setAttribute("aria-label", "Informe de atención");
+        reportLabel.append(reportInput);
+
+        const button = document.createElement("button");
+        button.className = "btn";
+        button.type = "button";
+        button.textContent = "Guardar informe y cerrar cita";
+        button.addEventListener("click", () =>
+          saveReport(record, diseaseInput, reportInput, button, badge, card)
+        );
+        form.append(diseaseLabel, reportLabel, button);
+        card.append(form);
+      }
+      return card;
+    }
+
+    async function saveReport(record, diseaseInput, reportInput, button, badge, card) {
+      const principalDisease = diseaseInput.value.trim();
+      const medicalReport = reportInput.value.trim();
+      if (!principalDisease) {
+        message(pageMessage, "Escribe el diagnóstico principal.", true);
+        diseaseInput.focus();
+        return;
+      }
+      if (!medicalReport) {
+        message(pageMessage, "Escribe el informe de atención.", true);
+        reportInput.focus();
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Guardando informe…";
+      message(pageMessage, "", false);
+      try {
+        const batch = writeBatch(db);
+        const completedData = {
+          principalDisease,
+          medicalReport,
+          status: "completed",
+          completedAt: serverTimestamp()
+        };
+        batch.update(record.appointmentRef, completedData);
+        batch.update(record.ref, completedData);
+        await batch.commit();
+
+        record.data.principalDisease = principalDisease;
+        record.data.medicalReport = medicalReport;
+        record.data.status = "completed";
+        record.data.completedAt = new Date();
+        card.replaceWith(renderAppointment(record));
+        message(pageMessage, "Informe guardado y cita cerrada.", false);
+      } catch (error) {
+        message(pageMessage, friendlyError(error), true);
+        button.disabled = false;
+        button.textContent = "Guardar informe y cerrar cita";
+      }
+    }
+
+    document.getElementById("login-form").addEventListener("submit", async event => {
+      event.preventDefault();
+      loginButton.disabled = true;
+      loginButton.textContent = "Accediendo…";
+      message(loginMessage, "", false);
+      try {
+        await signInWithEmailAndPassword(auth, document.getElementById("email").value.trim(), document.getElementById("password").value);
+      } catch (error) {
+        message(loginMessage, friendlyError(error), true);
+      } finally {
+        loginButton.disabled = false;
+        loginButton.textContent = "Iniciar sesión";
+      }
+    });
+
+    logoutButton.addEventListener("click", () => signOut(auth));
+    document.getElementById("refresh").addEventListener("click", async () => {
+      try { await loadAppointments(); }
+      catch (error) { message(pageMessage, friendlyError(error), true); }
+    });
+
+    onAuthStateChanged(auth, async user => {
+      loginPanel.hidden = Boolean(user);
+      dashboard.hidden = !user;
+      logoutButton.hidden = !user;
+      doctor = null;
+      if (!user) return;
+      try {
+        await resolveDoctor(user);
+      } catch (error) {
+        message(pageMessage, friendlyError(error), true);
+        if (!doctor) await signOut(auth);
+      }
+    });
+  </script>
+</body>
+</html>
+
+
