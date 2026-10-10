@@ -108,7 +108,7 @@ class AuthFirebaseServieImpl extends AuthFirebaseService {
       );
       await user.reauthenticateWithCredential(credential);
       final userDoc = FirebaseFirestore.instance
-          .collection('users')
+          .collection('Users')
           .doc(user.uid);
       final savedData = (await userDoc.get()).data();
       await userDoc.delete();
