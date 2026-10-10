@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_learning/core/utils/date_time_keys.dart';
 import 'package:flutter_learning/domain/entities/appointments/appointment.dart';
 import 'package:flutter_learning/domain/models/appointments/book_appointment_request.dart';
 
@@ -54,12 +55,35 @@ class AppointmentFirebaseServiceImpl implements AppointmentFirebaseService {
       if (uid == null) {
         return Left('Sesión no válida. Vuelve a iniciar sesión.');
       }
-      await FirebaseFirestore.instance
+
+      final firestore = FirebaseFirestore.instance;
+      final appointmentRef = firestore
           .collection('Users')
           .doc(uid)
           .collection('appointments')
-          .doc(id)
-          .delete();
+          .doc(id);
+
+      await firestore.runTransaction((transaction) async {
+        final snap = await transaction.get(appointmentRef);
+        if (!snap.exists) return;
+
+        final data = snap.data();
+        final doctorId = data!['doctorId']?.toString();
+        final rawDate = data['date'];
+        final date = rawDate is Timestamp
+            ? rawDate.toDate()
+            : rawDate is DateTime
+            ? rawDate
+            : DateTime.tryParse(rawDate?.toString() ?? '');
+
+        transaction.delete(appointmentRef);
+
+        if (doctorId != null && doctorId.isNotEmpty && date != null) {
+          final slotId = '${doctorId}_${date.dateKey}_${date.timeKey}';
+          transaction.delete(firestore.collection('Slots').doc(slotId));
+        }
+      });
+
       return Right(true);
     } on FirebaseException catch (e) {
       if (e.code == 'permission-denied') {

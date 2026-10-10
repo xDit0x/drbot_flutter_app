@@ -68,11 +68,17 @@ class _AppointmentPageState extends State<AppointmentPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Diagnóstico principal', style: TextStyle(fontWeight: FontWeight.bold)),
+              const Text(
+                'Diagnóstico principal',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 4),
               Text(appointment.principalDisease ?? 'No indicado'),
               const SizedBox(height: 16),
-              const Text('Resumen e indicaciones', style: TextStyle(fontWeight: FontWeight.bold)),
+              const Text(
+                'Resumen e indicaciones',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 4),
               Text(appointment.medicalReport ?? 'No hay informe disponible.'),
             ],
@@ -119,7 +125,12 @@ class _AppointmentPageState extends State<AppointmentPage> {
           r,
         ) {
           final items = (r as List).cast<Appointment>();
-          final openAppointments = items.where((appointment) => appointment.status != AppointmentStatus.completed).toList();
+          final openAppointments = items
+              .where(
+                (appointment) =>
+                    appointment.status != AppointmentStatus.completed,
+              )
+              .toList();
           if (openAppointments.isEmpty) {
             return const Center(
               child: Text(
@@ -175,7 +186,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                               Text(
                                 appointment.date == null
                                     ? 'Fecha por confirmar'
-                                    : '${appointment.date!.hour}:${appointment.date!.minute} - ${appointment.date!.day}/${appointment.date!.month}/${appointment.date!.year}',
+                                    : '${appointment.date!.hour.toString().padLeft(2, '0')}:${appointment.date!.minute.toString().padLeft(2, '0')} - ${appointment.date!.day}/${appointment.date!.month}/${appointment.date!.year}',
                                 overflow: TextOverflow.visible,
                                 softWrap: true,
                                 style: const TextStyle(
@@ -184,16 +195,18 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                 ),
                               ),
                               Text(
-                                '${appointment.doctorName.trimLeft()}',
+                                appointment.doctorName.trimLeft(),
                                 style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
-                              Text('Estado: ' + appointment.status.label),
-                              if (appointment.status == AppointmentStatus.completed)
+                              Text('Estado: ${appointment.status.label}'),
+                              if (appointment.status ==
+                                  AppointmentStatus.completed)
                                 TextButton(
-                                  onPressed: () => _showMedicalReport(appointment),
+                                  onPressed: () =>
+                                      _showMedicalReport(appointment),
                                   child: const Text('Ver informe de atención'),
                                 ),
                             ],

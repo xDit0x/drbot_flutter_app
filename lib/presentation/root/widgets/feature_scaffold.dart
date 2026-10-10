@@ -153,7 +153,8 @@ class FeatureScaffold extends StatelessWidget {
                 ),
               );
 
-              if (shouldLogout != true || !context.mounted) return;
+              if (shouldLogout != true) return;
+              if (!context.mounted) return;
 
               await FirebaseAuth.instance.signOut();
 

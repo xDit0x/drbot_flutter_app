@@ -1,5 +1,5 @@
 import 'package:flutter_learning/data/repository/appointments/appointment_repository_impl.dart';
-import 'package:flutter_learning/data/repository/appointments/doctor_repository.dart';
+import 'package:flutter_learning/data/repository/appointments/doctor_repository_impl.dart';
 import 'package:flutter_learning/data/repository/auth/auth_repository_impl.dart';
 import 'package:flutter_learning/data/repository/contact/contact_repository_impl.dart';
 import 'package:flutter_learning/data/sources/appointments/appointment_firebase_service.dart';

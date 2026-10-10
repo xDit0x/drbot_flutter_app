@@ -150,7 +150,11 @@ class _SchedulePageState extends State<SchedulePage> {
             calendarFormat: CalendarFormat.month,
             startingDayOfWeek: StartingDayOfWeek.monday,
             selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
-            enabledDayPredicate: (day) => widget.doctor.schedule.worksOn(day),
+            enabledDayPredicate: (day) {
+              final today = DateTime(_today.year, _today.month, _today.day);
+              return !day.isBefore(today) &&
+                  widget.doctor.schedule.worksOn(day);
+            },
             onDaySelected: _onDaySelected,
             headerStyle: const HeaderStyle(
               formatButtonVisible: false,

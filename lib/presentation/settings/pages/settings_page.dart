@@ -190,6 +190,7 @@ class _SettingsPageState extends State<SettingsPage> {
     }
 
     String password = '';
+    if (!context.mounted) return;
 
     final passw = await showDialog<String>(
       context: context,
@@ -265,6 +266,9 @@ class _SettingsPageState extends State<SettingsPage> {
     if (passw == null) {
       return;
     }
+
+    if (!context.mounted) return;
+
     if (passw.isEmpty) {
       SnackbarRoot.show(
         context,

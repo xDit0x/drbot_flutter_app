@@ -5,7 +5,6 @@ import 'package:flutter_learning/domain/entities/appointments/appointment.dart';
 class RemoveConfirmationDialog extends StatelessWidget {
   final BuildContext context;
   final BuildContext dialogContext;
-  late final scheme = Theme.of(context).colorScheme;
   final Appointment appointment;
   RemoveConfirmationDialog({
     super.key,
@@ -16,6 +15,7 @@ class RemoveConfirmationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
     return AlertDialog(
       title: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -69,7 +69,7 @@ class RemoveConfirmationDialog extends StatelessWidget {
                 Text(
                   appointment.date == null
                       ? 'Fecha por confirmar'
-                      : '${appointment.date!.hour}:${appointment.date!.minute} - ${appointment.date!.day}/${appointment.date!.month}/${appointment.date!.year}',
+                      : '${appointment.date!.hour.toString().padLeft(2, '0')}:${appointment.date!.minute.toString().padLeft(2, '0')} - ${appointment.date!.day}/${appointment.date!.month}/${appointment.date!.year}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 16,
@@ -77,7 +77,7 @@ class RemoveConfirmationDialog extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${appointment.doctorName.trimLeft()}',
+                  appointment.doctorName.trimLeft(),
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 16,

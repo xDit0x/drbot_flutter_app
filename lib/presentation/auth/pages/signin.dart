@@ -218,7 +218,7 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 );
 
-                if (!mounted) return;
+                if (!mounted || !context.mounted) return;
                 if (sent == true) {
                   SnackbarRoot.show(
                     context,
