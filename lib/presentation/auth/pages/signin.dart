@@ -222,7 +222,7 @@ class _SignInPageState extends State<SignInPage> {
                 if (sent == true) {
                   SnackbarRoot.show(
                     context,
-                    'Correo enviado, revisa tu bandeja de entrada',
+                    'Correo enviado, revisa tu bandeja de entrada.',
                     selection: SnackbarRootType.ok,
                   );
                 }
