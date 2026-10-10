@@ -31,9 +31,10 @@ class AppTheme {
       fillColor: Colors.transparent,
       hintStyle: TextStyle(
         color: Color(0xff383838),
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w800,
       ),
-      contentPadding: EdgeInsets.all(30),
+      contentPadding: EdgeInsets.all(12),
+
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(30),
         borderSide: const BorderSide(color: Colors.black, width: 0.4),

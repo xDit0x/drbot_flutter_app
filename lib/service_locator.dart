@@ -12,7 +12,8 @@ import 'package:flutter_learning/domain/repository/auth/auth.dart';
 import 'package:flutter_learning/domain/repository/contact/contact_repository.dart';
 import 'package:flutter_learning/domain/usecases/appointments/get_appointments.dart';
 import 'package:flutter_learning/domain/usecases/appointments/remove_appointment.dart';
-import 'package:flutter_learning/domain/usecases/auth/sendPasswordResetEmail.dart';
+import 'package:flutter_learning/domain/usecases/auth/delete_account.dart';
+import 'package:flutter_learning/domain/usecases/auth/send_password_reset_email.dart';
 import 'package:flutter_learning/domain/usecases/auth/sign_in.dart';
 import 'package:flutter_learning/domain/usecases/auth/sign_up.dart';
 import 'package:flutter_learning/domain/usecases/clinical/get_clinical_info.dart';
@@ -34,6 +35,8 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<SendPasswordResetEmailUseCase>(
     SendPasswordResetEmailUseCase(),
   );
+
+  sl.registerSingleton<DeleteAccountUseCase>(DeleteAccountUseCase());
 
   sl.registerSingleton<ClinicalFirebaseService>(ClinicalFirebaseServiceImpl());
 

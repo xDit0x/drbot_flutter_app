@@ -2,7 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
+import 'package:flutter_learning/domain/usecases/auth/delete_account.dart';
 import 'package:flutter_learning/presentation/auth/pages/signin.dart';
+import 'package:flutter_learning/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_learning/presentation/settings/pages/font_size_page.dart';
 import 'package:flutter_learning/presentation/settings/pages/about_page.dart';
@@ -21,6 +24,7 @@ class _SettingsPageState extends State<SettingsPage> {
   bool _vibrationEnabled = true;
   final BiometricService _biometricService = BiometricService();
   bool _biometricEnabled = false;
+  late final ColorScheme scheme = Theme.of(context).colorScheme;
 
   @override
   void initState() {
@@ -88,12 +92,10 @@ class _SettingsPageState extends State<SettingsPage> {
           return;
         }
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Configura una huella o reconocimiento facial en el dispositivo',
-            ),
-          ),
+        SnackbarRoot.show(
+          context,
+          'Configura una huella o reconocimiento facial en el dispositivo',
+          selection: SnackbarRootType.warning,
         );
 
         return;
@@ -116,124 +118,154 @@ class _SettingsPageState extends State<SettingsPage> {
     } catch (_) {}
   }
 
-  Future<void> _deleteAccount() async
-  {
-    final confirm = await showDialog<bool>
-    (
+  Future<void> _deleteAccount() async {
+    final confirm = await showDialog<bool>(
       context: context,
-      builder: (dialogContext) => AlertDialog
-      (
-        title: const Text('¿Desea darse de baja?'),
-        actions: 
-        [
-          TextButton
-          (
-            onPressed: () => Navigator.pop(dialogContext, false), 
-            child: const Text('Cancelar'),
+      builder: (dialogContext) => AlertDialog(
+        title: const Text(
+          '¿Desea darse de baja?',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: Text(
+              'Cancelar',
+              style: TextStyle(color: scheme.inversePrimary, fontSize: 16),
+            ),
           ),
-          TextButton
-          (
-            onPressed: () => Navigator.pop(dialogContext, true), 
-            child: const Text('Continuar'),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+              decoration: BoxDecoration(color: scheme.primary),
+              child: Text(
+                'Continuar',
+                style: TextStyle(color: scheme.inversePrimary, fontSize: 18),
+              ),
+            ),
           ),
         ],
       ),
     );
-    
-    if(confirm != true) { return; }
+
+    if (confirm != true) {
+      return;
+    }
 
     final user = FirebaseAuth.instance.currentUser;
     final email = user?.email;
 
-    if(user == null || email == null) { return; }
+    if (user == null || email == null) {
+      return;
+    }
 
     String password = '';
 
-    final passw = await showDialog<String>
-    (
+    final passw = await showDialog<String>(
       context: context,
-      builder: (dialogContext) => AlertDialog
-      (
-        title: const Text('Verifique su identidad'),
-        content: TextField
-        (
-          obscureText: true,
-          decoration: const InputDecoration
-          (
-            labelText: 'Contraseña actual'
-          ),
-          onChanged: (value) => password = value,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text(
+          'Verifique su identidad',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
         ),
-        actions: 
-        [
-          TextButton
-          (
-            onPressed: () => Navigator.pop(dialogContext), 
-            child: const Text('Cancelar'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: 'Contraseña actual',
+                labelStyle: TextStyle(fontWeight: FontWeight.w500),
+                floatingLabelStyle: TextStyle(
+                  color: scheme.inversePrimary,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1,
+                ),
+              ),
+              onChanged: (value) => password = value,
+            ),
+          ],
+        ),
+        actions: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext),
+                child: Text(
+                  'Cancelar',
+                  style: TextStyle(color: scheme.inversePrimary, fontSize: 18),
+                ),
+              ),
+              SizedBox(height: 12),
+              FilledButton(
+                style: FilledButton.styleFrom(backgroundColor: Colors.red),
+                onPressed: () {
+                  Navigator.pop(dialogContext, password);
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                  decoration: BoxDecoration(color: Colors.red),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.delete_forever_rounded,
+                        color: scheme.inversePrimary,
+                        size: 30,
+                      ),
+                      Text(
+                        'Eliminar cuenta',
+                        style: TextStyle(
+                          color: scheme.inversePrimary,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-          TextButton
-          (
-            onPressed: () => Navigator.pop(dialogContext, password), 
-            child: const Text('Eliminar cuenta'),
-          ),
-        ], 
+        ],
       ),
     );
 
-
-    if(passw == null || passw.isEmpty) { return; }
-
-    try
-    {
-      final credencialUser = EmailAuthProvider.credential(email: email, password: passw);
-
-      await user.reauthenticateWithCredential(credencialUser);
-
-      final userDoc = FirebaseFirestore.instance.collection('Users').doc(user.uid);
-
-      final document = await userDoc.get();
-      final savedData = document.data();
-
-      await userDoc.delete();
-
-      try 
-      {
-        await user.delete();
-      } 
-      catch (_) 
-      {
-        if (savedData != null && FirebaseAuth.instance.currentUser != null) 
-        {
-          await userDoc.set(savedData, SetOptions(merge: true));
-        }
-        
-        rethrow;
-      }
-
-      if (!mounted) { return; }
-
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('La cuenta se ha eliminado correctamente')));
-
-      Navigator.of(context).pushAndRemoveUntil
-      (
-        MaterialPageRoute<void>
-        (
-          builder: (_) => const SignInPage(),
-        ),
-        (route) => false,
+    if (passw == null) {
+      return;
+    }
+    if (passw.isEmpty) {
+      SnackbarRoot.show(
+        context,
+        "Introduzca la contraseña para continuar ",
+        selection: SnackbarRootType.warning,
       );
+      return;
     }
-    on FirebaseAuthException catch (e)
-    {
-      if(!mounted) { return; }
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No se ha podido eliminar la cuenta: ${e.message} ?? e.code')));
-    }
-    catch (e)
-    {
-      if(!mounted) { return; }
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No se han podido eliminar los datos: $e')));
-    }
+    final result = await sl<DeleteAccountUseCase>().call(params: passw);
+    if (!mounted) return;
+
+    result.fold(
+      (l) => SnackbarRoot.show(
+        context,
+        l.toString(),
+        selection: SnackbarRootType.warning,
+      ),
+      (r) {
+        SnackbarRoot.show(
+          context,
+          'La cuenta se ha eliminado correctamente',
+          selection: SnackbarRootType.ok,
+          leading: Icon(Icons.person_remove_outlined),
+        );
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute<void>(builder: (_) => const SignInPage()),
+          (route) => false,
+        );
+      },
+    );
   }
 
   Widget _section(String title, List<Widget> children) {
@@ -257,147 +289,104 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Widget _option
-  ({
-      required IconData icon,
-      required String title,
-      String? subtitle,
-      VoidCallback? onTap,
-  })
-    {
-      return ListTile
-      (
-        leading: Icon(icon),
-        title: Text(title),
-        subtitle: subtitle == null ? null : Text(subtitle),
-        trailing: const Icon(Icons.chevron_right),
-        onTap: onTap,
-      );
-    }
+  Widget _option({
+    required IconData icon,
+    required String title,
+    String? subtitle,
+    VoidCallback? onTap,
+  }) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      subtitle: subtitle == null ? null : Text(subtitle),
+      trailing: const Icon(Icons.chevron_right),
+      onTap: onTap,
+    );
+  }
 
   @override
-  Widget build(BuildContext context)
-  {
-    return Scaffold
-    (
-      appBar: AppBar
-      (
-        title: const Text('Ajustes'),
-      ),
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Ajustes')),
 
-      body: ListView
-      (
-        padding: EdgeInsets.only
-        (
-          bottom: 100 + MediaQuery.of(context).padding.bottom
+      body: ListView(
+        padding: EdgeInsets.only(
+          bottom: 100 + MediaQuery.of(context).padding.bottom,
         ),
-        children: 
-        [
-          _section
-          (
-            'Seguridad',
-            [
-              SwitchListTile
-              (
-                secondary: const Icon(Icons.fingerprint), 
-                title:  const Text('Biometría'),
-                value: _biometricEnabled,
-                onChanged: _onBiometricChanged,
-              ),
+        children: [
+          _section('Seguridad', [
+            SwitchListTile(
+              secondary: const Icon(Icons.fingerprint),
+              title: const Text('Biometría'),
+              value: _biometricEnabled,
+              onChanged: _onBiometricChanged,
+            ),
 
-              _option
-              (
-                icon: Icons.lock_outline, 
-                title:  'Cambiar contraseña',
-                onTap: () 
-                {
-                  Navigator.push
-                  (
-                    context, 
-                    MaterialPageRoute(builder: (_) => const ChangePasswordPage())
-                  );
-                }
-              ),
+            _option(
+              icon: Icons.lock_outline,
+              title: 'Cambiar contraseña',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const ChangePasswordPage()),
+                );
+              },
+            ),
 
-              _option
-              (
-                icon: Icons.person_remove_outlined, 
-                title:  'Darse de baja',
-                onTap: _deleteAccount,
+            _option(
+              icon: Icons.person_remove_outlined,
+              title: 'Darse de baja',
+              onTap: _deleteAccount,
+            ),
+          ]),
 
-              ),
-            ]
-          ),
+          _section('Accesibilidad', [
+            _option(
+              icon: Icons.accessibility_new,
+              title: 'VoiceOver o TalkBack',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const ScreenReaderPage()),
+                );
+              },
+            ),
 
-          _section
-          (
-            'Accesibilidad',
-            [
-              _option
-              (
-                icon: Icons.accessibility_new, 
-                title:  'VoiceOver o TalkBack',
-                onTap: ()
-                {
-                  Navigator.push
-                  (
-                    context,
-                    MaterialPageRoute(builder: (_) => const ScreenReaderPage())
-                  );
-                }
-              ),
+            _option(
+              icon: Icons.text_fields,
+              title: 'Tamaño de letra',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const FontSizePage()),
+                );
+              },
+            ),
+          ]),
 
-              _option
-              (
-                icon: Icons.text_fields, 
-                title:  'Tamaño de letra',
-                onTap: ()
-                {
-                  Navigator.push
-                  (
-                    context, 
-                    MaterialPageRoute(builder: (_) => const FontSizePage()),
-                  );
-                },
-              ),
-            ]
-          ),
+          _section('Preferencias', [
+            SwitchListTile(
+              secondary: const Icon(Icons.vibration),
+              title: const Text('Vibración'),
+              value: _vibrationEnabled,
+              onChanged: _setVibration,
+            ),
+          ]),
 
-          _section
-          (
-            'Preferencias',
-            [
-              SwitchListTile
-              (
-                secondary: const Icon(Icons.vibration), 
-                title:  const Text('Vibración'),
-                value: _vibrationEnabled,
-                onChanged: _setVibration,
-              ),
-            ]
-          ),
-
-          _section
-          (
-            'Información',
-            [
-              _option
-              (
-                icon: Icons.info_outline, 
-                title:  'Acerca de la app',
-                onTap: ()
-                {
-                  Navigator.push
-                  (
-                    context, 
-                    MaterialPageRoute(builder: (_) => const AboutPage()),
-                  );
-                },
-              ),
-            ]
-          ),
+          _section('Información', [
+            _option(
+              icon: Icons.info_outline,
+              title: 'Acerca de la app',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AboutPage()),
+                );
+              },
+            ),
+          ]),
         ],
-      )
+      ),
     );
   }
 }

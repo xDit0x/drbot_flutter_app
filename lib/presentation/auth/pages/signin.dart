@@ -6,7 +6,7 @@ import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
 import 'package:flutter_learning/core/configs/assets/app_images.dart';
 import 'package:flutter_learning/core/configs/theme/app_colors.dart';
 import 'package:flutter_learning/domain/models/auth/signin_user_request.dart';
-import 'package:flutter_learning/domain/usecases/auth/sendPasswordResetEmail.dart';
+import 'package:flutter_learning/domain/usecases/auth/send_password_reset_email.dart';
 import 'package:flutter_learning/domain/usecases/auth/sign_in.dart';
 import 'package:flutter_learning/presentation/auth/pages/signup.dart';
 import 'package:flutter_learning/presentation/root/pages/root.dart';
