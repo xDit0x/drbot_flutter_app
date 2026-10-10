@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dartz/dartz.dart' hide State;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -146,13 +148,18 @@ class _AppointmentPageState extends State<AppointmentPage> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  spacing: 2,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.access_alarm),
+                    Icon(
+                      Icons.access_alarm,
+                      color: Theme.of(context).colorScheme.inverseSurface
+                          .withAlpha(230),
+                    ),
                     const Text(
                       ' Citas programadas',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w500,
                         letterSpacing: 0.62,
                       ),
                     ),
@@ -172,12 +179,54 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             Icons.arrow_right,
                             color: Theme.of(context).colorScheme.inverseSurface,
                           ),
-                          title: Text(
-                            appointment.specialty,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          title: Row(
+                            spacing: 2,
+                            children: [
+                              Text(
+                                appointment.specialty,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(width: 4),
+                              if (appointment.status ==
+                                  AppointmentStatus.requested)
+                                SizedBox(
+                                  width: 22,
+                                  height: 22,
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.schedule,
+                                        size: 22,
+                                        color: Colors.orange,
+                                      ),
+
+                                      Transform.rotate(
+                                        angle: -pi / 4,
+                                        child: Container(
+                                          width: 26,
+                                          height: 2,
+                                          color: Colors.orange,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              if (appointment.status ==
+                                  AppointmentStatus.requested)
+                                Text(
+                                  'Pendiente confirmación',
+                                  style: TextStyle(
+                                    fontSize: 8,
+                                    color: Colors.orange,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                            ],
                           ),
                           subtitle: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
