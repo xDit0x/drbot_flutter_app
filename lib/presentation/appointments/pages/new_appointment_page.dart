@@ -199,8 +199,8 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
                   subtitle: effectiveCenter == null
                       ? null
                       : Text(
-                          '${effectiveCenter!.region}\n'
-                          '${effectiveCenter!.insurers.join(', ')}',
+                          '${effectiveCenter.region}\n'
+                          '${effectiveCenter.insurers.join(', ')}',
                         ),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () => _pickHospital(

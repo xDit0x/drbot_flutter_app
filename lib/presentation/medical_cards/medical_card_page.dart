@@ -2,33 +2,33 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class MedicalCardPage extends StatefulWidget
-{
+class MedicalCardPage extends StatefulWidget {
   const MedicalCardPage({super.key});
 
   @override
   State<MedicalCardPage> createState() => _MedicalCardsPageState();
 }
 
-class _MedicalCardsPageState extends State<MedicalCardPage>
-{
-  late final Future<Map<String, dynamic>?>_userData = _loadUserData();
-  
-  Future <Map<String,dynamic>?> _loadUserData() async
-  {
+class _MedicalCardsPageState extends State<MedicalCardPage> {
+  late final Future<Map<String, dynamic>?> _userData = _loadUserData();
+
+  Future<Map<String, dynamic>?> _loadUserData() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
 
-    if(uid == null) { return null; }
+    if (uid == null) {
+      return null;
+    }
 
-    final document = await FirebaseFirestore.instance.collection('Users').doc(uid).get();
+    final document = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(uid)
+        .get();
 
     return document.data();
   }
-  
-  String _privateCompanyCard(String? company)
-  {
-    switch (company?.trim().toUpperCase()) 
-    {
+
+  String _privateCompanyCard(String? company) {
+    switch (company?.trim().toUpperCase()) {
       case 'DKV':
         return 'assets/images/cards/dkv.jpg';
       case 'SANITAS':
@@ -42,86 +42,82 @@ class _MedicalCardsPageState extends State<MedicalCardPage>
     }
   }
 
-  Widget _buildCard
-  ({
+  Widget _buildCard({
     required String title,
     required String asset,
     required String? number,
-  })
-    {
-      return ClipRRect
-      (
-        borderRadius: BorderRadius.circular(18),
-        child: SizedBox
-        (
-          width: double.infinity,
-          height: 190,
-          child: Stack
-          (
-            fit: StackFit.expand,
-            children: 
-            [
-              Image.asset
-              (
-                asset,
-                fit: BoxFit.cover,
-                errorBuilder: (_, _, __) => const ColoredBox
-                (
-                  color: Colors.blue, 
-                  child: Icon(Icons.credit_card, color: Colors.white, size: 48)
-                ),
+  }) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(18),
+      child: SizedBox(
+        width: double.infinity,
+        height: 190,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(
+              asset,
+              fit: BoxFit.cover,
+              errorBuilder: (_, _, _) => const ColoredBox(
+                color: Colors.blue,
+                child: Icon(Icons.credit_card, color: Colors.white, size: 48),
               ),
-              ColoredBox(color: Colors.black.withValues(alpha: 0.25)),
-              Padding
-              (
-                padding: const EdgeInsets.all(18),
-                child: Column
-                (
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: 
-                  [
-                      Text(title, style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-                      Text
-                      (
-                          number?.isNotEmpty == true ? number!: 'Número no registrado',
-                        style: const TextStyle
-                        (
-                          color: Colors.white,
-                          fontSize: 16,
-                          letterSpacing: 1.2
-                        ),
-                    )
-                  ],
-                  
-                ),
+            ),
+            ColoredBox(color: Colors.black.withValues(alpha: 0.25)),
+            Padding(
+              padding: const EdgeInsets.all(18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    number?.isNotEmpty == true
+                        ? number!
+                        : 'Número no registrado',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                ],
               ),
-            ],  
-          ),
+            ),
+          ],
         ),
-      );
-    }
+      ),
+    );
+  }
 
-    @override
-    Widget build(BuildContext context)
-    {
-      return FutureBuilder<Map<String, dynamic>?>(future: _userData, builder: (context, snapshot)
-      {
-        if(snapshot.connectionState == ConnectionState.waiting)
-        {
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Map<String, dynamic>?>(
+      future: _userData,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         }
 
-        if(snapshot.hasError)
-        {
-          return const Center(child: Text('No se pudieron cargar tus tarjetas'));
+        if (snapshot.hasError) {
+          return const Center(
+            child: Text('No se pudieron cargar tus tarjetas'),
+          );
         }
 
         final data = snapshot.data;
 
-        if(data == null)
-        {
-          return const Center(child: Text('No se encontraron datos del usuario'));
+        if (data == null) {
+          return const Center(
+            child: Text('No se encontraron datos del usuario'),
+          );
         }
 
         final hasPublic = data['publicCoverage'] == true;
@@ -131,36 +127,35 @@ class _MedicalCardsPageState extends State<MedicalCardPage>
         final privateNumber = data['privateCardNumber'] as String?;
         final companyName = company?.trim();
 
-        if(!hasPublic && !hasPrivate)
-        {
-          return const Center(child: Text('No tienes coberturas sanitarias registradas'));
+        if (!hasPublic && !hasPrivate) {
+          return const Center(
+            child: Text('No tienes coberturas sanitarias registradas'),
+          );
         }
 
-        return ListView
-        (
+        return ListView(
           padding: const EdgeInsets.all(16),
-          children: 
-          [
-            if(hasPublic)
-              _buildCard
-              (
-                title: 'Tarjeta sanitaria pública', 
-                asset:  'assets/images/cards/publica.jpg',
+          children: [
+            if (hasPublic)
+              _buildCard(
+                title: 'Tarjeta sanitaria pública',
+                asset: 'assets/images/cards/publica.jpg',
                 number: publicNumber,
               ),
 
-            if(hasPublic && hasPrivate)
-              const SizedBox(height: 24),
-            
-            if(hasPrivate)
-              _buildCard
-              (
-                title: companyName == null || companyName.isEmpty ? 'Seguro privado' : companyName,
+            if (hasPublic && hasPrivate) const SizedBox(height: 24),
+
+            if (hasPrivate)
+              _buildCard(
+                title: companyName == null || companyName.isEmpty
+                    ? 'Seguro privado'
+                    : companyName,
                 asset: _privateCompanyCard(companyName),
-                number: privateNumber 
-              )
+                number: privateNumber,
+              ),
           ],
         );
-      }); 
-    }
+      },
+    );
+  }
 }
