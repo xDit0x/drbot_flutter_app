@@ -119,10 +119,11 @@ class _AppointmentPageState extends State<AppointmentPage> {
           r,
         ) {
           final items = (r as List).cast<Appointment>();
-          if (items.isEmpty) {
+          final openAppointments = items.where((appointment) => appointment.status != AppointmentStatus.completed).toList();
+          if (openAppointments.isEmpty) {
             return const Center(
               child: Text(
-                "Sin citas programadas para su persona.",
+                "No tienes citas pendientes.",
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
             );
@@ -152,7 +153,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                 child: ListView(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 72),
                   children: [
-                    for (final appointment in items)
+                    for (final appointment in openAppointments)
                       Card(
                         color: Theme.of(context).colorScheme.surfaceContainer,
                         child: ListTile(
@@ -183,7 +184,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                 ),
                               ),
                               Text(
-                                'Dr/Dra.${appointment.doctorName.trimLeft()}',
+                                '${appointment.doctorName.trimLeft()}',
                                 style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
