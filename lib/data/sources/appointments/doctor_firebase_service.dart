@@ -43,9 +43,15 @@ class DoctorFirebaseServiceImpl extends DoctorFirebaseService {
           .collection('Doctors')
           .where('centerCode', isEqualTo: centerCode)
           .get();
-      final list = snap.docs.map(
-        (d) => Doctor.fromMap(d.id, Map<String, dynamic>.from(d.data())),
-      );
+      final list =
+          snap.docs
+              .map(
+                (d) =>
+                    Doctor.fromMap(d.id, Map<String, dynamic>.from(d.data())),
+              )
+              .toList()
+            ..sort((a, b) => a.name.compareTo(b.name));
+
       return Right(list);
     } on FirebaseException catch (e) {
       if (e.code == 'permission.-denied') {
