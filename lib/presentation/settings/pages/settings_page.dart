@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
+import 'package:flutter_learning/dev/seed_doctors.dart';
 import 'package:flutter_learning/domain/usecases/auth/delete_account.dart';
 import 'package:flutter_learning/presentation/auth/pages/signup_or_signin.dart';
 import 'package:flutter_learning/service_locator.dart';
@@ -114,6 +116,30 @@ class _SettingsPageState extends State<SettingsPage> {
       final preference = await SharedPreferences.getInstance();
       await preference.setBool('biometricEnabled', enabled);
     } catch (_) {}
+  }
+
+  Future<void> _seedDoctors() async {
+    try {
+      final result = await DoctorsSeeder().seed();
+      if (!mounted) return;
+      final message = result.warnings.isEmpty
+          ? '${result.created} médicos sembrados'
+          : '${result.created} médicos · ${result.warnings.length} avisos';
+      SnackbarRoot.show(
+        context,
+        message,
+        selection: result.warnings.isEmpty
+            ? SnackbarRootType.ok
+            : SnackbarRootType.warning,
+      );
+    } catch (_) {
+      if (!mounted) return;
+      SnackbarRoot.show(
+        context,
+        'No se pudieron sembrar los médicos',
+        selection: SnackbarRootType.bad,
+      );
+    }
   }
 
   Future<void> _deleteAccount() async {
@@ -387,6 +413,16 @@ class _SettingsPageState extends State<SettingsPage> {
               },
             ),
           ]),
+
+          if (kDebugMode)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+              child: OutlinedButton.icon(
+                onPressed: _seedDoctors,
+                icon: const Icon(Icons.cloud_upload_outlined),
+                label: const Text('Sembrar médicos (dev)'),
+              ),
+            ),
         ],
       ),
     );

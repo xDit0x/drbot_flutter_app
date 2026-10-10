@@ -46,3 +46,7 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+
+# Claves privadas firebase
+tool/serviceAccountKey.json
+tool/node_modules/
