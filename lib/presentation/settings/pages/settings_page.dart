@@ -1,10 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
 import 'package:flutter_learning/domain/usecases/auth/delete_account.dart';
-import 'package:flutter_learning/presentation/auth/pages/signin.dart';
 import 'package:flutter_learning/presentation/auth/pages/signup_or_signin.dart';
 import 'package:flutter_learning/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';

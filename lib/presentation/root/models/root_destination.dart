@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/core/configs/assets/app_vectors.dart';
 import 'package:flutter_learning/presentation/appointments/pages/appointment.dart';
-import 'package:flutter_learning/presentation/pages/help_page.dart';
+import 'package:flutter_learning/presentation/help/pages/help_page.dart';
 import 'package:flutter_learning/presentation/profile/pages/profile.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_learning/presentation/settings/pages/settings_page.dart';
+import 'package:flutter_learning/presentation/medical_cards/medical_card_page.dart';
 
 class RootDestination {
   final Widget icon;
@@ -81,7 +82,7 @@ class RootDestination {
     RootDestination(
       icon: Icon(Icons.medical_information_rounded, size: 30),
       label: 'Mis tarjetas',
-      page: Center(child: Text('Mis tarjetas')),
+      page: const MedicalCardPage(),
     ),
   ];
 }
