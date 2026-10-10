@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/presentation/root/models/root_destination.dart';
+import 'package:flutter_learning/presentation/root/root_navigation.dart';
 import 'package:flutter_learning/presentation/root/widgets/feature_scaffold.dart';
 import 'package:flutter_learning/presentation/root/widgets/features_sheet.dart';
 import 'package:flutter_learning/presentation/root/widgets/root_nav_bar.dart';
@@ -22,6 +23,36 @@ class _RootPageState extends State<RootPage> {
   final sheet = RootDestination.rootDestinations
       .where((d) => !d.pinnedToDock)
       .toList();
+  @override
+  void initState() {
+    super.initState();
+    RootNavigation.pendingDestination.addListener(_handlePendingDestination);
+  }
+
+  void _handlePendingDestination() {
+    final label = RootNavigation.pendingDestination.value;
+    if (label == null) return;
+
+    final dockIndex = dock.indexWhere((d) => d.label == label);
+    final sheetIndex = sheet.indexWhere((d) => d.label == label);
+
+    if (!mounted) return;
+    setState(() {
+      if (dockIndex >= 0) {
+        currentPageIndex = dockIndex;
+        selectedSheetFeature = null;
+      } else if (sheetIndex >= 0) {
+        selectedSheetFeature = sheet[sheetIndex];
+      }
+    });
+    RootNavigation.pendingDestination.value = null;
+  }
+
+  @override
+  void dispose() {
+    RootNavigation.pendingDestination.removeListener(_handlePendingDestination);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

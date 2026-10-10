@@ -48,6 +48,8 @@ dependencies:
   local_auth: ^3.0.2
   url_launcher: ^6.3.3
   table_calendar:
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:

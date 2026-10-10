@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/core/configs/assets/app_vectors.dart';
 import 'package:flutter_learning/presentation/appointments/pages/appointment.dart';
+import 'package:flutter_learning/presentation/appointments/pages/new_appointment_page.dart';
 import 'package:flutter_learning/presentation/help/pages/help_page.dart';
 import 'package:flutter_learning/presentation/profile/pages/profile.dart';
 import 'package:flutter_svg/svg.dart';
@@ -35,7 +36,7 @@ class RootDestination {
     RootDestination(
       icon: SvgPicture.asset(AppVectors.addAppointment, width: 30),
       label: 'Nueva cita',
-      page: Center(child: Text('Añadir cita')),
+      page: const NewAppointmentPage(),
       pinnedToDock: true,
     ),
     RootDestination(

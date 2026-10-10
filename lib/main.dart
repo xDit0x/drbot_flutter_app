@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_learning/presentation/choose_mode/bloc/theme_cubit.dart';
 import 'package:flutter_learning/firebase_options.dart';
 import 'package:flutter_learning/presentation/root/pages/authgate.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_learning/service_locator.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:flutter_learning/core/configs/theme/app_theme.dart';
@@ -43,6 +43,9 @@ class MyApp extends StatelessWidget {
       providers: [BlocProvider(create: (_) => ThemeCubit())],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, mode) => MaterialApp(
+          localizationsDelegates: GlobalMaterialLocalizations.delegates,
+          supportedLocales: const [Locale('es', 'ES')],
+          locale: const Locale('es', 'ES'),
           title: 'DrBot',
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
