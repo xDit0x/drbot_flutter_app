@@ -7,8 +7,8 @@ import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
 import 'package:flutter_learning/core/configs/theme/app_colors.dart';
 import 'package:flutter_learning/domain/entities/appointments/appointment.dart';
 import 'package:flutter_learning/domain/usecases/appointments/get_appointments.dart';
-import 'package:flutter_learning/domain/usecases/appointments/remove_appointment.dart';
-import 'package:flutter_learning/presentation/appointments/widgets/remove_confirmation_dialog.dart';
+import 'package:flutter_learning/domain/usecases/appointments/cancel_appointment.dart';
+import 'package:flutter_learning/presentation/appointments/widgets/cancel_confirmation_dialog.dart';
 import 'package:flutter_learning/service_locator.dart';
 
 class AppointmentPage extends StatefulWidget {
@@ -21,7 +21,7 @@ class AppointmentPage extends StatefulWidget {
 class _AppointmentPageState extends State<AppointmentPage> {
   late Future<Either> _future;
 
-  Future<void> _removeAppointment(Appointment appointment) async {
+  Future<void> _cancelAppointment(Appointment appointment) async {
     final confirm = await showDialog<bool>(
       animationStyle: AnimationStyle(
         duration: Duration(milliseconds: 250),
@@ -29,8 +29,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
       ),
       barrierColor: Colors.black.withAlpha(150),
       context: context,
-      builder: (dialogContext) => RemoveConfirmationDialog(
-        context: context,
+      builder: (dialogContext) => CancelConfirmationDialog(
         appointment: appointment,
         dialogContext: dialogContext,
       ),
@@ -38,7 +37,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
 
     if (confirm != true) return;
 
-    final result = await sl<RemoveAppointmentUseCase>().call(
+    final result = await sl<CancelAppointmentUseCase>().call(
       params: appointment.id,
     );
     if (!mounted) return;
@@ -52,7 +51,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
       (r) {
         SnackbarRoot.show(
           context,
-          'Cita eliminada',
+          'Cita cancelada',
           selection: SnackbarRootType.ok,
         );
         setState(_load); // recarga el FutureBuilder
@@ -129,8 +128,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
           final items = (r as List).cast<Appointment>();
           final openAppointments = items
               .where(
-                (appointment) =>
-                    appointment.status != AppointmentStatus.completed,
+                (a) =>
+                    a.status == AppointmentStatus.completed ||
+                    a.status == AppointmentStatus.scheduled,
               )
               .toList();
           if (openAppointments.isEmpty) {
@@ -260,25 +260,31 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                 ),
                             ],
                           ),
-                          trailing: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surfaceContainerHigh,
-                            ),
-                            child: IconButton(
-                              onPressed: () {
-                                HapticFeedback.heavyImpact();
-                                _removeAppointment(appointment);
-                              },
-                              icon: const Icon(
-                                size: 26,
-                                Icons.delete_rounded,
-                                color: Color.fromARGB(255, 255, 0, 0),
-                              ),
-                            ),
-                          ),
+                          trailing:
+                              (appointment.status ==
+                                      AppointmentStatus.requested ||
+                                  appointment.status ==
+                                      AppointmentStatus.scheduled)
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .surfaceContainerHigh,
+                                  ),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      HapticFeedback.heavyImpact();
+                                      _cancelAppointment(appointment);
+                                    },
+                                    icon: const Icon(
+                                      size: 26,
+                                      Icons.cancel_outlined,
+                                      color: Color.fromARGB(255, 255, 0, 0),
+                                    ),
+                                  ),
+                                )
+                              : null,
                         ),
                       ),
                   ],

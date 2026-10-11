@@ -15,8 +15,9 @@ class CenterSelection {
 
 class CenterSelectionPage extends StatefulWidget {
   final InsuranceSelection coverage;
+  final VoidCallback? onBack;
 
-  const CenterSelectionPage({super.key, required this.coverage});
+  const CenterSelectionPage({super.key, required this.coverage, this.onBack});
 
   @override
   State<CenterSelectionPage> createState() => _CenterSelectionPageState();
@@ -215,49 +216,64 @@ class _CenterSelectionPageState extends State<CenterSelectionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: (AppBar(title: const Text('Centros de referencia'))),
-      body: _loading
-          ? const Center(child: CircularProgressIndicator())
-          : _loadError != null
-          ? Center(child: Text(_loadError!))
-          : ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                const Text(
-                  'Seleccione un centro de salud y un hospital para continuar.',
+    return PopScope(
+      canPop: widget.onBack == null,
+      onPopInvokedWithResult: ((didPop, result) {
+        if (didPop) return;
+        widget.onBack?.call();
+      }),
+      child: Scaffold(
+        appBar: (AppBar(
+          title: const Text('Centros de referencia'),
+          leading: widget.onBack == null
+              ? null
+              : IconButton(
+                  onPressed: widget.onBack,
+                  icon: const Icon(Icons.arrow_back),
                 ),
-                const SizedBox(height: 16),
-                _centerOption(
-                  title: 'Centro de salud',
-                  icon: Icons.medical_services_outlined,
-                  selectedCenter: _selectedHealthCenter,
-                  hospital: false,
-                ),
-                _centerOption(
-                  title: 'Hospital',
-                  icon: Icons.local_hospital_outlined,
-                  selectedCenter: _selectedHospital,
-                  hospital: true,
-                ),
-                if (_selectionError != null) ...[
-                  const SizedBox(height: 8),
-                  Text(
-                    _selectionError!,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.error,
+        )),
+        body: _loading
+            ? const Center(child: CircularProgressIndicator())
+            : _loadError != null
+            ? Center(child: Text(_loadError!))
+            : ListView(
+                padding: const EdgeInsets.all(16),
+                children: [
+                  const Text(
+                    'Seleccione un centro de salud y un hospital para continuar.',
+                  ),
+                  const SizedBox(height: 16),
+                  _centerOption(
+                    title: 'Centro de salud',
+                    icon: Icons.medical_services_outlined,
+                    selectedCenter: _selectedHealthCenter,
+                    hospital: false,
+                  ),
+                  _centerOption(
+                    title: 'Hospital',
+                    icon: Icons.local_hospital_outlined,
+                    selectedCenter: _selectedHospital,
+                    hospital: true,
+                  ),
+                  if (_selectionError != null) ...[
+                    const SizedBox(height: 8),
+                    Text(
+                      _selectionError!,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.error,
+                      ),
                     ),
+                  ],
+                  const SizedBox(height: 20),
+                  FilledButton(
+                    onPressed: _saving ? null : _continue,
+                    child: _saving
+                        ? const CircularProgressIndicator()
+                        : const Text('Continuar'),
                   ),
                 ],
-                const SizedBox(height: 20),
-                FilledButton(
-                  onPressed: _saving ? null : _continue,
-                  child: _saving
-                      ? const CircularProgressIndicator()
-                      : const Text('Continuar'),
-                ),
-              ],
-            ),
+              ),
+      ),
     );
   }
 }

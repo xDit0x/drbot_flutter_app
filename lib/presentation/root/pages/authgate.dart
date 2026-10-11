@@ -51,6 +51,7 @@ class _ProfileGate extends StatefulWidget {
 }
 
 class _ProfileGateState extends State<_ProfileGate> {
+  bool _editingCoverage = false;
   late final Stream<DocumentSnapshot<Map<String, dynamic>>> _docStream =
       FirebaseFirestore.instance
           .collection('Users')
@@ -76,8 +77,10 @@ class _ProfileGateState extends State<_ProfileGate> {
             d?['referenceHealthCenter'] != null &&
             d?['referenceHospital'] != null;
 
-        if (d == null || !hasCoverage) {
-          return const InsuranceSelectionPage();
+        if (d == null || !hasCoverage || _editingCoverage) {
+          return InsuranceSelectionPage(
+            onSaved: () => setState(() => _editingCoverage = false),
+          );
         }
         if (!hasCenters) {
           return CenterSelectionPage(
@@ -88,6 +91,7 @@ class _ProfileGateState extends State<_ProfileGate> {
               publicCardNumber: d['publicCardNumber'] as String?,
               privateCardNumber: d['privateCardNumber'] as String?,
             ),
+            onBack: () => setState(() => _editingCoverage = true),
           );
         }
         return const BiometricLockGate(child: RootPage());

@@ -6,7 +6,6 @@ import 'package:flutter_learning/common/helpers/is_dark_mode.dart';
 
 import 'package:flutter_learning/core/configs/assets/app_vectors.dart';
 
-import 'package:flutter_learning/presentation/auth/pages/signin.dart';
 import 'package:flutter_learning/presentation/choose_mode/bloc/theme_cubit.dart';
 
 import 'package:flutter_learning/presentation/root/models/root_destination.dart';
@@ -157,12 +156,6 @@ class FeatureScaffold extends StatelessWidget {
               if (!context.mounted) return;
 
               await FirebaseAuth.instance.signOut();
-
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (_) => const SignInPage()),
-                (route) => false,
-              );
             },
             child: Icon(
               Icons.logout_rounded,
@@ -171,7 +164,7 @@ class FeatureScaffold extends StatelessWidget {
             ),
           ),
         ],
-        actionsPadding: const EdgeInsets.only(right: 5), // ← tu padding derecho
+        actionsPadding: const EdgeInsets.only(right: 5),
         scrolledUnderElevation: 1,
       ),
       body: destination.page,

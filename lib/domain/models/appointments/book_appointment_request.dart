@@ -10,6 +10,8 @@ class BookAppointmentRequest {
   final DateTime date;
   final AppointmentStatus status;
   final bool referralConfirmed;
+  final String? roomCode;
+  final String? roomLabel;
 
   const BookAppointmentRequest({
     required this.doctorId,
@@ -19,6 +21,8 @@ class BookAppointmentRequest {
     required this.date,
     required this.status,
     this.referralConfirmed = false,
+    this.roomCode,
+    this.roomLabel,
   });
   Map<String, dynamic> toMap() => {
     'doctorId': doctorId,
@@ -29,6 +33,8 @@ class BookAppointmentRequest {
     'date': date,
     'status': status.name,
     'referralConfirmed': referralConfirmed,
+    'roomCode': roomCode,
+    'roomLabel': roomLabel,
   };
 
   String get dateKey => date.dateKey;

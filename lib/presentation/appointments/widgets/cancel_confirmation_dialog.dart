@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_learning/domain/entities/appointments/appointment.dart';
 
-class RemoveConfirmationDialog extends StatelessWidget {
-  final BuildContext context;
+class CancelConfirmationDialog extends StatelessWidget {
   final BuildContext dialogContext;
   final Appointment appointment;
 
-  const RemoveConfirmationDialog({
+  const CancelConfirmationDialog({
     super.key,
-    required this.context,
+
     required this.appointment,
     required this.dialogContext,
   });
@@ -23,7 +22,7 @@ class RemoveConfirmationDialog extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'Eliminar cita',
+            'Cancelar cita',
             style: TextStyle(
               fontSize: 32,
               color: scheme.inverseSurface,
@@ -45,7 +44,7 @@ class RemoveConfirmationDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const Text(
-            '¿Desea eliminar la siguiente cita?',
+            '¿Desea cancelar la siguiente cita?',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
           ),
@@ -108,9 +107,13 @@ class RemoveConfirmationDialog extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(Icons.delete, color: scheme.inverseSurface, weight: 4),
+                  Icon(
+                    Icons.cancel_outlined,
+                    color: scheme.inverseSurface,
+                    weight: 4,
+                  ),
                   Text(
-                    'Eliminar',
+                    'Cancelar',
                     style: TextStyle(
                       color: scheme.inverseSurface,
                       fontSize: 18,
@@ -132,7 +135,7 @@ class RemoveConfirmationDialog extends StatelessWidget {
                   color: scheme.surfaceContainer,
                 ),
                 child: Text(
-                  'Cancelar',
+                  'Volver',
                   style: TextStyle(
                     color: scheme.inverseSurface,
                     fontSize: 16,
