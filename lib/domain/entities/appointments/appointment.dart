@@ -1,11 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_learning/domain/entities/clinical/medical_center.dart';
 
 enum AppointmentStatus {
   requested('Solicitada'),
   scheduled('Programada'),
-  completed('Completada'),
   checkedIn('En sala de espera'),
-  cancelled('Cancelada');
+  inConsultation('En consulta'),
+  completed('Completada'),
+  cancelled('Cancelada'),
+  noShow('No presentado');
 
   const AppointmentStatus(this.label);
   final String label;
@@ -19,6 +22,12 @@ enum AppointmentStatus {
 }
 
 class Appointment {
+  final String? roomCode;
+  final String? roomLabel;
+  final Timestamp? checkedInAt;
+  final int? queueNumber;
+  final Timestamp? calledAt;
+  final String? checkInSignature;
   final String id;
   final DateTime? date;
   final String doctorName;
@@ -32,6 +41,12 @@ class Appointment {
   final String? medicalReport;
 
   const Appointment({
+    this.roomCode,
+    this.roomLabel,
+    this.checkedInAt,
+    this.queueNumber,
+    this.calledAt,
+    this.checkInSignature,
     required this.id,
     required this.doctorName,
     required this.status,
@@ -78,6 +93,12 @@ class Appointment {
       referralConfirmed: map['referralConfirmed'] == true,
       principalDisease: map['principalDisease']?.toString(),
       medicalReport: map['medicalReport']?.toString(),
+      roomCode: map['roomCode']?.toString(),
+      roomLabel: map['roomLabel']?.toString(),
+      calledAt: map['calledAt'] as Timestamp?,
+      checkedInAt: map['checkedInAt'] as Timestamp?,
+      checkInSignature: map['checkInSignature']?.toString(),
+      queueNumber: (map['queueNumber'] as num?)?.toInt(),
     );
   }
 
@@ -92,5 +113,11 @@ class Appointment {
     'referralConfirmed': referralConfirmed,
     'principalDisease': principalDisease,
     'medicalReport': medicalReport,
+    'roomCode': roomCode,
+    'roomLabel': roomLabel,
+    'checkedInAt': checkedInAt,
+    'queueNumber': queueNumber,
+    'calledAt': calledAt,
+    'checkInSignature': checkInSignature,
   };
 }

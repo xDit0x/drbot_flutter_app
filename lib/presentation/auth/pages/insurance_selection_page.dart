@@ -19,7 +19,9 @@ class InsuranceSelection {
 }
 
 class InsuranceSelectionPage extends StatefulWidget {
-  const InsuranceSelectionPage({super.key});
+  final VoidCallback? onSaved;
+
+  const InsuranceSelectionPage({super.key, this.onSaved});
 
   @override
   State<InsuranceSelectionPage> createState() => _InsuranceSelectionPageState();
@@ -135,6 +137,7 @@ class _InsuranceSelectionPageState extends State<InsuranceSelectionPage> {
         'publicCardNumber': selection.publicCardNumber,
         'privateCardNumber': selection.privateCardNumber,
       }, SetOptions(merge: true));
+      widget.onSaved?.call();
     } catch (error) {
       _saving = false;
       if (!mounted) {
