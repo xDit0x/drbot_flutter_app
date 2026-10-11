@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:flutter_learning/presentation/auth/pages/center_selection_page.dart';
-
 class InsuranceSelection {
   final bool publicCoverty;
   final bool privateCoverty;
@@ -180,7 +178,8 @@ class _InsuranceSelectionPageState extends State<InsuranceSelectionPage> {
                 ),
               ),
 
-              if (_hasPublic)
+              if (_hasPublic) ...[
+                const SizedBox(height: 8),
                 TextFormField(
                   controller: _publicCardController,
                   decoration: const InputDecoration(
@@ -191,14 +190,13 @@ class _InsuranceSelectionPageState extends State<InsuranceSelectionPage> {
                     if (value == null || value.trim().isEmpty) {
                       return 'Introduce el número de la tarjeta sanitaria';
                     }
-
                     if (!RegExp(r'^[0-9 -]{6,25}$').hasMatch(value.trim())) {
                       return 'Revisa el formato del número de la tarjeta';
                     }
                     return null;
                   },
                 ),
-
+              ],
               Card(
                 child: CheckboxListTile(
                   value: _hasPrivate,
@@ -218,7 +216,7 @@ class _InsuranceSelectionPageState extends State<InsuranceSelectionPage> {
               ),
 
               if (_hasPrivate) ...[
-                const SizedBox(height: 16),
+                const SizedBox(height: 8),
                 DropdownButtonFormField<String>(
                   initialValue: _privateCompany,
                   decoration: const InputDecoration(
@@ -239,6 +237,7 @@ class _InsuranceSelectionPageState extends State<InsuranceSelectionPage> {
                     });
                   },
                 ),
+                const SizedBox(height: 10),
 
                 TextFormField(
                   controller: _privateCardController,

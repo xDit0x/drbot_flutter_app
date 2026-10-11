@@ -82,7 +82,7 @@ class InlineEditableTextState extends State<InlineEditableText> {
                   errorMaxLines: 2,
                   errorStyle: const TextStyle(fontSize: 12),
                   counterText: '',
-                  isDense: true, // ← compacta interno
+                  isDense: true,
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: 12,
                     vertical: 8,
