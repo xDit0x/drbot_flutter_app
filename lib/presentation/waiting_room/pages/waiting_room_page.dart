@@ -139,7 +139,7 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
         : 'Sala por asignar';
 
     final queueText = appointment.queueNumber != null
-        ? 'Le quedan ${appointment.queueNumber} persona'
+        ? 'Le quedan ${appointment.queueNumber! - 1} personas'
         : 'Turno por asignar';
 
     return Card(
