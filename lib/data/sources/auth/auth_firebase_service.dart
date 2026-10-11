@@ -42,15 +42,22 @@ class AuthFirebaseServieImpl extends AuthFirebaseService {
         password: createUserRequest.password,
       );
       final uid = data.user!.uid;
-      await FirebaseFirestore.instance.collection('Users').doc(uid).set({
-        'fullName': createUserRequest.fullName,
-        'email': data.user?.email,
-        'publicCoverage': createUserRequest.publicCoverty,
-        'privateCoverage': createUserRequest.privateCoverty,
-        'privateCompany': createUserRequest.privateCompany,
-        'referenceHealthCenter': createUserRequest.healthCenter?.toMap(),
-        'referenceHospital': createUserRequest.hospital?.toMap(),
-      }, SetOptions(merge: true));
+      try {
+        await FirebaseFirestore.instance.collection('Users').doc(uid).set({
+          'fullName': createUserRequest.fullName,
+          'email': data.user?.email,
+          'publicCoverage': createUserRequest.publicCoverty,
+          'privateCoverage': createUserRequest.privateCoverty,
+          'privateCompany': createUserRequest.privateCompany,
+          'referenceHealthCenter': createUserRequest.healthCenter?.toMap(),
+          'referenceHospital': createUserRequest.hospital?.toMap(),
+        }, SetOptions(merge: true));
+      } catch (e) {
+        try {
+          await data.user?.delete();
+        } catch (_) {}
+        return Left('No se pudo completar el registro');
+      }
       return Right('El registro fue completado');
     } on FirebaseAuthException catch (e) {
       String message = '';

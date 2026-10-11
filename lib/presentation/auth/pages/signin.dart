@@ -9,7 +9,7 @@ import 'package:flutter_learning/domain/models/auth/signin_user_request.dart';
 import 'package:flutter_learning/domain/usecases/auth/send_password_reset_email.dart';
 import 'package:flutter_learning/domain/usecases/auth/sign_in.dart';
 import 'package:flutter_learning/presentation/auth/pages/signup.dart';
-import 'package:flutter_learning/presentation/root/pages/root.dart';
+
 import 'package:flutter_learning/service_locator.dart';
 
 class SignInPage extends StatefulWidget {
@@ -66,25 +66,14 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 );
                 if (!mounted) return;
-                result.fold(
-                  (l) {
-                    //LEFT = no ha ido bien
-                    SnackbarRoot.show(
-                      context,
-                      l.toString(),
-                      selection: SnackbarRootType.bad,
-                    );
-                  },
-                  (r) {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => const RootPage(),
-                      ),
-                      (route) => false,
-                    );
-                  },
-                );
+                result.fold((l) {
+                  //LEFT = no ha ido bien
+                  SnackbarRoot.show(
+                    context,
+                    l.toString(),
+                    selection: SnackbarRootType.bad,
+                  );
+                }, (r) {});
               },
               title: 'Iniciar sesión',
             ),
@@ -284,7 +273,7 @@ class _SignInPageState extends State<SignInPage> {
           ),
           TextButton(
             onPressed: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (BuildContext context) => SignUpPage(),

@@ -30,6 +30,7 @@ class InsuranceSelectionPage extends StatefulWidget {
 class _InsuranceSelectionPageState extends State<InsuranceSelectionPage> {
   final _formKey = GlobalKey<FormState>();
 
+  bool _saving = false;
   bool _hasPublic = false;
   bool _hasPrivate = false;
   String? _privateCompany;
@@ -114,6 +115,10 @@ class _InsuranceSelectionPageState extends State<InsuranceSelectionPage> {
       return;
     }
 
+    setState(() {
+      _saving = true;
+    });
+
     final selection = InsuranceSelection(
       publicCoverty: _hasPublic,
       privateCoverty: _hasPrivate,
@@ -132,18 +137,8 @@ class _InsuranceSelectionPageState extends State<InsuranceSelectionPage> {
         'publicCardNumber': selection.publicCardNumber,
         'privateCardNumber': selection.privateCardNumber,
       }, SetOptions(merge: true));
-
-      if (!mounted) {
-        return;
-      }
-
-      await Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) => CenterSelectionPage(coverage: selection),
-        ),
-      );
     } catch (error) {
+      _saving = false;
       if (!mounted) {
         return;
       }
@@ -156,113 +151,120 @@ class _InsuranceSelectionPageState extends State<InsuranceSelectionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Coberturas sanitarias')),
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        appBar: AppBar(title: const Text('Coberturas sanitarias')),
 
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          padding: const EdgeInsets.all(20),
-          children: [
-            const Text(
-              'Seleccione las coberturas sanitarias que tiene. Puedes elegir una o las dos.',
-            ),
-            const SizedBox(height: 16),
-            Card(
-              child: CheckboxListTile
-              (
-                value: _hasPublic,
-                title: const Text('Seguridad social'),
-                subtitle: const Text('Cobertura sanitaria pública'),
-                secondary: const Icon(Icons.health_and_safety_outlined),
-                onChanged: (value) {
-                  setState(() {
-                    _hasPublic = value ?? false;
-                    _errorMessage = null;
-                  });
-                },
-                
+        body: Form(
+          key: _formKey,
+          child: ListView(
+            padding: const EdgeInsets.all(20),
+            children: [
+              const Text(
+                'Seleccione las coberturas sanitarias que tiene. Puedes elegir una o las dos.',
               ),
-            ),
-
-            if (_hasPublic)
-              TextFormField(
-                controller: _publicCardController,
-                decoration: const InputDecoration(
-                  labelText: 'Número de tarjeta sanitaria pública',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return 'Introduce el número de la tarjeta sanitaria';
-                  }
-
-                  if (!RegExp(r'^[0-9 -]{6,25}$').hasMatch(value.trim())) {
-                    return 'Revisa el formato del número de la tarjeta';
-                  }
-                  return null;
-                },
-              ),
-              
-            Card(
-              child: CheckboxListTile(
-                value: _hasPrivate,
-                title: const Text('Seguro privado'),
-                subtitle: const Text('Cobertura sanitaria privada'),
-                secondary: const Icon(Icons.medical_services_outlined),
-                onChanged: (value) {
-                  setState(() {
-                    _hasPrivate = value ?? false;
-                    if (!_hasPrivate) {
-                      _privateCompany = null;
-                    }
-                    _errorMessage = null;
-                  });
-                },
-              ),
-            ),
-
-            if (_hasPrivate) ...[
               const SizedBox(height: 16),
-              DropdownButtonFormField<String>(
-                initialValue: _privateCompany,
-                decoration: const InputDecoration(
-                  labelText: 'Compañía aseguradora',
-                  border: OutlineInputBorder(),
-                ),
-                hint: const Text('Seleccione su compañía'),
-                items: _companies.map((company) {
-                  return DropdownMenuItem(value: company, child: Text(company));
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _privateCompany = value;
-                    _errorMessage = null;
-                  });
-                },
-              ),
-
-              TextFormField(
-                controller: _privateCardController,
-                validator: _validatePrivateCard,
-                decoration: const InputDecoration(
-                  labelText: 'Número de tarjeta',
-                  border: OutlineInputBorder(),
+              Card(
+                child: CheckboxListTile(
+                  value: _hasPublic,
+                  title: const Text('Seguridad social'),
+                  subtitle: const Text('Cobertura sanitaria pública'),
+                  secondary: const Icon(Icons.health_and_safety_outlined),
+                  onChanged: (value) {
+                    setState(() {
+                      _hasPublic = value ?? false;
+                      _errorMessage = null;
+                    });
+                  },
                 ),
               ),
-            ],
 
-            if (_errorMessage != null) ...[
-              const SizedBox(height: 12),
-              Text(
-                _errorMessage!,
-                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              if (_hasPublic)
+                TextFormField(
+                  controller: _publicCardController,
+                  decoration: const InputDecoration(
+                    labelText: 'Número de tarjeta sanitaria pública',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Introduce el número de la tarjeta sanitaria';
+                    }
+
+                    if (!RegExp(r'^[0-9 -]{6,25}$').hasMatch(value.trim())) {
+                      return 'Revisa el formato del número de la tarjeta';
+                    }
+                    return null;
+                  },
+                ),
+
+              Card(
+                child: CheckboxListTile(
+                  value: _hasPrivate,
+                  title: const Text('Seguro privado'),
+                  subtitle: const Text('Cobertura sanitaria privada'),
+                  secondary: const Icon(Icons.medical_services_outlined),
+                  onChanged: (value) {
+                    setState(() {
+                      _hasPrivate = value ?? false;
+                      if (!_hasPrivate) {
+                        _privateCompany = null;
+                      }
+                      _errorMessage = null;
+                    });
+                  },
+                ),
+              ),
+
+              if (_hasPrivate) ...[
+                const SizedBox(height: 16),
+                DropdownButtonFormField<String>(
+                  initialValue: _privateCompany,
+                  decoration: const InputDecoration(
+                    labelText: 'Compañía aseguradora',
+                    border: OutlineInputBorder(),
+                  ),
+                  hint: const Text('Seleccione su compañía'),
+                  items: _companies.map((company) {
+                    return DropdownMenuItem(
+                      value: company,
+                      child: Text(company),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _privateCompany = value;
+                      _errorMessage = null;
+                    });
+                  },
+                ),
+
+                TextFormField(
+                  controller: _privateCardController,
+                  validator: _validatePrivateCard,
+                  decoration: const InputDecoration(
+                    labelText: 'Número de tarjeta',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ],
+
+              if (_errorMessage != null) ...[
+                const SizedBox(height: 12),
+                Text(
+                  _errorMessage!,
+                  style: TextStyle(color: Theme.of(context).colorScheme.error),
+                ),
+              ],
+
+              const SizedBox(height: 24),
+              FilledButton(
+                onPressed: _continue,
+                child: const Text('Continuar'),
               ),
             ],
-
-            const SizedBox(height: 24),
-            FilledButton(onPressed: _continue, child: const Text('Continuar')),
-          ],
+          ),
         ),
       ),
     );

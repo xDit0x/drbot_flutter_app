@@ -6,10 +6,8 @@ import 'package:flutter_learning/core/configs/assets/app_images.dart';
 import 'package:flutter_learning/core/configs/theme/app_colors.dart';
 import 'package:flutter_learning/domain/models/auth/create_user_request.dart';
 import 'package:flutter_learning/domain/usecases/auth/sign_up.dart';
-import 'package:flutter_learning/presentation/auth/pages/signin.dart';
 
 import 'package:flutter_learning/service_locator.dart';
-import 'package:flutter_learning/presentation/auth/pages/insurance_selection_page.dart';
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
@@ -69,7 +67,6 @@ class SignUpPage extends StatelessWidget {
 
                 result.fold(
                   (l) {
-                    //LEFT = no ha ido bien
                     SnackbarRoot.show(
                       context,
                       l.toString(),
@@ -77,18 +74,13 @@ class SignUpPage extends StatelessWidget {
                     );
                   },
                   (r) {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            const InsuranceSelectionPage(),
-                      ),
-                      (route) => route.isFirst,
-                    );
+                    if (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
                   },
                 );
               },
-              title: 'Crear cuenta',
+              title: 'Siguiente paso',
             ),
             Spacer(),
           ],
@@ -142,12 +134,7 @@ class SignUpPage extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => SignInPage(),
-                ),
-              );
+              Navigator.pop(context);
             },
             child: Text(
               "Iniciar sesión",
