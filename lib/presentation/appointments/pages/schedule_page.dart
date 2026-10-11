@@ -202,18 +202,20 @@ class _SchedulePageState extends State<SchedulePage> {
                 else if (_availableSlots().isEmpty)
                   const Text('No quedan horas libres ese día')
                 else
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      for (final slot in _availableSlots())
-                        ChoiceChip(
-                          label: Text(_formatTime(slot)),
-                          selected: _selectedTime?.timeKey == slot.timeKey,
-                          onSelected: (_) =>
-                              setState(() => _selectedTime = slot),
-                        ),
-                    ],
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      spacing: 8,
+                      children: [
+                        for (final slot in _availableSlots())
+                          ChoiceChip(
+                            label: Text(_formatTime(slot)),
+                            selected: _selectedTime?.timeKey == slot.timeKey,
+                            onSelected: (_) =>
+                                setState(() => _selectedTime = slot),
+                          ),
+                      ],
+                    ),
                   ),
               ],
             ),
