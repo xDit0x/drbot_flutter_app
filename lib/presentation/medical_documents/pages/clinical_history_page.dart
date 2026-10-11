@@ -71,7 +71,7 @@ class ClinicalHistoryPage extends StatelessWidget {
         if (records.isEmpty) {
           return const Center(
             child: Text(
-              'Todavía no hay enfermedades registradas en citas cerradas',
+              'Todavía no hay documentos',
             ),
           );
         }

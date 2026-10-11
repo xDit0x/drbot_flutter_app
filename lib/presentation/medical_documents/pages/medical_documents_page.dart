@@ -90,7 +90,7 @@ class MedicalDocumentsPage extends StatelessWidget
 
           if(reports.isEmpty)
           {
-            return const Center(child: Text('Todavía no hay enfermedades registradas en citas cerradas'));
+            return const Center(child: Text('Todavía no hay enfermedades registradas'));
           }
         
           return ListView
