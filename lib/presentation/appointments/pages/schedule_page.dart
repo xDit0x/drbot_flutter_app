@@ -156,17 +156,53 @@ class _SchedulePageState extends State<SchedulePage> {
                   widget.doctor.schedule.worksOn(day);
             },
             onDaySelected: _onDaySelected,
+            daysOfWeekStyle: DaysOfWeekStyle(
+              weekdayStyle: TextStyle(
+                color: scheme.inverseSurface,
+                fontWeight: FontWeight.w600,
+              ),
+              weekendStyle: TextStyle(
+                color: scheme.primary,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+
             headerStyle: const HeaderStyle(
+              titleTextStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
               formatButtonVisible: false,
               titleCentered: true,
             ),
             calendarStyle: CalendarStyle(
+              defaultTextStyle: TextStyle(
+                color: scheme.inverseSurface,
+                fontWeight: FontWeight.w600,
+              ),
+              selectedTextStyle: TextStyle(
+                color: scheme.surfaceContainer,
+                fontWeight: FontWeight.bold,
+              ),
+              disabledTextStyle: TextStyle(
+                color: scheme.inverseSurface.withAlpha(100),
+              ),
+              todayTextStyle: TextStyle(
+                color: scheme.inverseSurface,
+                fontWeight: FontWeight.bold,
+                shadows: [
+                  Shadow(
+                    color: Colors.black.withAlpha(100),
+                    offset: Offset(0.5, 0.5),
+                  ),
+                ],
+              ),
               todayDecoration: BoxDecoration(
-                color: scheme.secondaryContainer,
+                color: scheme.primary,
                 shape: BoxShape.circle,
               ),
               selectedDecoration: BoxDecoration(
-                color: scheme.primary,
+                color: scheme.secondaryContainer,
                 shape: BoxShape.circle,
               ),
               outsideDaysVisible: false,
