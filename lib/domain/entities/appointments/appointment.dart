@@ -115,8 +115,8 @@ class Appointment {
     'medicalReport': medicalReport,
     'roomCode': roomCode,
     'roomLabel': roomLabel,
-    'checkedInAt': checkedInAt,
     'queueNumber': queueNumber,
+    'checkedInAt': checkedInAt,
     'calledAt': calledAt,
     'checkInSignature': checkInSignature,
   };

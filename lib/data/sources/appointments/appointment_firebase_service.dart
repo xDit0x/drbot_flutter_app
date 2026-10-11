@@ -271,7 +271,7 @@ class AppointmentFirebaseServiceImpl implements AppointmentFirebaseService {
 
         transaction.update(slotRef, {
           'status': 'checkedIn',
-          'checkedInAt': FieldValue.serverTimestamp(),
+          'checkInAt': FieldValue.serverTimestamp(),
         });
 
         if (!queueSnap.exists) {

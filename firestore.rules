@@ -71,11 +71,7 @@ service cloud.firestore {
         && get(
           /databases/$(database)/documents/Doctors/$(resource.data.doctorId)
         ).data.authUid == request.auth.uid
-<<<<<<< HEAD
-        && resource.data.status == 'checkedIn'
-=======
         && resource.data.status in ['scheduled', 'checkedIn']
->>>>>>> ef26d272bf6ee34e0a8dbfd69d1b1c8d9d620a98
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
           'principalDisease',
           'medicalReport',
@@ -93,8 +89,6 @@ service cloud.firestore {
 
       allow delete: if request.auth != null
         && resource.data.uid == request.auth.uid;
-<<<<<<< HEAD
-=======
     }
 
     // Turnos (sala de espera). El check-in lee e incrementa lastNumber.
@@ -107,7 +101,6 @@ service cloud.firestore {
     match /Sessions/{sessionId} {
       allow read: if request.auth != null;
       allow write: if false;
->>>>>>> ef26d272bf6ee34e0a8dbfd69d1b1c8d9d620a98
     }
   }
 }
