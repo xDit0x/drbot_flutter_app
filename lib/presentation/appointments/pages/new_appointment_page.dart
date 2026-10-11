@@ -155,6 +155,10 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
             children: [
               if (showSelector) ...[
                 SegmentedButton<_Coverage>(
+                  style: SegmentedButton.styleFrom(
+                    textStyle: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+
                   segments: const [
                     ButtonSegment(
                       value: _Coverage.public,
