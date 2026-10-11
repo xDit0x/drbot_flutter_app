@@ -65,6 +65,9 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
     });
   }
 
+  
+  // No tocar
+
   void _showMessage(String text) {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));

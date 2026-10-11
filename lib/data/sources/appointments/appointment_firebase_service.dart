@@ -140,6 +140,7 @@ class AppointmentFirebaseServiceImpl implements AppointmentFirebaseService {
       if (session != null) {
         data['roomCode'] = session['roomCode'];
         data['roomLabel'] = session['roomLabel'];
+        data['slotId'] = request.slotId;
       }
 
       final result = await FirebaseFirestore.instance.runTransaction<String>((
@@ -213,11 +214,6 @@ class AppointmentFirebaseServiceImpl implements AppointmentFirebaseService {
         if (status != 'requested' && status != 'scheduled') return 'invalid';
 
         final doctorId = data['doctorId']?.toString();
-        final centerCode =
-            data['centerCode']?.toString() ??
-            (data['medicalCenter'] is Map
-                ? (data['medicalCenter'] as Map)['code']?.toString()
-                : null);
         final rawDate = data['date'];
         final date = rawDate is Timestamp
             ? rawDate.toDate()
@@ -225,11 +221,32 @@ class AppointmentFirebaseServiceImpl implements AppointmentFirebaseService {
             ? rawDate
             : DateTime.tryParse(rawDate?.toString() ?? '');
 
+        final centerCode =
+            data['centerCode']?.toString() ??
+            (data['medicalCenter'] is Map
+                ? (data['medicalCenter'] as Map)['code']?.toString()
+                : null);
+
         if (doctorId == null ||
             doctorId.isEmpty ||
             centerCode == null ||
             centerCode.isEmpty ||
             date == null) {
+          return 'invalid';
+        }
+
+        final slotId = data['slotId']?.toString().trim().isNotEmpty == true
+        ? data['slotId'].toString()
+        : '${doctorId}_${date.dateKey}_${date.timeKey}';
+
+        final slotRef = firestore.collection('Slots').doc(slotId);
+
+        // En una transacción, todas las lecturas deben hacerse antes de las escrituras.
+        final slotSnap = await transaction.get(slotRef);
+        if (!slotSnap.exists) return 'slotMissing';
+
+        final slotData = slotSnap.data()!;
+        if (slotData['uid'] != uid || slotData['status'] != 'scheduled') {
           return 'invalid';
         }
 
@@ -240,19 +257,39 @@ class AppointmentFirebaseServiceImpl implements AppointmentFirebaseService {
         final last = (queueSnap.data()?['lastNumber'] as num?)?.toInt() ?? 0;
         final next = last + 1;
 
-        transaction.set(queueRef, {
-          'doctorId': doctorId,
-          'centerCode': centerCode,
-          'dateKey': date.dateKey,
-          'lastNumber': next,
-        }, SetOptions(merge: true));
-
-        transaction.update(appointmentRef, {
+        final appointmentUpdate = <String, dynamic> {
           'status': 'checkedIn',
           'checkedInAt': FieldValue.serverTimestamp(),
           'queueNumber': next,
-          'checkInSignature': ?signatureData,
+        };
+
+        if(signatureData != null) {
+          appointmentUpdate['checkInSignature'] = signatureData;        
+        }
+
+        transaction.update(appointmentRef, appointmentUpdate);
+
+        transaction.update(slotRef, {
+          'status': 'checkedIn',
+          'checkedInAt': FieldValue.serverTimestamp(),
         });
+
+        if (!queueSnap.exists) {
+          transaction.set(queueRef, {
+            'doctorId': doctorId,
+            'centerCode': centerCode,
+            'dateKey': date.dateKey,
+            'lastNumber': next,
+            'lastSlotId': slotId,
+            'lastAppointmentId': request.appointmentId,
+          });
+        } else {
+          transaction.update(queueRef, {
+            'lastNumber': next,
+            'lastSlotId': slotId,
+            'lastAppointmentId': request.appointmentId,
+          });
+        }
 
         return 'ok';
       });
@@ -262,6 +299,8 @@ class AppointmentFirebaseServiceImpl implements AppointmentFirebaseService {
           return Left('La cita no existe.');
         case 'invalid':
           return Left('Esta cita no se puede registrar en la sala de espera.');
+        case 'slotMissing':
+          return Left('No se encontró el horario reservado para esta cita');
         default:
           return Right(true);
       }
