@@ -62,7 +62,7 @@ class ClinicalHistoryPage extends StatelessWidget {
         }
         if (snapshot.hasError) {
           return Center(
-            child: Text('No se ha podido cargar el historial clínico}'),
+            child: Text('No se ha podido cargar el historial clínico'),
           );
         }
 
@@ -71,7 +71,7 @@ class ClinicalHistoryPage extends StatelessWidget {
         if (records.isEmpty) {
           return const Center(
             child: Text(
-              'Todavía no hay documentos',
+              'Todavía no hay enfermedades registradas',
             ),
           );
         }
