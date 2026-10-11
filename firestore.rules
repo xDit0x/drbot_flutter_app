@@ -26,9 +26,16 @@ service cloud.firestore {
           ).data.authUid == request.auth.uid;
       }
 
+      function patientHasCheckedIn() {
+        return resource.data.slotId is string
+          && get(
+            /databases/$(database)/documents/Slots/$(resource.data.slotId)
+          ).data.status == 'checkedIn';
+      }
       allow read: if isAssignedDoctor();
 
       allow update: if isAssignedDoctor()
+        && patientHasCheckedIn()
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
           'principalDisease',
           'medicalReport',
@@ -45,10 +52,43 @@ service cloud.firestore {
 
     match /Slots/{slotId} {
       allow read: if request.auth != null;
-      allow create: if request.auth != null;
-      allow update: if false;
+
+      allow create: if request.auth != null
+        && request.resource.data.uid == request.auth.uid;
+
+      // El paciente puede hacer check-in en su propio slot.
+      allow update: if request.auth != null
+        && resource.data.uid == request.auth.uid
+        && resource.data.status == 'scheduled'
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['status', 'checkInAt'])
+        && request.resource.data.status == 'checkedIn'
+        && request.resource.data.checkInAt == request.time;
+
+      // El médico asignado puede cerrar la cita y guardar su informe en el slot.
+      allow update: if request.auth != null
+        && resource.data.doctorId is string
+        && get(
+          /databases/$(database)/documents/Doctors/$(resource.data.doctorId)
+        ).data.authUid == request.auth.uid
+        && resource.data.status == 'checkedIn'
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'principalDisease',
+          'medicalReport',
+          'status',
+          'completedAt'
+        ])
+        && request.resource.data.status == 'completed'
+        && request.resource.data.principalDisease is string
+        && request.resource.data.principalDisease.size() > 0
+        && request.resource.data.principalDisease.size() <= 300
+        && request.resource.data.medicalReport is string
+        && request.resource.data.medicalReport.size() > 0
+        && request.resource.data.medicalReport.size() <= 20000
+        && request.resource.data.completedAt == request.time;
+
       allow delete: if request.auth != null
-        && (resource == null || resource.data.uid == request.auth.uid);
+        && resource.data.uid == request.auth.uid;
     }
   }
 }

@@ -4,6 +4,7 @@ enum AppointmentStatus {
   requested('Solicitada'),
   scheduled('Programada'),
   completed('Completada'),
+  checkedIn('En sala de espera'),
   cancelled('Cancelada');
 
   const AppointmentStatus(this.label);

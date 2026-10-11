@@ -157,12 +157,6 @@ class FeatureScaffold extends StatelessWidget {
               if (!context.mounted) return;
 
               await FirebaseAuth.instance.signOut();
-
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (_) => const SignInPage()),
-                (route) => false,
-              );
             },
             child: Icon(
               Icons.logout_rounded,

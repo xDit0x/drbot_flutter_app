@@ -3,6 +3,7 @@ import 'package:flutter_learning/core/configs/assets/app_vectors.dart';
 import 'package:flutter_learning/presentation/appointments/pages/appointment.dart';
 import 'package:flutter_learning/presentation/appointments/pages/new_appointment_page.dart';
 import 'package:flutter_learning/presentation/help/pages/help_page.dart';
+import 'package:flutter_learning/presentation/medical_documents/pages/waiting_room_page.dart';
 import 'package:flutter_learning/presentation/profile/pages/profile.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_learning/presentation/settings/pages/settings_page.dart';
@@ -26,7 +27,7 @@ class RootDestination {
     RootDestination(
       icon: Icon(Icons.hourglass_bottom_rounded, size: 30),
       label: 'Sala de espera',
-      page: Center(child: Text('Sala de espera')),
+      page: const WaitingRoomPage(),
       pinnedToDock: true,
     ),
     RootDestination(

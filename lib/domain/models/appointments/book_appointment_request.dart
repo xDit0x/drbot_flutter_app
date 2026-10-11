@@ -21,6 +21,7 @@ class BookAppointmentRequest {
     this.referralConfirmed = false,
   });
   Map<String, dynamic> toMap() => {
+    'slotId': slotId,
     'doctorId': doctorId,
     'doctorName': doctorName,
     'specialty': specialty,

@@ -130,7 +130,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
           final openAppointments = items
               .where(
                 (appointment) =>
-                    appointment.status != AppointmentStatus.completed,
+                    appointment.status == AppointmentStatus.scheduled,
               )
               .toList();
           if (openAppointments.isEmpty) {

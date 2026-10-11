@@ -128,6 +128,8 @@ class AppointmentFirebaseServiceImpl implements AppointmentFirebaseService {
           'time': request.time,
           'date': request.date,
           'uid': uid,
+          'status': 'scheduled',
+          'checkInAt': null,
           'createdAt': FieldValue.serverTimestamp(),
         });
         transaction.set(appointmentRef, request.toMap());
