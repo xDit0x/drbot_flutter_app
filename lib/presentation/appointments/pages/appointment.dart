@@ -128,7 +128,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
           final items = (r as List).cast<Appointment>();
           final openAppointments = items
               .where(
-                (a) => a.status == AppointmentStatus.scheduled,
+                (a) =>
+                    a.status == AppointmentStatus.completed ||
+                    a.status == AppointmentStatus.scheduled,
               )
               .toList();
           if (openAppointments.isEmpty) {

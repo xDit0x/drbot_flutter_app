@@ -62,7 +62,8 @@ service cloud.firestore {
         && resource.data.status == 'scheduled'
         && request.resource.data.diff(resource.data).affectedKeys()
           .hasOnly(['status', 'checkInAt'])
-        && request.resource.data.status == 'checkedIn';
+        && request.resource.data.status == 'checkedIn'
+        && request.resource.data.checkInAt == request.time;
 
       // El médico asignado puede cerrar la cita y guardar su informe en el slot.
       allow update: if request.auth != null
@@ -70,7 +71,11 @@ service cloud.firestore {
         && get(
           /databases/$(database)/documents/Doctors/$(resource.data.doctorId)
         ).data.authUid == request.auth.uid
+<<<<<<< HEAD
+        && resource.data.status == 'checkedIn'
+=======
         && resource.data.status in ['scheduled', 'checkedIn']
+>>>>>>> ef26d272bf6ee34e0a8dbfd69d1b1c8d9d620a98
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
           'principalDisease',
           'medicalReport',
@@ -88,64 +93,21 @@ service cloud.firestore {
 
       allow delete: if request.auth != null
         && resource.data.uid == request.auth.uid;
+<<<<<<< HEAD
+=======
     }
 
-    // Turnos: solo se crea o incrementa al confirmar un check-in válido.
-match /Queues/{queueId} {
+    // Turnos (sala de espera). El check-in lee e incrementa lastNumber.
+    match /Queues/{queueId} {
       allow read: if request.auth != null;
-
-      function validCheckIn() {
-        let slotPath = /databases/$(database)/documents/Slots/$(request.resource.data.lastSlotId);
-        
-        // CORRECCIÓN: Usamos un comodín o buscamos la cita de forma que no dependa 
-        // de hardcodear request.auth.uid si la ruta puede variar, 
-        // o asegurándonos de que pertenezca al usuario autenticado actual.
-        let appointmentPath = /databases/$(database)/documents/Users/$(request.auth.uid)/appointments/$(request.resource.data.lastAppointmentId);
-
-        return request.auth != null
-          && request.resource.data.lastSlotId is string
-          && request.resource.data.lastAppointmentId is string
-          && existsAfter(slotPath)
-          && existsAfter(appointmentPath)
-          && getAfter(slotPath).data.uid == request.auth.uid
-          && getAfter(slotPath).data.status == 'checkedIn'
-          && getAfter(slotPath).data.doctorId == request.resource.data.doctorId
-          && getAfter(slotPath).data.dateKey == request.resource.data.dateKey
-          && getAfter(appointmentPath).data.status == 'checkedIn'
-          && getAfter(appointmentPath).data.queueNumber == request.resource.data.lastNumber
-          && getAfter(appointmentPath).data.doctorId == request.resource.data.doctorId;
-      }
-
-      allow create: if validCheckIn()
-        && request.resource.data.keys().hasOnly([
-          'doctorId',
-          'centerCode',
-          'dateKey',
-          'lastNumber',
-          'lastSlotId',
-          'lastAppointmentId'
-        ])
-        && request.resource.data.keys().hasAll([
-          'doctorId',
-          'centerCode',
-          'dateKey',
-          'lastNumber',
-          'lastSlotId',
-          'lastAppointmentId'
-        ])
-        && request.resource.data.lastNumber == 1;
-
-      allow update: if validCheckIn()
-        && request.resource.data.diff(resource.data)
-            .affectedKeys()
-            .hasOnly(['lastNumber', 'lastSlotId', 'lastAppointmentId'])
-        && request.resource.data.lastNumber == resource.data.lastNumber + 1;
+      allow create, update: if request.auth != null;
     }
 
     // Sesiones (sala / horario por médico-centro-día). Escribe solo el admin.
     match /Sessions/{sessionId} {
       allow read: if request.auth != null;
       allow write: if false;
+>>>>>>> ef26d272bf6ee34e0a8dbfd69d1b1c8d9d620a98
     }
   }
 }
