@@ -26,13 +26,13 @@ class _SpecialtyDoctorPageState extends State<SpecialtyDoctorPage> {
     );
   }
 
-  List<Doctor> _filter(List<Doctor> doctors, String specialty) {
+  List<Doctor> _covered(List<Doctor> doctors) {
+    final company = widget.booking.privateCompany.trim().toUpperCase();
     return doctors
-        .where((d) => d.specialty == specialty)
         .where(
           (d) => widget.booking.isPublic
               ? d.region == widget.booking.center.region
-              : d.insurers.contains(widget.booking.privateCompany),
+              : d.insurers.any((i) => i.trim().toUpperCase() == company),
         )
         .toList();
   }
@@ -71,10 +71,24 @@ class _SpecialtyDoctorPageState extends State<SpecialtyDoctorPage> {
               );
             }
 
-            final specialties = all.map((d) => d.specialty).toSet().toList()
+            final covered = _covered(all);
+            if (covered.isEmpty) {
+              return const Center(
+                child: Text('Este hospital no tiene médicos de tu cobertura'),
+              );
+            }
+
+            final specialties = covered.map((d) => d.specialty).toSet().toList()
               ..sort();
-            final specialty = _specialty ?? specialties.first;
-            final doctors = _filter(all, specialty);
+
+            final specialty =
+                (_specialty != null && specialties.contains(_specialty))
+                ? _specialty!
+                : specialties.first;
+
+            final doctors = covered
+                .where((d) => d.specialty == specialty)
+                .toList();
 
             return ListView(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),

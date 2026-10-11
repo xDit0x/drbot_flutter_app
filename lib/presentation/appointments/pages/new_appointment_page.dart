@@ -36,6 +36,7 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
   late final Future<_NewAppointmentData?> _future = _load();
 
   _Coverage _coverage = _Coverage.public;
+
   MedicalCenter? _selectedCenter;
 
   Future<_NewAppointmentData?> _load() async {
@@ -77,14 +78,18 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
     }
   }
 
-  void _continue(_NewAppointmentData data, MedicalCenter center) {
+  void _continue(
+    _NewAppointmentData data,
+    MedicalCenter center,
+    _Coverage coverage,
+  ) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) => SpecialtyDoctorPage(
           booking: BookingContext(
             center: center,
-            isPublic: _coverage == _Coverage.public,
+            isPublic: coverage == _Coverage.public,
             privateCompany: data.privateCompany,
           ),
         ),
@@ -128,13 +133,20 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
         }
 
         final showSelector = data.hasPublic && data.hasPrivate;
+        final coverage = showSelector
+            ? _coverage
+            : (data.hasPublic ? _Coverage.public : _Coverage.private);
+
+        final company = data.privateCompany.trim().toUpperCase();
         final privateHospitals = data.hospitals
-            .where((h) => h.insurers.contains(data.privateCompany))
+            .where(
+              (h) => h.insurers.any((i) => i.trim().toUpperCase() == company),
+            )
             .toList();
 
         final effectiveCenter =
             _selectedCenter ??
-            (_coverage == _Coverage.public ? data.referenceHospital : null);
+            (coverage == _Coverage.public ? data.referenceHospital : null);
 
         return SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -155,7 +167,7 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
                       icon: Icon(Icons.verified_user_outlined),
                     ),
                   ],
-                  selected: {_coverage},
+                  selected: {coverage},
                   onSelectionChanged: (selection) => setState(() {
                     _coverage = selection.first;
                     _selectedCenter = null;
@@ -165,7 +177,7 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
               ],
 
               Text(
-                _coverage == _Coverage.public
+                coverage == _Coverage.public
                     ? 'Hospital de referencia'
                     : 'Elegir hospital de tu cuadro médico',
                 style: const TextStyle(
@@ -175,7 +187,7 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
               ),
               const SizedBox(height: 8),
 
-              if (_coverage == _Coverage.private &&
+              if (coverage == _Coverage.private &&
                   data.privateCompany.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8),
@@ -201,10 +213,11 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
                       : Text(
                           '${effectiveCenter.region}\n'
                           '${effectiveCenter.insurers.join(', ')}',
+                          overflow: TextOverflow.clip,
                         ),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () => _pickHospital(
-                    _coverage == _Coverage.public
+                    coverage == _Coverage.public
                         ? data.hospitals
                         : privateHospitals,
                   ),
@@ -216,7 +229,7 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
               FilledButton(
                 onPressed: effectiveCenter == null
                     ? null
-                    : () => _continue(data, effectiveCenter),
+                    : () => _continue(data, effectiveCenter, coverage),
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 16),
                   child: Text(

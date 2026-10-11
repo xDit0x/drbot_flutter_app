@@ -6,7 +6,8 @@ class RemoveConfirmationDialog extends StatelessWidget {
   final BuildContext context;
   final BuildContext dialogContext;
   final Appointment appointment;
-  RemoveConfirmationDialog({
+
+  const RemoveConfirmationDialog({
     super.key,
     required this.context,
     required this.appointment,
