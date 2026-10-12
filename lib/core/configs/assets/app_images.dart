@@ -9,4 +9,8 @@ class AppImages {
   static const String authBG = '${basePath}auth_bg$format';
 
   static const String logo = '${basePath}drbot_logo_word$format';
+  static const String transparentLogo =
+      '${basePath}drbot_logo_transparente$format';
+
+  static const String drbotWord = '${basePath}drbot_word$format';
 }
