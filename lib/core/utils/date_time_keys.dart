@@ -13,4 +13,22 @@ extension DateTimeKeys on DateTime {
     final m = minute.toString().padLeft(2, '0');
     return '$h$m';
   }
+
+  String get monthName {
+    const months = [
+      'enero',
+      'febrero',
+      'marzo',
+      'abril',
+      'mayo',
+      'junio',
+      'julio',
+      'agosto',
+      'septiembre',
+      'octubre',
+      'noviembre',
+      'diciembre',
+    ];
+    return months[(month - 1).clamp(0, 11)];
+  }
 }

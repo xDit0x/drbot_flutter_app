@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_learning/core/utils/date_time_keys.dart';
 import 'package:flutter_learning/domain/entities/appointments/appointment.dart';
 import 'package:signature/signature.dart';
 
@@ -100,7 +101,7 @@ class _CheckInSignatureDialogState extends State<CheckInSignatureDialog> {
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
-              '${appointment.specialty} · ${appointment.doctorName.trimLeft()}',
+              '${appointment.specialty} · ${appointment.doctorName.trimLeft()}\n ${appointment.date?.day} de ${appointment.date?.monthName} del ${appointment.date?.year} a las ${appointment.date?.hour}:${appointment.date?.minute.toString().padLeft(2, '0')}',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,

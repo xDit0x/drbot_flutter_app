@@ -66,7 +66,6 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
     });
   }
 
-  
   // No tocar
 
   void _showMessage(String text) {
@@ -117,8 +116,8 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
               children: [
                 const Icon(Icons.watch_later),
                 const SizedBox(height: 12),
-                for (final appointment in appointments)
-                  _buildAppointmentCard(appointment),
+                for (final (i, appointment) in appointments.indexed)
+                  _buildAppointmentCard(appointment, isFirst: i == 0),
               ],
             );
           },
@@ -127,7 +126,10 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
     );
   }
 
-  Widget _buildAppointmentCard(Appointment appointment) {
+  Widget _buildAppointmentCard(
+    Appointment appointment, {
+    required bool isFirst,
+  }) {
     final date = appointment.date;
     final checkedIn =
         appointment.status == AppointmentStatus.checkedIn ||
@@ -142,85 +144,214 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
         ? 'Sala: ${appointment.roomLabel}, ${appointment.roomCode}'
         : 'Sala por asignar';
 
-    final queueText = appointment.queueNumber != null
-        ? 'Le quedan ${appointment.queueNumber! - 1} personas'
-        : 'Turno por asignar';
+    Widget _buildQueuePosition(Appointment appointment) {
+      final queueNumber = appointment.queueNumber;
 
-    Widget _buildQueuePosition(Appointment appointment)
-    {
-      final queueNumber  = appointment.queueNumber;
-
-      if(queueNumber == null)
-      {
+      if (queueNumber == null) {
         return const Text('Turno por asignar');
       }
 
       final doctorId = appointment.doctorId;
-      final centerCode = appointment.centerCode ?? appointment.medicalCenter.code;
+      final centerCode =
+          appointment.centerCode ?? appointment.medicalCenter.code;
       final date = appointment.date;
 
-      if(doctorId == null || doctorId.isEmpty || centerCode.isEmpty || date == null)
-      {
-        return Text('Le quedan ${queueNumber- 1} personas');
+      if (doctorId == null ||
+          doctorId.isEmpty ||
+          centerCode.isEmpty ||
+          date == null) {
+        return Text(
+          'Le quedan ${queueNumber - 1} personas delante',
+          style: TextStyle(fontSize: isFirst ? 18 : 14),
+        );
       }
 
       final queueId = '${doctorId}_${centerCode}_${date.dateKey}';
 
-      return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>
-      (
-        stream: FirebaseFirestore.instance.collection('Queues').doc(queueId).snapshots(),
-        builder: (context, snapshot)
-        {
-          final completedCount = (snapshot.data?.data()?['completedCount'] as num?)?.toInt() ?? 0;
-          final peopleAhead = (queueNumber - completedCount - 1).clamp(0, queueNumber - 1);
+      return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+        stream: FirebaseFirestore.instance
+            .collection('Queues')
+            .doc(queueId)
+            .snapshots(),
+        builder: (context, snapshot) {
+          final completedCount =
+              (snapshot.data?.data()?['completedCount'] as num?)?.toInt() ?? 0;
+          final peopleAhead = (queueNumber - completedCount - 1).clamp(
+            0,
+            queueNumber - 1,
+          );
 
-          return Text('Le quedan $peopleAhead personas');
-        }
+          return Row(
+            children: [
+              Text('Le quedan', style: TextStyle(fontSize: isFirst ? 16 : 14)),
+              Text(
+                '\t$peopleAhead\t',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: isFirst ? 16 : 14,
+                ),
+              ),
+              Text(
+                'personas delante.',
+                style: TextStyle(fontSize: isFirst ? 16 : 14),
+              ),
+            ],
+          );
+        },
       );
     }
 
-    return Card(
-      child: ListTile(
-        title: Text(
-          appointment.specialty.isEmpty ? 'Cita médica' : appointment.specialty,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: 
-          [
-            Text(
-            '${appointment.doctorName.isEmpty ? 'Médico no indicado' : appointment.doctorName}\n'
-            '$dateText\n'
-            '$roomText \n'
+    return Column(
+      children: [
+        ?isFirst ? null : SizedBox(height: 6),
+        Card(
+          shadowColor: Theme.of(context).colorScheme.inversePrimary
+              .withAlpha(150),
+          color: Theme.of(context).colorScheme.surfaceContainer,
+          child: ListTile(
+            title: isFirst
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        spacing: 12,
+                        children: [
+                          Icon(
+                            Icons.navigate_next,
+                            color: Theme.of(context).colorScheme.inverseSurface
+                                .withAlpha(150),
+                            size: 24,
+                          ),
+                          Text(
+                            "Próxima cita",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 2),
+                      Container(
+                        color: Theme.of(context).colorScheme.inverseSurface
+                            .withAlpha(150),
+                        height: 1,
+                      ),
+                      SizedBox(height: 12),
+                    ],
+                  )
+                : null,
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  appointment.specialty.isEmpty
+                      ? 'Cita médica'
+                      : appointment.specialty,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: isFirst ? 22 : 18,
+                  ),
+                ),
+                Text(
+                  '${appointment.doctorName.isEmpty ? 'Médico no indicado' : appointment.doctorName}\n'
+                  '$dateText\n'
+                  '$roomText \n',
+                  style: TextStyle(
+                    fontSize: isFirst ? 20 : 15,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                _buildQueuePosition(appointment),
+                Text(
+                  checkedIn ? 'Check-in realizado' : 'Pendiente de check-in',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: isFirst ? 18 : 14,
+                  ),
+                ),
+              ],
             ),
-            _buildQueuePosition(appointment),
-            Text(checkedIn ? 'Check-in realizado' : 'Pendiente de check-in')
-          ],
-          
-        ),
-        isThreeLine: false,
-        trailing: checkedIn
-            ? const Icon(Icons.check_circle, color: Colors.green)
-            : (date != null && _isToday(date))
-            ? FilledButton(
-                onPressed: () => _checkIn(appointment),
-                child: const Text('Check-in'),
-              )
-            : Column(
-                children: [
-                  const Text(
-                    'Check In',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                  ),
+            isThreeLine: false,
+            trailing: Container(
+              padding: checkedIn
+                  ? EdgeInsets.fromLTRB(0, 0, 35, 0)
+                  : EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: checkedIn
+                  ? const Icon(
+                      Icons.check_circle,
+                      color: Colors.green,
+                      size: 35,
+                    )
+                  : (date != null && _isToday(date))
+                  ? FilledButton(
+                      style: FilledButton.styleFrom(),
+                      onPressed: () => _checkIn(appointment),
+                      child: const Text(
+                        'Check-in',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                      ),
+                    )
+                  : Column(
+                      children: [
+                        Text(
+                          'Check-In',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: isFirst ? 18 : 14,
+                          ),
+                        ),
 
-                  const Text(
-                    'Disponible el día de la cita',
-                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 12),
-                  ),
-                ],
-              ),
-      ),
+                        Text(
+                          'Disponible el día de la cita',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: isFirst ? 16 : 12,
+                          ),
+                        ),
+                      ],
+                    ),
+            ),
+          ),
+        ),
+        SizedBox(height: 12),
+        ?isFirst
+            ? Container(
+                width: 300,
+                height: 1,
+                color: Theme.of(context).colorScheme.inverseSurface
+                    .withAlpha(50),
+              )
+            : null,
+        SizedBox(height: 10),
+        ?isFirst
+            ? Container(
+                child: Column(
+                  children: [
+                    Text(
+                      'Siguientes citas',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 6),
+                    // Container(
+                    //   width: 220,
+                    //   height: 1,
+                    //   color: Theme.of(context).colorScheme.inverseSurface
+                    //       .withAlpha(150),
+                    // ),
+                    SizedBox(height: 4),
+                  ],
+                ),
+              )
+            : null,
+      ],
     );
   }
 }
