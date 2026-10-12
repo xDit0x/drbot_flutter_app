@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
 import 'package:flutter_learning/core/configs/assets/app_vectors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,11 +34,7 @@ class _HelpPageState extends State<HelpPage> {
     );
 
     if (!await launchUrl(uri) && mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('No se puedo abrir la aplicación de correo'),
-        ),
-      );
+      SnackbarRoot.show(context, 'No se puedo abrir la aplicación de correo');
     }
   }
 
