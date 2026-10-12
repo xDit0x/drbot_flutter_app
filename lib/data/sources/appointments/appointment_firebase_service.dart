@@ -241,7 +241,29 @@ class AppointmentFirebaseServiceImpl implements AppointmentFirebaseService {
 
         final slotRef = firestore.collection('Slots').doc(slotId);
 
-        // En una transacción, todas las lecturas deben hacerse antes de las escrituras.
+        final now = DateTime.now();
+        final checkInOpensAt = date.subtract(const Duration(minutes: 15));
+        final checkInClosed = date.add(const Duration(minutes: 15));
+
+        if(now.isBefore(checkInOpensAt))
+        {
+          return 'tooEarly';
+        }
+
+        if (now.isAfter((checkInClosed)))
+        {
+          final lateSlotSnap = await transaction.get(slotRef);
+          final lateSlotData = lateSlotSnap.data();
+
+          if(lateSlotSnap.exists && lateSlotData?['uid'] == uid && lateSlotData?['status'] == 'scheduled')
+          {
+            transaction.delete(slotRef);
+          }
+
+          transaction.update(appointmentRef, {'status': 'cancelled'});
+          return 'late';
+        }
+
         final slotSnap = await transaction.get(slotRef);
         if (!slotSnap.exists) return 'slotMissing';
 
@@ -301,6 +323,10 @@ class AppointmentFirebaseServiceImpl implements AppointmentFirebaseService {
           return Left('Esta cita no se puede registrar en la sala de espera.');
         case 'slotMissing':
           return Left('No se encontró el horario reservado para esta cita');
+        case 'tooEarly':
+          return Left('El check-in estará disponible en 15 minutos antes de su cita');
+        case 'late':
+          return Left('Han pasado más desde la hora de su cita, por lo que se ha cancelado automaticamente');
         default:
           return Right(true);
       }

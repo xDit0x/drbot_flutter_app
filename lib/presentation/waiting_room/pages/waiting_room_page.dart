@@ -135,6 +135,8 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
         appointment.status == AppointmentStatus.checkedIn ||
         appointment.status == AppointmentStatus.inConsultation;
 
+    final canAttemptCheckIn = date != null && !DateTime.now().isBefore(date.subtract(const Duration(minutes: 15)),);
+
     final dateText = date == null
         ? 'Fecha no disponible'
         : '${date.day}/${date.month}/${date.year} '
@@ -287,7 +289,7 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
                   : (date != null && _isToday(date))
                   ? FilledButton(
                       style: FilledButton.styleFrom(),
-                      onPressed: () => _checkIn(appointment),
+                      onPressed: canAttemptCheckIn ? () => _checkIn(appointment) : null,
                       child: const Text(
                         'Check-in',
                         style: TextStyle(
@@ -307,7 +309,7 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
                         ),
 
                         Text(
-                          'Disponible el día de la cita',
+                          'Disponible 15 minutos antes de la cita.',
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: isFirst ? 16 : 12,
