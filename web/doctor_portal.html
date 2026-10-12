@@ -113,7 +113,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-    import { getFirestore, collection, collectionGroup, getDocs, query, where, limit, serverTimestamp, writeBatch } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+    import { getFirestore, collection, collectionGroup, doc, getDocs, query, where, limit, serverTimestamp, runTransaction } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDgk-bPW7VKpYB_iQCZve64r9q6xmI6W34",
@@ -381,16 +381,59 @@
       button.textContent = "Guardando informe…";
       message(pageMessage, "", false);
       try {
-        const batch = writeBatch(db);
         const completedData = {
           principalDisease,
           medicalReport,
           status: "completed",
           completedAt: serverTimestamp()
         };
-        batch.update(record.appointmentRef, completedData);
-        batch.update(record.ref, completedData);
-        await batch.commit();
+
+        const doctorId = String(record.slotData.doctorId || "");
+        const centerCode = String(
+          record.appointmentData?.centerCode ||
+          record.appointmentData?.medicalCenter?.code ||
+          ""
+        );
+        const dateKey = String(record.slotData.dateKey || "");
+        if (!doctorId || !centerCode || !dateKey) {
+          throw new Error("No se pudo identificar la cola de esta cita.");
+        }
+
+        const queueRef = doc(db, "Queues", `${doctorId}_${centerCode}_${dateKey}`);
+        await runTransaction(db, async transaction => {
+          const appointmentSnapshot = await transaction.get(record.appointmentRef);
+          const slotSnapshot = await transaction.get(record.ref);
+          const queueSnapshot = await transaction.get(queueRef);
+
+          if (!appointmentSnapshot.exists() || !slotSnapshot.exists()) {
+            throw new Error("No se encontró la cita o su horario.");
+          }
+
+          if (
+            appointmentSnapshot.data().status === "completed" &&
+            slotSnapshot.data().status === "completed"
+          ) {
+            return;
+          }
+
+          if (
+            appointmentSnapshot.data().status !== "checkedIn" ||
+            slotSnapshot.data().status !== "checkedIn"
+          ) {
+            throw new Error("La cita ya no está en sala de espera.");
+          }
+
+          if (!queueSnapshot.exists()) {
+            throw new Error("No se encontró la cola de esta cita.");
+          }
+
+          const completedCount =
+            Number(queueSnapshot.data().completedCount || 0) + 1;
+
+          transaction.update(record.appointmentRef, completedData);
+          transaction.update(record.ref, completedData);
+          transaction.update(queueRef, { completedCount });
+        });
 
         record.data.principalDisease = principalDisease;
         record.data.medicalReport = medicalReport;

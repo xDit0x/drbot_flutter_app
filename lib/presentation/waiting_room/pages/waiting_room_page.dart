@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_learning/domain/entities/appointments/appointment.dart';
 import 'package:flutter_learning/domain/entities/appointments/check_in_request.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_learning/core/utils/date_time_keys.dart';
 import 'package:flutter_learning/domain/usecases/appointments/check_in_appointment.dart';
 import 'package:flutter_learning/domain/usecases/appointments/get_appointments.dart';
 import 'package:flutter_learning/presentation/waiting_room/widgets/check_in_signature_dialog.dart';
@@ -145,18 +146,58 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
         ? 'Le quedan ${appointment.queueNumber! - 1} personas'
         : 'Turno por asignar';
 
+    Widget _buildQueuePosition(Appointment appointment)
+    {
+      final queueNumber  = appointment.queueNumber;
+
+      if(queueNumber == null)
+      {
+        return const Text('Turno por asignar');
+      }
+
+      final doctorId = appointment.doctorId;
+      final centerCode = appointment.centerCode ?? appointment.medicalCenter.code;
+      final date = appointment.date;
+
+      if(doctorId == null || doctorId.isEmpty || centerCode.isEmpty || date == null)
+      {
+        return Text('Le quedan ${queueNumber- 1} personas');
+      }
+
+      final queueId = '${doctorId}_${centerCode}_${date.dateKey}';
+
+      return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>
+      (
+        stream: FirebaseFirestore.instance.collection('Queues').doc(queueId).snapshots(),
+        builder: (context, snapshot)
+        {
+          final completedCount = (snapshot.data?.data()?['completedCount'] as num?)?.toInt() ?? 0;
+          final peopleAhead = (queueNumber - completedCount - 1).clamp(0, queueNumber - 1);
+
+          return Text('Le quedan $peopleAhead personas');
+        }
+      );
+    }
+
     return Card(
       child: ListTile(
         title: Text(
           appointment.specialty.isEmpty ? 'Cita médica' : appointment.specialty,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
-        subtitle: Text(
-          '${appointment.doctorName.isEmpty ? 'Médico no indicado' : appointment.doctorName}\n'
-          '$dateText\n'
-          '$roomText \n'
-          '$queueText\n'
-          '${checkedIn ? 'Check-in realizado' : 'Pendiente de check-in'}',
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: 
+          [
+            Text(
+            '${appointment.doctorName.isEmpty ? 'Médico no indicado' : appointment.doctorName}\n'
+            '$dateText\n'
+            '$roomText \n'
+            ),
+            _buildQueuePosition(appointment),
+            Text(checkedIn ? 'Check-in realizado' : 'Pendiente de check-in')
+          ],
+          
         ),
         isThreeLine: false,
         trailing: checkedIn
