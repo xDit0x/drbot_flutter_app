@@ -42,13 +42,31 @@ class _MedicalCardsPageState extends State<MedicalCardPage> {
     }
   }
 
+  BoxDecoration _cardDecoration(ColorScheme scheme) {
+    return BoxDecoration(
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: [
+        BoxShadow(
+          color: scheme.shadow.withValues(alpha: 0.35),
+          offset: const Offset(0, 6),
+          blurRadius: 14,
+        ),
+      ],
+      border: Border.all(
+        color: scheme.inversePrimary.withValues(alpha: 0.5),
+        width: 0.5,
+      ),
+    );
+  }
+
   Widget _buildCard({
     required String title,
     required String asset,
     required String? number,
   }) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
     return ClipRRect(
-      borderRadius: BorderRadius.circular(18),
+      borderRadius: BorderRadius.circular(20),
       child: SizedBox(
         width: double.infinity,
         height: 190,
@@ -63,7 +81,7 @@ class _MedicalCardsPageState extends State<MedicalCardPage> {
                 child: Icon(Icons.credit_card, color: Colors.white, size: 48),
               ),
             ),
-            ColoredBox(color: Colors.black.withValues(alpha: 0.25)),
+            ColoredBox(color: Colors.black.withValues(alpha: 0.3)),
             Padding(
               padding: const EdgeInsets.all(18),
               child: Column(
@@ -72,9 +90,16 @@ class _MedicalCardsPageState extends State<MedicalCardPage> {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
+                    style: TextStyle(
+                      color: scheme.inversePrimary,
+                      shadows: [
+                        Shadow(
+                          offset: Offset(0.8, 0.8),
+                          color: Colors.black,
+                          blurRadius: 2,
+                        ),
+                      ],
+                      fontSize: 32,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -82,10 +107,18 @@ class _MedicalCardsPageState extends State<MedicalCardPage> {
                     number?.isNotEmpty == true
                         ? number!
                         : 'Número no registrado',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
+                    style: TextStyle(
+                      color: scheme.inversePrimary,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                       letterSpacing: 1.2,
+                      shadows: [
+                        Shadow(
+                          offset: Offset(0.4, 0.4),
+                          color: Colors.black,
+                          blurRadius: 2,
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -99,6 +132,7 @@ class _MedicalCardsPageState extends State<MedicalCardPage> {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
     return FutureBuilder<Map<String, dynamic>?>(
       future: _userData,
       builder: (context, snapshot) {
@@ -134,24 +168,30 @@ class _MedicalCardsPageState extends State<MedicalCardPage> {
         }
 
         return ListView(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(14),
           children: [
             if (hasPublic)
-              _buildCard(
-                title: 'Tarjeta sanitaria pública',
-                asset: 'assets/images/cards/publica.jpg',
-                number: publicNumber,
+              Container(
+                decoration: _cardDecoration(scheme),
+                child: _buildCard(
+                  title: 'Tarjeta sanitaria pública',
+                  asset: 'assets/images/cards/publica.jpg',
+                  number: publicNumber,
+                ),
               ),
 
-            if (hasPublic && hasPrivate) const SizedBox(height: 24),
+            if (hasPublic && hasPrivate) const SizedBox(height: 16),
 
             if (hasPrivate)
-              _buildCard(
-                title: companyName == null || companyName.isEmpty
-                    ? 'Seguro privado'
-                    : companyName,
-                asset: _privateCompanyCard(companyName),
-                number: privateNumber,
+              Container(
+                decoration: _cardDecoration(scheme),
+                child: _buildCard(
+                  title: companyName == null || companyName.isEmpty
+                      ? 'Seguro privado'
+                      : companyName,
+                  asset: _privateCompanyCard(companyName),
+                  number: privateNumber,
+                ),
               ),
           ],
         );
