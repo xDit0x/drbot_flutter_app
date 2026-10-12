@@ -15,6 +15,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   final _newPassword = TextEditingController();
   final _confirmPassword = TextEditingController();
 
+  bool _showActualPassword = false;
+  bool _showNewPassword = false;
   bool _loading = false;
 
   @override
@@ -108,28 +110,112 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
-                  TextFormField(
-                    controller: _currentPassword,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      labelText: 'Contraseña actual',
-                      border: OutlineInputBorder(),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 14, horizontal: 15),
+
+                    decoration: BoxDecoration(
+                      color: scheme.surfaceContainer,
+                      borderRadius: BorderRadius.circular(25),
+                      boxShadow: [
+                        BoxShadow(
+                          color: scheme.inverseSurface.withAlpha(50),
+                          offset: Offset(1, 1.2),
+                          blurRadius: 1,
+                        ),
+                      ],
                     ),
-                    validator: (value) => value == null || value.isEmpty
-                        ? 'Introduzca su contraseña actual'
-                        : null,
+                    child: Row(
+                      spacing: 12,
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller: _currentPassword,
+                            obscureText: !_showActualPassword,
+                            decoration: InputDecoration(
+                              floatingLabelStyle: TextStyle(
+                                fontSize: 24,
+                                color: scheme.inversePrimary,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              labelText: 'Contraseña actual',
+                              border: OutlineInputBorder(),
+                            ),
+                            validator: (value) =>
+                                value == null || value.length < 6
+                                ? 'Debe tener al menos 6 carácteres'
+                                : null,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () => setState(
+                            () => _showActualPassword = !_showActualPassword,
+                          ),
+                          icon: _showActualPassword
+                              ? Icon(
+                                  Icons.visibility_off,
+                                  color: scheme.inverseSurface,
+                                )
+                              : Icon(
+                                  Icons.visibility,
+                                  color: scheme.inverseSurface,
+                                ),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 20),
-                  TextFormField(
-                    controller: _newPassword,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      labelText: 'Contraseña nueva',
-                      border: OutlineInputBorder(),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 14, horizontal: 15),
+
+                    decoration: BoxDecoration(
+                      color: scheme.surfaceContainer,
+                      borderRadius: BorderRadius.circular(25),
+                      boxShadow: [
+                        BoxShadow(
+                          color: scheme.inverseSurface.withAlpha(50),
+                          offset: Offset(1, 1.2),
+                          blurRadius: 1,
+                        ),
+                      ],
                     ),
-                    validator: (value) => value == null || value.length < 6
-                        ? 'Debe tener al menos 6 carácteres'
-                        : null,
+                    child: Row(
+                      spacing: 12,
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller: _newPassword,
+                            obscureText: !_showNewPassword,
+                            decoration: InputDecoration(
+                              floatingLabelStyle: TextStyle(
+                                color: scheme.inversePrimary,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 24,
+                              ),
+                              labelText: 'Contraseña nueva',
+                              border: OutlineInputBorder(),
+                            ),
+                            validator: (value) =>
+                                value == null || value.length < 6
+                                ? 'Debe tener al menos 6 carácteres'
+                                : null,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () => setState(
+                            () => _showNewPassword = !_showNewPassword,
+                          ),
+                          icon: _showNewPassword
+                              ? Icon(
+                                  Icons.visibility_off,
+                                  color: scheme.inverseSurface,
+                                )
+                              : Icon(
+                                  Icons.visibility,
+                                  color: scheme.inverseSurface,
+                                ),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 35),
                   FilledButton(
