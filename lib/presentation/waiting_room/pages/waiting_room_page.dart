@@ -94,9 +94,8 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
                 all
                     .where(
                       (a) =>
-                          a.status == AppointmentStatus.scheduled ||
-                          a.status == AppointmentStatus.checkedIn ||
-                          a.status == AppointmentStatus.inConsultation,
+                          a.status != AppointmentStatus.cancelled &&
+                          a.status != AppointmentStatus.requested,
                     )
                     .toList()
                   ..sort((a, b) {
@@ -116,8 +115,31 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
               children: [
                 const Icon(Icons.watch_later),
                 const SizedBox(height: 12),
-                for (final (i, appointment) in appointments.indexed)
-                  _buildAppointmentCard(appointment, isFirst: i == 0),
+                _buildAppointmentCard(appointments.first, isFirst: true),
+                if (appointments.length > 1) ...[
+                  Column(
+                    children: [
+                      const SizedBox(height: 12),
+                      Container(
+                        width: 300,
+                        height: 1,
+                        color: Theme.of(context).colorScheme.inverseSurface
+                            .withAlpha(50),
+                      ),
+                      const SizedBox(height: 6),
+                      const Text(
+                        'Siguientes citas',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+                  for (final appointment in appointments.skip(1))
+                    _buildAppointmentCard(appointment, isFirst: false),
+                ],
               ],
             );
           },
@@ -318,26 +340,6 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
             ),
           ),
         ),
-        ?isFirst
-            ? Column(
-                children: [
-                  SizedBox(height: 12),
-                  Container(
-                    width: 300,
-                    height: 1,
-                    color: Theme.of(context).colorScheme.inverseSurface
-                        .withAlpha(50),
-                  ),
-                  SizedBox(height: 12),
-
-                  Text(
-                    'Siguientes citas',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 10),
-                ],
-              )
-            : null,
       ],
     );
   }
