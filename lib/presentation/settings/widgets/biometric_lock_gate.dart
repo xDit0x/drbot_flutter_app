@@ -60,7 +60,7 @@ class _BiometricLockGateState extends State<BiometricLockGate>
 
     try {
       authenticated = await _localAuth.authenticate(
-        localizedReason: 'Desbloquea Dr. Bot',
+        localizedReason: 'Desbloquea DRBOT',
         biometricOnly: true,
       );
     } catch (_) {
@@ -186,7 +186,7 @@ class _BiometricLockGateState extends State<BiometricLockGate>
           children: [
             const Icon(Icons.fingerprint, size: 64),
             const SizedBox(height: 16),
-            const Text('Dr. Bot está bloqueado'),
+            const Text('DRBOT está bloqueado'),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: _authenticating ? null : () => _unlock(),
