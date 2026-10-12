@@ -1,0 +1,43 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "PatientPrescriptions",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "patientUid",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "PatientPrescriptions",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "patientUid",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "doctorId",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "PatientPrescriptions",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "patientUid",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "appointmentId",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

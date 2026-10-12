@@ -17,7 +17,10 @@ class MedicalDocumentsPage extends StatelessWidget
       
       final result = await FirebaseFirestore.instance.collection('Users').doc(uid).collection('appointments').where('status', isEqualTo: 'completed').get();
 
-      final records = result.docs .map((doc) => doc.data()).where((data) => (data['medicalReport'] ?? '').toString().trim().isNotEmpty).toList();
+      final records = result.docs
+          .map((doc) => {...doc.data(), 'appointmentId': doc.id, 'patientUid': uid})
+          .where((data) => (data['medicalReport'] ?? '').toString().trim().isNotEmpty)
+          .toList();
 
       records.sort((a, b) => _dateOf(b['date']).compareTo(_dateOf(a['date'])));
       return records;
@@ -41,31 +44,123 @@ class MedicalDocumentsPage extends StatelessWidget
     Future<void> _downloadReport(Map<String, dynamic> record) async
     {
       final document = pw.Document();
+      final center = record['medicalCenter'] is Map
+          ? Map<String, dynamic>.from(record['medicalCenter'] as Map)
+          : <String, dynamic>{};
+      final patientUid = (record['patientUid'] ?? '').toString();
+      final appointmentId = (record['appointmentId'] ?? '').toString();
+      final appointmentDate = _dateOf(record['date']);
+      final appointmentTime = appointmentDate.year == 0
+          ? 'No disponible'
+          : '${appointmentDate.hour.toString().padLeft(2, '0')}:${appointmentDate.minute.toString().padLeft(2, '0')}';
+      final location = [
+        center['municipality'],
+        center['province'],
+        center['region'],
+      ]
+          .where((value) => value != null && value.toString().trim().isNotEmpty)
+          .join(', ');
+      final prescriptionDocs = patientUid.isEmpty || appointmentId.isEmpty
+          ? <QueryDocumentSnapshot<Map<String, dynamic>>>[]
+          : (await FirebaseFirestore.instance
+                  .collectionGroup('PatientPrescriptions')
+                  .where('patientUid', isEqualTo: patientUid)
+                  .where('appointmentId', isEqualTo: appointmentId)
+                  .get())
+              .docs;
 
-      document.addPage
-      (
-        pw.MultiPage
-        (
+      final prescriptionWidgets = <pw.Widget>[];
+      for (final prescriptionDoc in prescriptionDocs) {
+        final prescription = prescriptionDoc.data();
+        final startDate = (prescription['startDate'] ?? '').toString().trim();
+        final endDate = (prescription['endDate'] ?? '').toString().trim();
+        final status = (prescription['status'] ?? '').toString();
+        final statusLabel = status == 'active'
+            ? 'Activo'
+            : status == 'discontinued'
+                ? 'Retirado'
+                : status.isEmpty
+                    ? 'No indicado'
+                    : status;
+
+        prescriptionWidgets.add(
+          pw.Container(
+            width: double.infinity,
+            margin: const pw.EdgeInsets.only(bottom: 10),
+            padding: const pw.EdgeInsets.all(10),
+            decoration: pw.BoxDecoration(
+              border: pw.Border.all(color: PdfColors.grey400),
+              borderRadius: pw.BorderRadius.circular(5),
+            ),
+            child: pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                pw.Text(
+                  (prescription['medicationName'] ?? 'Medicamento').toString(),
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                ),
+                pw.Text('ID del medicamento: ${prescription['medicationId'] ?? 'No disponible'}'),
+                pw.Text('Dosis: ${prescription['dose'] ?? 'No indicada'}'),
+                pw.Text('Frecuencia: ${prescription['frequency'] ?? 'No indicada'}'),
+                pw.Text('Vía: ${prescription['route'] ?? 'No indicada'}'),
+                pw.Text('Inicio de la toma: ${startDate.isEmpty ? 'Crónico' : startDate}'),
+                pw.Text('Fin de la toma: ${endDate.isEmpty ? 'Crónico' : endDate}'),
+                pw.Text('Estado: $statusLabel'),
+              ],
+            ),
+          ),
+        );
+      }
+
+      document.addPage(
+        pw.MultiPage(
           pageFormat: PdfPageFormat.a4,
           build: (context) => [
-            pw.Header
-            (
+            pw.Header(
               level: 0,
-              child: pw.Text('Informe de atención'),
+              child: pw.Text('Informe de atención de la cita'),
             ),
-            pw.Text('Fecha: ${_formatDate(record['date'])}'),
-            pw.SizedBox(height: 8),
+            pw.Text('Fecha de la cita: ${_formatDate(record['date'])}'),
+            pw.Text('Hora de la cita: $appointmentTime'),
+            pw.Text('Identificador de la cita: $appointmentId'),
+            pw.Text('Expediente del paciente: $patientUid'),
+            pw.SizedBox(height: 18),
+            pw.Text(
+              'Datos de la cita',
+              style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 14),
+            ),
+            pw.SizedBox(height: 6),
             pw.Text('Médico: ${record['doctorName'] ?? 'No indicado'}'),
-            pw.SizedBox(height: 8),
-            pw.Text('Diagnóstico principal: ${record['principalDisease'] ?? 'No indicado'}'),
-            pw.SizedBox(height: 20),
-            pw.Text('Resumen e indicaciones', style: pw.TextStyle(fontWeight: pw.FontWeight.bold),),
-            pw.SizedBox(height: 8),
-            pw.Text(record['medicalReport'].toString()),
+            pw.Text('Especialidad: ${record['specialty'] ?? 'No indicada'}'),
+            pw.Text('Centro: ${center['name'] ?? 'No indicado'}'),
+            pw.Text('Ubicación: ${location.isEmpty ? 'No indicada' : location}'),
+            pw.SizedBox(height: 18),
+            pw.Text(
+              'Diagnóstico principal',
+              style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 14),
+            ),
+            pw.SizedBox(height: 6),
+            pw.Text((record['principalDisease'] ?? 'No indicado').toString()),
+            pw.SizedBox(height: 12),
+            pw.Text(
+              'Resumen e indicaciones',
+              style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 14),
+            ),
+            pw.SizedBox(height: 6),
+            pw.Text((record['medicalReport'] ?? 'No indicado').toString()),
+            pw.SizedBox(height: 18),
+            pw.Text(
+              'Prescripciones de la cita',
+              style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 14),
+            ),
+            pw.SizedBox(height: 6),
+            if (prescriptionWidgets.isEmpty)
+              pw.Text('No hay prescripciones guardadas para esta cita.'),
+            ...prescriptionWidgets,
           ],
-        )
+        ),
       );
-      
+
       await Printing.layoutPdf(onLayout: (format) async => document.save());
     }
 

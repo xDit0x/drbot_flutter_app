@@ -3,6 +3,7 @@ import 'package:flutter_learning/core/configs/assets/app_vectors.dart';
 import 'package:flutter_learning/presentation/appointments/pages/appointment.dart';
 import 'package:flutter_learning/presentation/appointments/pages/new_appointment_page.dart';
 import 'package:flutter_learning/presentation/help/pages/help_page.dart';
+import 'package:flutter_learning/presentation/prescription_page/pages/prescription_page.dart';
 import 'package:flutter_learning/presentation/profile/pages/profile.dart';
 import 'package:flutter_learning/presentation/waiting_room/pages/waiting_room_page.dart';
 import 'package:flutter_svg/svg.dart';
@@ -76,7 +77,7 @@ class RootDestination {
     RootDestination(
       icon: Icon(Icons.medication_liquid_rounded, size: 30),
       label: 'Medicación prescrita',
-      page: Center(child: Text('Medicación prescrita')),
+      page: const PrescriptionPage(),
     ),
     RootDestination(
       icon: Icon(Icons.history_rounded, size: 30),

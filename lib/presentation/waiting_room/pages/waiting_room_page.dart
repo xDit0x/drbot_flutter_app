@@ -95,8 +95,9 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
                 all
                     .where(
                       (a) =>
-                          a.status != AppointmentStatus.cancelled &&
-                          a.status != AppointmentStatus.requested,
+                          a.status == AppointmentStatus.scheduled ||
+                          a.status == AppointmentStatus.checkedIn ||
+                          a.status == AppointmentStatus.inConsultation,
                     )
                     .toList()
                   ..sort((a, b) {
@@ -208,21 +209,19 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
             queueNumber - 1,
           );
 
-          return Row(
-            children: [
-              Text('Le quedan', style: TextStyle(fontSize: isFirst ? 16 : 14)),
-              Text(
-                '\t$peopleAhead\t',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: isFirst ? 16 : 14,
+          return Text.rich(
+            TextSpan(
+              children: [
+                const TextSpan(text: 'Le quedan '),
+                TextSpan(
+                  text: '$peopleAhead',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-              ),
-              Text(
-                'personas delante.',
-                style: TextStyle(fontSize: isFirst ? 16 : 14),
-              ),
-            ],
+                const TextSpan(text: ' personas delante.'),
+              ],
+            ),
+            softWrap: true,
+            style: TextStyle(fontSize: isFirst ? 16 : 14),
           );
         },
       );
