@@ -336,11 +336,12 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
                         ),
 
                         Text(
-                          'Disponible 15 minutos antes de la cita.',
+                          'Disponible 15 \nminutos antes de la cita.',
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
-                            fontSize: isFirst ? 14 : 12,
+                            fontSize: isFirst ? 14 : 10,
                           ),
+                          textAlign: TextAlign.center,
                         ),
                       ],
                     ),

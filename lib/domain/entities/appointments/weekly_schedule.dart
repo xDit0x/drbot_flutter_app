@@ -1,3 +1,5 @@
+import 'package:flutter_learning/core/utils/date_time_keys.dart';
+
 class TimeRange {
   final String start;
   final String end;
@@ -57,13 +59,17 @@ class WeeklySchedule {
     return DateTime(day.year, day.month, day.day, hour, minute);
   }
 
-  List<DateTime> slotsFor(DateTime day, int slotMinutes) {
+  List<DateTime> slotsFor(DateTime day, int slotMinutes, DateTime today) {
     final result = <DateTime>[];
+    final isToday = today.dateKey == day.dateKey;
+
     for (final range in days[_keyFor(day)] ?? const []) {
-      var cursor = _timeOf(day, range.start);
       final end = _timeOf(day, range.end);
+      var cursor = _timeOf(day, range.start);
       while (cursor.isBefore(end)) {
-        result.add(cursor);
+        if (!isToday || cursor.isAfter(today)) {
+          result.add(cursor);
+        }
         cursor = cursor.add(Duration(minutes: slotMinutes));
       }
     }

@@ -77,7 +77,7 @@ class _SchedulePageState extends State<SchedulePage> {
     final day = _selectedDay;
     if (day == null) return const [];
     return widget.doctor.schedule
-        .slotsFor(day, widget.doctor.slotMinutes)
+        .slotsFor(day, widget.doctor.slotMinutes, _today)
         .where((s) => !_booked.contains(s.timeKey))
         .toList();
   }
@@ -201,7 +201,7 @@ class _SchedulePageState extends State<SchedulePage> {
                 ],
               ),
               todayDecoration: BoxDecoration(
-                color: scheme.primary,
+                color: scheme.surfaceContainerHigh,
                 shape: BoxShape.circle,
               ),
               selectedDecoration: BoxDecoration(
