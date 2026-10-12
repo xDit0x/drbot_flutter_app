@@ -318,37 +318,24 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
             ),
           ),
         ),
-        SizedBox(height: 12),
         ?isFirst
-            ? Container(
-                width: 300,
-                height: 1,
-                color: Theme.of(context).colorScheme.inverseSurface
-                    .withAlpha(50),
-              )
-            : null,
-        SizedBox(height: 10),
-        ?isFirst
-            ? Container(
-                child: Column(
-                  children: [
-                    Text(
-                      'Siguientes citas',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 6),
-                    // Container(
-                    //   width: 220,
-                    //   height: 1,
-                    //   color: Theme.of(context).colorScheme.inverseSurface
-                    //       .withAlpha(150),
-                    // ),
-                    SizedBox(height: 4),
-                  ],
-                ),
+            ? Column(
+                children: [
+                  SizedBox(height: 12),
+                  Container(
+                    width: 300,
+                    height: 1,
+                    color: Theme.of(context).colorScheme.inverseSurface
+                        .withAlpha(50),
+                  ),
+                  SizedBox(height: 12),
+
+                  Text(
+                    'Siguientes citas',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 10),
+                ],
               )
             : null,
       ],
