@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_learning/data/sources/clinical/medical_center_csv.dart';
 import 'package:flutter_learning/domain/entities/clinical/medical_center.dart';
 import 'package:flutter_learning/presentation/appointments/models/booking_context.dart';
@@ -138,6 +139,11 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
             : (data.hasPublic ? _Coverage.public : _Coverage.private);
 
         final company = data.privateCompany.trim().toUpperCase();
+
+        final publicHospitals = data.hospitals
+            .where((h) => h.isPublic)
+            .toList();
+
         final privateHospitals = data.hospitals
             .where(
               (h) => h.insurers.any((i) => i.trim().toUpperCase() == company),
@@ -222,7 +228,7 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () => _pickHospital(
                     coverage == _Coverage.public
-                        ? data.hospitals
+                        ? publicHospitals
                         : privateHospitals,
                   ),
                 ),

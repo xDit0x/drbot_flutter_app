@@ -19,6 +19,17 @@ class MedicalCenter {
     this.insurers = const [],
   });
 
+  String _normalize(String v) => v
+      .trim()
+      .toLowerCase()
+      .replaceAll('á', 'a')
+      .replaceAll('é', 'e')
+      .replaceAll('í', 'i')
+      .replaceAll('ó', 'o')
+      .replaceAll('ú', 'u');
+
+  bool get isPublic => _normalize(dependence) == 'publicos';
+  bool get isPrivate => _normalize(dependence) == 'privados';
   Map<String, dynamic> toMap() {
     return {
       'code': code,
