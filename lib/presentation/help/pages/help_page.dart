@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/core/configs/assets/app_vectors.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HelpPage extends StatefulWidget {
@@ -57,29 +59,45 @@ class _HelpPageState extends State<HelpPage> {
 
         Card(
           child: Column(
-            children: const [
+            children: [
               ListTile(
-                leading: Icon(Icons.person_outline),
-                title: Text('Perfil'),
-                subtitle: Text(
+                leading: SvgPicture.asset(
+                  AppVectors.profile,
+                  width: 20,
+                  color: Theme.of(context).colorScheme.inverseSurface,
+                ),
+                title: const Text(
+                  'Perfil',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                subtitle: const Text(
                   'Consulta tu información de contacto y tus datos clínicos',
                 ),
               ),
-              ListTile(
+              const ListTile(
                 leading: Icon(Icons.local_hospital_outlined),
-                title: Text('Centros de referencia'),
+                title: Text(
+                  'Centros de referencia',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
                 subtitle: Text(
                   'Consulta tu centro de salud y hospital asignado',
                 ),
               ),
-              ListTile(
+              const ListTile(
                 leading: Icon(Icons.calendar_month_outlined),
-                title: Text('Citas'),
+                title: Text(
+                  'Citas',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
                 subtitle: Text('Consulta y organiza tus citas médicas'),
               ),
-              ListTile(
-                leading: Icon(Icons.settings_outlined),
-                title: Text('Ajustes'),
+              const ListTile(
+                leading: Icon(Icons.settings),
+                title: Text(
+                  'Ajustes',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
                 subtitle: Text(
                   'Configura la aplicación según ajustes de accesibilidad, vibración y seguridad',
                 ),
