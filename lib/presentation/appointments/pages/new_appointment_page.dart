@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:flutter_learning/data/sources/clinical/medical_center_csv.dart';
 import 'package:flutter_learning/domain/entities/clinical/medical_center.dart';
@@ -84,6 +85,7 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
     MedicalCenter center,
     _Coverage coverage,
   ) {
+    HapticFeedback.lightImpact();
     Navigator.push(
       context,
       MaterialPageRoute(

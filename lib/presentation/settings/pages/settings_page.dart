@@ -157,14 +157,20 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(dialogContext, false),
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              Navigator.pop(dialogContext, false);
+            },
             child: Text(
               'Cancelar',
               style: TextStyle(color: scheme.inverseSurface, fontSize: 16),
             ),
           ),
           FilledButton(
-            onPressed: () => Navigator.pop(dialogContext, true),
+            onPressed: () {
+              HapticFeedback.mediumImpact();
+              Navigator.pop(dialogContext, true);
+            },
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
               decoration: BoxDecoration(color: scheme.primary),
@@ -224,7 +230,10 @@ class _SettingsPageState extends State<SettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               TextButton(
-                onPressed: () => Navigator.pop(dialogContext),
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  Navigator.pop(dialogContext);
+                },
                 child: Text(
                   'Cancelar',
                   style: TextStyle(color: scheme.inverseSurface, fontSize: 18),
@@ -234,6 +243,7 @@ class _SettingsPageState extends State<SettingsPage> {
               FilledButton(
                 style: FilledButton.styleFrom(backgroundColor: Colors.red),
                 onPressed: () {
+                  HapticFeedback.heavyImpact();
                   Navigator.pop(dialogContext, password);
                 },
                 child: Container(

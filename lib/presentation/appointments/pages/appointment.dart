@@ -22,6 +22,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
   late Future<Either> _future;
 
   Future<void> _cancelAppointment(Appointment appointment) async {
+    HapticFeedback.heavyImpact();
     final confirm = await showDialog<bool>(
       animationStyle: AnimationStyle(
         duration: Duration(milliseconds: 250),

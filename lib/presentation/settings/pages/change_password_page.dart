@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
 
 class ChangePasswordPage extends StatefulWidget {
@@ -59,7 +60,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       if (!mounted) {
         return;
       }
-
+      HapticFeedback.mediumImpact();
       SnackbarRoot.show(
         context,
         'La contraseña ha sido actualizada correctamente',
@@ -69,6 +70,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       if (!mounted) {
+        HapticFeedback.lightImpact();
         return;
       }
 

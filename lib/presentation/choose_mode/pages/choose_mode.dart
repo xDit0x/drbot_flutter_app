@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_learning/common/helpers/is_dark_mode.dart';
 import 'package:flutter_learning/common/widgets/button/basic_app_button.dart';
@@ -67,6 +68,7 @@ class ChooseModePage extends StatelessWidget {
                               themeMode: ThemeMode.dark,
                               currentThemeMode: currentMode,
                               onTap: () {
+                                HapticFeedback.lightImpact();
                                 context.read<ThemeCubit>().updateTheme(
                                   ThemeMode.dark,
                                 );

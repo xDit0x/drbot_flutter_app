@@ -66,14 +66,20 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 );
                 if (!mounted) return;
-                result.fold((l) {
-                  //LEFT = no ha ido bien
-                  SnackbarRoot.show(
-                    context,
-                    l.toString(),
-                    selection: SnackbarRootType.bad,
-                  );
-                }, (r) {});
+                result.fold(
+                  (l) {
+                    //LEFT = no ha ido bien
+                    HapticFeedback.lightImpact();
+                    SnackbarRoot.show(
+                      context,
+                      l.toString(),
+                      selection: SnackbarRootType.bad,
+                    );
+                  },
+                  (r) {
+                    HapticFeedback.mediumImpact();
+                  },
+                );
               },
               title: 'Iniciar sesión',
             ),
@@ -273,6 +279,7 @@ class _SignInPageState extends State<SignInPage> {
           ),
           TextButton(
             onPressed: () {
+              HapticFeedback.lightImpact();
               Navigator.push(
                 context,
                 MaterialPageRoute(

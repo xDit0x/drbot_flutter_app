@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_learning/data/sources/clinical/medical_center_csv.dart';
 import 'package:flutter_learning/domain/entities/clinical/medical_center.dart';
 import 'package:flutter_learning/presentation/auth/pages/insurance_selection_page.dart';
@@ -177,10 +178,12 @@ class _CenterSelectionPageState extends State<CenterSelectionPage> {
       }
 
       setState(() {
+        HapticFeedback.mediumImpact();
         _selectionError = 'No se pudo guardar los centros seleccionados.';
       });
     } finally {
       if (mounted) {
+        HapticFeedback.lightImpact();
         setState(() => _saving = false);
       }
     }

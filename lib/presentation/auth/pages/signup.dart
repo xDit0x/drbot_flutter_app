@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_learning/common/widgets/appbar/app_bar.dart';
 import 'package:flutter_learning/common/widgets/button/basic_app_button.dart';
 import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
@@ -134,6 +135,7 @@ class SignUpPage extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
+              HapticFeedback.lightImpact();
               Navigator.pop(context);
             },
             child: Text(

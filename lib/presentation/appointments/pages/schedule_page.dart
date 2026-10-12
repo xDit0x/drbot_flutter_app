@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
 import 'package:flutter_learning/core/utils/date_time_keys.dart';
 import 'package:flutter_learning/domain/entities/appointments/appointment.dart';
@@ -105,6 +106,7 @@ class _SchedulePageState extends State<SchedulePage> {
 
     result.fold(
       (l) {
+        HapticFeedback.mediumImpact();
         setState(() => _creating = false);
         SnackbarRoot.show(
           context,
@@ -113,6 +115,7 @@ class _SchedulePageState extends State<SchedulePage> {
         );
       },
       (r) {
+        HapticFeedback.heavyImpact();
         SnackbarRoot.show(
           context,
           widget.booking.isPublic ? 'Cita solicitada' : 'Cita programada',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_learning/common/helpers/is_dark_mode.dart';
 import 'package:flutter_learning/common/widgets/button/basic_app_button.dart';
 import 'package:flutter_learning/core/configs/assets/app_images.dart';
@@ -64,6 +65,7 @@ class GetStartedPage extends StatelessWidget {
                 SizedBox(height: 50),
                 BasicAppButton(
                   onPressed: () {
+                    HapticFeedback.lightImpact();
                     Navigator.push(
                       context,
                       MaterialPageRoute(

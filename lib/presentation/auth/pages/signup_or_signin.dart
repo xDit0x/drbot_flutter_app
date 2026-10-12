@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_learning/common/helpers/is_dark_mode.dart';
 import 'package:flutter_learning/common/widgets/appbar/app_bar.dart';
 import 'package:flutter_learning/common/widgets/button/basic_app_button.dart';
@@ -78,6 +79,7 @@ class SignupOrSigninPage extends StatelessWidget {
                       Expanded(
                         child: BasicAppButton(
                           onPressed: () {
+                            HapticFeedback.lightImpact();
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -93,6 +95,7 @@ class SignupOrSigninPage extends StatelessWidget {
                         flex: 1,
                         child: ElevatedButton(
                           onPressed: () {
+                            HapticFeedback.lightImpact();
                             Navigator.push(
                               context,
                               MaterialPageRoute(

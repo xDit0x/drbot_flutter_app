@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -105,6 +106,7 @@ class _BiometricLockGateState extends State<BiometricLockGate>
             ),
             FilledButton(
               onPressed: () {
+                HapticFeedback.mediumImpact();
                 Navigator.pop(dialogContext, controller.text);
               },
               child: const Text('Desbloquear'),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 
 class InsuranceSelection {
   final bool publicCoverty;
@@ -143,8 +144,9 @@ class _InsuranceSelectionPageState extends State<InsuranceSelectionPage> {
       if (!mounted) {
         return;
       }
-
+      HapticFeedback.mediumImpact();
       setState(() {
+        HapticFeedback.lightImpact();
         _errorMessage = 'No se pudo guardar la cobertura sanitaria';
       });
     }

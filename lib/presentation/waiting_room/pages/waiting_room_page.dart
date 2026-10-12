@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart' hide State;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
 import 'package:flutter_learning/domain/entities/appointments/appointment.dart';
 import 'package:flutter_learning/domain/entities/appointments/check_in_request.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -70,7 +71,7 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
 
   void _showMessage(String text) {
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
+    SnackbarRoot.show(context, text, selection: SnackbarRootType.ok);
   }
 
   @override
@@ -157,7 +158,9 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
         appointment.status == AppointmentStatus.checkedIn ||
         appointment.status == AppointmentStatus.inConsultation;
 
-    final canAttemptCheckIn = date != null && !DateTime.now().isBefore(date.subtract(const Duration(minutes: 15)),);
+    final canAttemptCheckIn =
+        date != null &&
+        !DateTime.now().isBefore(date.subtract(const Duration(minutes: 15)));
 
     final dateText = date == null
         ? 'Fecha no disponible'
@@ -311,7 +314,9 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
                   : (date != null && _isToday(date))
                   ? FilledButton(
                       style: FilledButton.styleFrom(),
-                      onPressed: canAttemptCheckIn ? () => _checkIn(appointment) : null,
+                      onPressed: canAttemptCheckIn
+                          ? () => _checkIn(appointment)
+                          : null,
                       child: const Text(
                         'Check-in',
                         style: TextStyle(
@@ -334,7 +339,7 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
                           'Disponible 15 minutos antes de la cita.',
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
-                            fontSize: isFirst ? 16 : 12,
+                            fontSize: isFirst ? 14 : 12,
                           ),
                         ),
                       ],
