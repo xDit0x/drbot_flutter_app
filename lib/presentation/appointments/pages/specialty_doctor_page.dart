@@ -135,6 +135,7 @@ class _SpecialtyDoctorPageState extends State<SpecialtyDoctorPage> {
                         ),
                         subtitle: Text(
                           '${doctor.specialty}\n'
+                          'Sala ${doctor.room} · Planta ${doctor.floor}\n'
                           '${doctor.insurers.isEmpty ? 'Pública (libre elección)' : doctor.insurers.join(', ')}',
                         ),
                         trailing: const Icon(Icons.chevron_right),

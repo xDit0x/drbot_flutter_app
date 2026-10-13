@@ -1,15 +1,37 @@
-centerCode;name;specialty;insurers;slotMinutes;mon;tue;wed;thu;fri;sat;sun
-1328000066;Dr. Javier Ortega Ruiz;Cardiología;;20;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;;08:00-22:00
-1328000066;Dra. Lucía Fernández Soto;Dermatología;;15;08:00-15:00;08:00-15:00;;08:00-15:00;08:00-15:00;;
-1328000066;Dr. Miguel Ángel Domínguez Prado;Traumatología;;15;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;09:00-13:00;
-1328000066;Dra. Carmen Reyes Villalba;Oftalmología;;20;08:30-14:30;08:30-14:30;08:30-14:30;08:30-14:30;08:30-14:30;;
-1328000009;Dr. Andrés Molina Cañas;Cardiología;"ASISA, SANITAS";20;09:00-14:00,16:00-20:00;09:00-14:00,16:00-20:00;;09:00-14:00,16:00-20:00;09:00-14:00,16:00-20:00;;08:00-22:00
-1328000009;Dra. Nuria Serrano Gil;Dermatología;"ASISA";15;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;;;;
-1328000009;Dr. Tomás Iglesias Vega;Neurología;"SANITAS";20;08:00-15:00;08:00-15:00;08:00-15:00;08:00-15:00;08:00-15:00;;
-1328000009;Dra. Paula Marín Escudero;Ginecología;"ASISA, SANITAS";30;10:00-14:00,17:00-20:00;10:00-14:00,17:00-20:00;10:00-14:00,17:00-20:00;10:00-14:00,17:00-20:00;;;;
-1328016888;Dr. Hugo Navarro Aguilar;Traumatología;"DKV, ADESLAS";20;09:00-15:00;09:00-15:00;09:00-15:00;09:00-15:00;09:00-15:00;;08:00-22:00
-1328016888;Dra. Elena Cabrera Pons;Digestivo;"DKV";30;08:30-14:00;08:30-14:00;;08:30-14:00;08:30-14:00;;
-1328016888;Dr. Sergio Lozano Prieto;Otorrinolaringología;"ADESLAS";15;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;09:30-13:30;
-1328016888;Dra. Marta Vidal Cañete;Endocrinología;"DKV, ADESLAS";20;08:00-14:00;08:00-14:00;08:00-14:00;08:00-14:00;08:00-14:00;;
-1328000009;Dr. Ignacio Fuentes Robles;Urología;"ASISA, SANITAS";20;09:00-14:00;;09:00-14:00;;09:00-14:00;;
-1328016888;Dra. Rocío Pardo Herrero;Reumatología;"DKV, ADESLAS";20;09:00-13:00;09:00-13:00;09:00-13:00;09:00-13:00;09:00-13:00;;
+﻿centerCode;name;specialty;insurers;slotMinutes;mon;tue;wed;thu;fri;sat;sun;room;floor
+1328000066;Dr. Javier Ortega Ruiz;Cardiología;;20;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;;08:00-22:00;101;1
+1328000066;Dra. Lucía Fernández Soto;Dermatología;;15;08:00-15:00;08:00-15:00;;08:00-15:00;08:00-15:00;;;102;1
+1328000066;Dr. Miguel Ángel Domínguez Prado;Traumatología;;15;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;09:00-13:00;;103;1
+1328000066;Dra. Carmen Reyes Villalba;Oftalmología;;20;08:30-14:30;08:30-14:30;08:30-14:30;08:30-14:30;08:30-14:30;;;104;1
+1328000009;Dr. Andrés Molina Cañas;Cardiología;"ASISA, SANITAS";20;09:00-14:00,16:00-20:00;09:00-14:00,16:00-20:00;;09:00-14:00,16:00-20:00;09:00-14:00,16:00-20:00;;08:00-22:00;201;2
+1328000009;Dra. Nuria Serrano Gil;Dermatología;"ASISA";15;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;;;;202;2
+1328000009;Dr. Tomás Iglesias Vega;Neurología;"SANITAS";20;08:00-15:00;08:00-15:00;08:00-15:00;08:00-15:00;08:00-15:00;;;203;2
+1328000009;Dra. Paula Marín Escudero;Ginecología;"ASISA, SANITAS";30;10:00-14:00,17:00-20:00;10:00-14:00,17:00-20:00;10:00-14:00,17:00-20:00;10:00-14:00,17:00-20:00;;;;204;2
+1328016888;Dr. Hugo Navarro Aguilar;Traumatología;"DKV, ADESLAS";20;09:00-15:00;09:00-15:00;09:00-15:00;09:00-15:00;09:00-15:00;;08:00-22:00;301;1
+1328016888;Dra. Elena Cabrera Pons;Digestivo;"DKV";30;08:30-14:00;08:30-14:00;;08:30-14:00;08:30-14:00;;;302;1
+1328016888;Dr. Sergio Lozano Prieto;Otorrinolaringología;"ADESLAS";15;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;09:30-13:30;;303;1
+1328016888;Dra. Marta Vidal Cañete;Endocrinología;"DKV, ADESLAS";20;08:00-14:00;08:00-14:00;08:00-14:00;08:00-14:00;08:00-14:00;;;304;1
+1328000009;Dr. Ignacio Fuentes Robles;Urología;"ASISA, SANITAS";20;09:00-14:00;;09:00-14:00;;09:00-14:00;;;205;2
+1328016888;Dra. Rocío Pardo Herrero;Reumatología;"DKV, ADESLAS";20;09:00-13:00;09:00-13:00;09:00-13:00;09:00-13:00;09:00-13:00;;;305;1
+1328000066;Dr. Carlos Navarro Ruiz;Neurologia;;20;09:00-14:00;09:00-14:00;09:00-14:00;;09:00-14:00;;;105;1
+1328000066;Dra. Elena Morales Vega;Ginecologia;;30;08:30-14:30;;08:30-14:30;08:30-14:30;08:30-14:30;;;106;2
+1328000088;Dr. Pablo Romero Gil;Urologia;;20;;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;;;501;1
+1328000009;Dra. Isabel Torres Medina;Oftalmologia;"ASISA, SANITAS";20;09:00-14:00;09:00-14:00;;09:00-14:00;09:00-14:00;;;206;3
+1328000009;Dr. Daniel Castro Leon;Digestivo;"ASISA";30;08:30-14:00;;08:30-14:00;08:30-14:00;08:30-14:00;;;207;3
+1328016888;Dra. Laura Mendez Rios;Cardiologia;"DKV, ADESLAS";20;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;;;;306;2
+1328016888;Dr. Marcos Gil Ortega;Neurologia;"DKV";20;;08:00-15:00;08:00-15:00;08:00-15:00;08:00-15:00;;;307;2
+1328000088;Dra. Beatriz Santos Leon;Pediatria;;20;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;;;;502;1
+1328000088;Dr. Adrian Vega Prieto;Neumologia;;20;08:30-14:30;;08:30-14:30;08:30-14:30;08:30-14:30;;;503;1
+1328000088;Dra. Silvia Cano Martin;Psiquiatria;;30;;09:00-15:00;09:00-15:00;;09:00-15:00;;;504;2
+1328000009;Dr. Alberto Rivas Soler;Pediatria;"ASISA, SANITAS";20;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;;;;208;3
+1328000009;Dra. Clara Ortega Vidal;Neumologia;"ASISA, ADESLAS";20;08:30-14:30;08:30-14:30;;08:30-14:30;08:30-14:30;;;209;3
+1328000009;Dr. Mateo Sanchez Gil;Psiquiatria;"SANITAS";30;;10:00-16:00;10:00-16:00;10:00-16:00;;;;210;3
+1328016888;Dra. Alicia Ramos Fuentes;Pediatria;"DKV, ADESLAS";20;09:00-14:00;09:00-14:00;09:00-14:00;09:00-14:00;;;;308;2
+1328016888;Dr. Bruno Herrera Costa;Neumologia;"DKV";20;08:30-14:30;;08:30-14:30;08:30-14:30;08:30-14:30;;;309;2
+1328016888;Dra. Natalia Campos Roldan;Psiquiatria;"ADESLAS";30;;09:00-15:00;09:00-15:00;09:00-15:00;09:00-15:00;;;310;2
+1328000088;Dra. Monica Blanco Serrano;Alergologia;;20;09:00-14:00;;09:00-14:00;09:00-14:00;09:00-14:00;;;505;2
+1328000088;Dr. Diego Pastor Moya;Nefrologia;;20;;08:30-14:30;08:30-14:30;08:30-14:30;;08:30-13:30;;506;2
+1328000009;Dra. Eva Lozano Prieto;Alergologia;"ASISA, SANITAS";20;09:00-14:00;09:00-14:00;;09:00-14:00;09:00-14:00;;;211;4
+1328000009;Dr. Raul Medina Cano;Nefrologia;"ASISA, ADESLAS";20;;08:30-14:30;08:30-14:30;08:30-14:30;08:30-14:30;;;212;4
+1328016888;Dra. Irene Fuentes Roca;Alergologia;"DKV, ADESLAS";20;09:00-14:00;;09:00-14:00;09:00-14:00;09:00-14:00;;;311;3
+1328016888;Dr. Victor Sanz Rubio;Nefrologia;"DKV";20;;08:30-14:30;08:30-14:30;08:30-14:30;08:30-14:30;;;312;3

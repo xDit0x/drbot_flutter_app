@@ -253,7 +253,7 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
                             "Próxima cita",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 24,
+                              fontSize: 18,
                             ),
                           ),
                         ],

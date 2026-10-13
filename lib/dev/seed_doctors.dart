@@ -30,6 +30,9 @@ class DoctorsSeeder {
   Future<SeedResult> seed() async {
     final hospitals = await _loadCsv('assets/data/hospitals.csv');
     final doctors = await _loadCsv('assets/data/doctors.csv');
+    if (doctors.rows.isEmpty) {
+      throw StateError('doctors.csv no contiene médicos; no se borró Doctors');
+    }
 
     final centerByCode = <String, _Center>{};
     for (final r in hospitals.rows) {
@@ -45,9 +48,33 @@ class DoctorsSeeder {
     }
 
     final warnings = <String>[];
+    final doctorsCollection = _firestore.collection('Doctors');
+    final oldDoctors = await doctorsCollection.get();
+    final authUidByDoctorId = <String, String>{
+      for (final doctor in oldDoctors.docs)
+        if ((doctor.data()['authUid']?.toString().trim().isNotEmpty ?? false))
+          doctor.id: doctor.data()['authUid'].toString(),
+    };
+    final existingDoctorIdByName = <String, String>{
+      for (final doctor in oldDoctors.docs)
+        if ((doctor.data()['name']?.toString().trim().isNotEmpty ?? false))
+          doctor.data()['name'].toString().trim().toLowerCase(): doctor.id,
+    };
+    for (var start = 0; start < oldDoctors.docs.length; start += 400) {
+      final batch = _firestore.batch();
+      final end = (start + 400 < oldDoctors.docs.length)
+          ? start + 400
+          : oldDoctors.docs.length;
+      for (final doctor in oldDoctors.docs.sublist(start, end)) {
+        batch.delete(doctor.reference);
+      }
+      await batch.commit();
+    }
+
     var batch = _firestore.batch();
     var pending = 0;
     var created = 0;
+    final importedDoctorIds = <String>{};
 
     for (final r in doctors.rows) {
       final centerCode = _at(r, doctors.col('centerCode'));
@@ -72,17 +99,31 @@ class DoctorsSeeder {
         weekly[day] = _shifts(_at(r, doctors.col(day)));
       }
 
-      final id = '${centerCode}_${_slug(name)}';
-      batch.set(_firestore.collection('Doctors').doc(id), {
+      final nameKey = name.trim().toLowerCase();
+      final id = existingDoctorIdByName[nameKey] ??
+          '${centerCode}_${_slug(name)}';
+      if (!importedDoctorIds.add(id)) {
+        warnings.add('$name: médico duplicado en doctors.csv');
+        continue;
+      }
+
+      final doctorData = <String, dynamic>{
         'name': name,
         'specialty': _at(r, doctors.col('specialty')),
         'insurers': insurers,
         'centerCode': centerCode,
         'centerName': center?.name ?? '',
         'region': center?.region ?? '',
+        'room': _at(r, doctors.col('room')),
+        'floor': _at(r, doctors.col('floor')),
         'slotMinutes': int.tryParse(_at(r, doctors.col('slotMinutes'))) ?? 20,
         'weekly': weekly,
-      }, SetOptions(merge: true));
+      };
+      final authUid = authUidByDoctorId[id];
+      if (authUid != null) {
+        doctorData['authUid'] = authUid;
+      }
+      batch.set(doctorsCollection.doc(id), doctorData);
       created++;
 
       if (++pending >= 400) {

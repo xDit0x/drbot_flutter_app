@@ -8,6 +8,8 @@ class Doctor {
   final String centerCode;
   final String centerName;
   final String region;
+  final String room;
+  final String floor;
   final int slotMinutes;
   final WeeklySchedule schedule;
 
@@ -21,6 +23,8 @@ class Doctor {
     this.insurers = const [],
     this.centerName = '',
     this.region = '',
+    this.room = '',
+    this.floor = '',
   });
 
   factory Doctor.fromMap(String id, Map<String, dynamic> map) {
@@ -34,6 +38,8 @@ class Doctor {
       centerCode: (map['centerCode'] ?? '').toString(),
       centerName: (map['centerName'] ?? '').toString(),
       region: (map['region'] ?? '').toString(),
+      room: (map['room'] ?? '').toString(),
+      floor: (map['floor'] ?? '').toString(),
       slotMinutes: (map['slotMinutes'] as num?)?.toInt() ?? 20,
       schedule: rawWeekly is Map
           ? WeeklySchedule.fromMap(Map<String, dynamic>.from(rawWeekly))

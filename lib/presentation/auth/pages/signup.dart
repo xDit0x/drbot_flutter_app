@@ -51,6 +51,33 @@ class SignUpPage extends StatelessWidget {
                   return;
                 }
 
+                if (_fullname.text.trim().length < 3) {
+                  SnackbarRoot.show(
+                    context,
+                    'El nombre debe tener al menos 3 caracteres',
+                    selection: SnackbarRootType.warning,
+                  );
+                  return;
+                }
+
+                final password = _password.text;
+                final hasSymbol = RegExp(r'[^A-Za-z0-9]').hasMatch(password);
+                final hasUppercase = RegExp(r'[A-Z]').hasMatch(password);
+                final hasTwoNumbers =
+                    RegExp(r'(?:.*\d){2}').hasMatch(password);
+
+                if (password.length < 6 ||
+                    !hasSymbol ||
+                    !hasUppercase ||
+                    !hasTwoNumbers) {
+                  SnackbarRoot.show(
+                    context,
+                    'La contraseña debe tener al menos 6 caracteres, un símbolo, una mayúscula y dos números',
+                    selection: SnackbarRootType.warning,
+                  );
+                  return;
+                }
+
                 final result = await sl<SignUpUseCase>().call(
                   params: CreateUserReq(
                     fullName: _fullname.text.toString(),
