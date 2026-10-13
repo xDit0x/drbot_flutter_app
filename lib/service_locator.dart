@@ -2,9 +2,12 @@ import 'package:flutter_learning/data/repository/appointments/appointment_reposi
 import 'package:flutter_learning/data/repository/appointments/doctor_repository_impl.dart';
 import 'package:flutter_learning/data/repository/auth/auth_repository_impl.dart';
 import 'package:flutter_learning/data/repository/contact/contact_repository_impl.dart';
+import 'package:flutter_learning/data/repository/notifications/notification_repository_impl.dart';
 import 'package:flutter_learning/data/sources/appointments/appointment_firebase_service.dart';
 import 'package:flutter_learning/data/sources/appointments/doctor_firebase_service.dart';
 import 'package:flutter_learning/data/sources/contact/contact_firebase_service.dart';
+import 'package:flutter_learning/data/sources/notifications/notification_firebase_service.dart';
+
 import 'package:flutter_learning/domain/repository/appointments/appointment_repository.dart';
 import 'package:flutter_learning/domain/repository/appointments/doctor_repository.dart';
 import 'package:flutter_learning/domain/repository/clinical/clinical_repository.dart';
@@ -13,6 +16,7 @@ import 'package:flutter_learning/data/sources/auth/auth_firebase_service.dart';
 import 'package:flutter_learning/data/sources/clinical/clinical_firebase_service.dart';
 import 'package:flutter_learning/domain/repository/auth/auth.dart';
 import 'package:flutter_learning/domain/repository/contact/contact_repository.dart';
+import 'package:flutter_learning/domain/repository/notifications/notification_repository.dart';
 import 'package:flutter_learning/domain/usecases/appointments/check_in_appointment.dart';
 import 'package:flutter_learning/domain/usecases/appointments/create_appointment.dart';
 import 'package:flutter_learning/domain/usecases/appointments/get_appointments.dart';
@@ -26,6 +30,8 @@ import 'package:flutter_learning/domain/usecases/auth/sign_up.dart';
 import 'package:flutter_learning/domain/usecases/clinical/get_clinical_info.dart';
 import 'package:flutter_learning/domain/usecases/contact/get_contact_info.dart';
 import 'package:flutter_learning/domain/usecases/contact/update_contact_info.dart';
+import 'package:flutter_learning/domain/usecases/notifications/register_push_token.dart';
+import 'package:flutter_learning/domain/usecases/notifications/save_alert.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -80,4 +86,14 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<GetDoctorsByCenterUseCase>(GetDoctorsByCenterUseCase());
 
   sl.registerSingleton<CheckInAppointmentUseCase>(CheckInAppointmentUseCase());
+
+  sl.registerSingleton<NotificationRepository>(NotificationRepositoryImpl());
+
+  sl.registerSingleton<NotificationFirebaseService>(
+    NotificationFirebaseServiceImpl(),
+  );
+
+  sl.registerSingleton<SaveAlertUseCase>(SaveAlertUseCase());
+
+  sl.registerSingleton<RegisterPushTokenUseCase>(RegisterPushTokenUseCase());
 }

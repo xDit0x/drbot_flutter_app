@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_learning/core/services/push_notification_service.dart';
 import 'package:flutter_learning/presentation/choose_mode/bloc/theme_cubit.dart';
 import 'package:flutter_learning/firebase_options.dart';
 import 'package:flutter_learning/presentation/root/pages/authgate.dart';
@@ -24,13 +25,15 @@ Future<void> main() async {
     HydratedBloc.storage = null;
   }
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await initializeDependencies(); //inicializar dependencias de autenticacion
+  await initializeDependencies();
   try {
     await loadFontScale();
   } catch (_) {
     fontScale.value = 1.0;
   }
-
+  try {
+    await PushNotificationService().initialize();
+  } catch (_) {}
   runApp(const MyApp());
 }
 

@@ -8,12 +8,10 @@ enum AllergySeverity {
 }
 
 enum AllergyType {
-  medication('Medicamentosa'), // fármacos — la tienes
-  food('Alimentaria'), // la tienes
-  respiratory('Respiratoria'), // polen, ácaros, epitelios, moho — la tienes
-  insect(
-    'Picadura de insecto',
-  ), // abejas, avispas — riesgo de anafilaxia, no puede faltar
+  medication('Medicamentosa'), // fármacos
+  food('Alimentaria'),
+  respiratory('Respiratoria'), // polen, ácaros, epitelios, moho
+  insect('Picadura de insecto'), // abejas, avispas — riesgo de anafilaxia
   contact(
     'Contacto',
   ), // níquel, cosméticos, detergentes, dermatitis de contacto

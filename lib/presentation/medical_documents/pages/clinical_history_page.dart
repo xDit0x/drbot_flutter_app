@@ -70,9 +70,7 @@ class ClinicalHistoryPage extends StatelessWidget {
 
         if (records.isEmpty) {
           return const Center(
-            child: Text(
-              'Todavía no hay enfermedades registradas',
-            ),
+            child: Text('Todavía no hay diagnósticos registrados'),
           );
         }
 

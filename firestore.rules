@@ -10,6 +10,16 @@ service cloud.firestore {
         allow read, write: if request.auth != null
           && request.auth.uid == userId;
       }
+
+      match /alerts/{alertId} {
+        allow read, write: if request.auth != null
+          && request.auth.uid == userId;
+      }
+
+      match /tokens/{tokenId} {
+        allow read, write: if request.auth != null
+          && request.auth.uid == userId;
+      }
     }
 
     match /Doctors/{doc} {

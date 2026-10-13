@@ -53,6 +53,8 @@ dependencies:
   pdf: ^3.13.1
   printing: ^5.15.1
   signature:
+  firebase_messaging:
+  flutter_local_notifications: ^22.3.2
 
 dev_dependencies:
   flutter_test:
