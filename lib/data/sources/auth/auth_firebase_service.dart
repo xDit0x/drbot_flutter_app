@@ -42,6 +42,13 @@ class AuthFirebaseServieImpl extends AuthFirebaseService {
         password: createUserRequest.password,
       );
       final uid = data.user!.uid;
+
+      if (createUserRequest.fullName.trim().isNotEmpty) {
+        try {
+          await data.user?.updateDisplayName(createUserRequest.fullName);
+        } catch (_) {}
+      }
+
       try {
         await FirebaseFirestore.instance.collection('Users').doc(uid).set({
           'fullName': createUserRequest.fullName,
