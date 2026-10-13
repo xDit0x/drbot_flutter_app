@@ -1,6 +1,10 @@
 class SaveAlertRequest {
-  final String uid, title, body, type;
-  final String? route, messageId;
+  final String uid;
+  final String title;
+  final String body;
+  final String type;
+  final String? route;
+  final String? messageId;
 
   const SaveAlertRequest({
     required this.uid,

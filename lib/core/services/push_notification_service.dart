@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_learning/data/sources/notifications/notification_firebase_service.dart';
 
 import 'package:flutter_learning/domain/models/notifications/register_push_token_request.dart';
+import 'package:flutter_learning/domain/models/notifications/save_alert_request.dart';
 import 'package:flutter_learning/domain/usecases/notifications/register_push_token.dart';
 import 'package:flutter_learning/service_locator.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -13,6 +15,10 @@ class PushNotificationService {
 
   Future<void> initialize() async {
     await _messaging.requestPermission(alert: true, badge: true, sound: true);
+
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleOpened);
+    final initial = await _messaging.getInitialMessage();
+    if (initial != null) await _handleOpened(initial);
 
     await _initLocalNotifications();
     _messaging.onTokenRefresh.listen(_save);
@@ -72,6 +78,20 @@ class PushNotificationService {
         ),
         payload: message.data['route'] as String?,
       );
+
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      if (uid != null) {
+        await sl<NotificationFirebaseService>().saveAlert(
+          SaveAlertRequest(
+            uid: uid,
+            title: title ?? '',
+            body: body ?? '',
+            type: message.data['type'] as String? ?? 'general',
+            route: message.data['route'] as String?,
+            messageId: message.messageId,
+          ),
+        );
+      }
     });
   }
 
@@ -85,5 +105,25 @@ class PushNotificationService {
     );
 
     result.fold((l) => debugPrint('token: $l'), (r) => debugPrint('token: $r'));
+  }
+
+  Future<void> _handleOpened(RemoteMessage message) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null) {
+      await sl<NotificationFirebaseService>().saveAlert(
+        SaveAlertRequest(
+          uid: uid,
+          title:
+              message.notification?.title ??
+              (message.data['title'] as String? ?? ''),
+          body:
+              message.notification?.body ??
+              (message.data['body'] as String? ?? ''),
+          type: message.data['type'] as String? ?? 'general',
+          route: message.data['route'] as String?,
+          messageId: message.messageId,
+        ),
+      );
+    }
   }
 }

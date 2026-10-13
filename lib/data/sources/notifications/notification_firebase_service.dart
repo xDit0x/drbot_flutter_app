@@ -44,23 +44,28 @@ class NotificationFirebaseServiceImpl implements NotificationFirebaseService {
   Future<Either<dynamic, dynamic>> saveAlert(SaveAlertRequest request) async {
     try {
       if (request.uid.isEmpty) return Left('uid ausente');
+
       final alerts = FirebaseFirestore.instance
           .collection('Users')
           .doc(request.uid)
           .collection('alerts');
+
       final ref = request.messageId != null && request.messageId!.isNotEmpty
           ? alerts.doc(request.messageId)
           : alerts.doc();
+
       await ref.set({
         'title': request.title,
         'body': request.body,
         'type': request.type,
         'route': request.route,
         'read': false,
+        'createdAt': FieldValue.serverTimestamp(),
       }, SetOptions(merge: true));
+
       return Right('Alerta guardada');
     } on FirebaseException catch (e) {
-      debugPrint('Error registering push token: $e');
+      debugPrint('Error saving alert: $e');
       return Left('No se pudo guardar la alerta.');
     } catch (e) {
       return Left('No se pudo guardar la alerta.');

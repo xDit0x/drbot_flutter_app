@@ -61,7 +61,7 @@ class SignupOrSigninPage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsetsGeometry.symmetric(vertical: 21),
                     child: Text(
-                      "DrBot es una aplicación Española que provee gestión hospitalaria, y asistencia continua al usuario.",
+                      "DRBOT es una aplicación Española que provee gestión hospitalaria, y asistencia continua al usuario.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'Satoshi',

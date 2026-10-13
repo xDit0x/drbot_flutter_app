@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/core/configs/assets/app_vectors.dart';
+import 'package:flutter_learning/presentation/alerts/pages/alerts_page.dart';
 import 'package:flutter_learning/presentation/appointments/pages/appointment.dart';
 import 'package:flutter_learning/presentation/appointments/pages/new_appointment_page.dart';
 import 'package:flutter_learning/presentation/help/pages/help_page.dart';
@@ -46,7 +47,7 @@ class RootDestination {
     RootDestination(
       icon: Icon(Icons.notifications, size: 30),
       label: 'Alertas',
-      page: Center(child: Text('Alertas')),
+      page: AlertsPage(),
       pinnedToDock: true,
     ),
     RootDestination(
@@ -67,7 +68,7 @@ class RootDestination {
     RootDestination(
       icon: Icon(Icons.question_answer, size: 30),
       label: 'Consulta IA',
-      page: Center(child: Text('Consulta con DrBot')),
+      page: Center(child: Text('Consulta con DRBOT')),
     ),
     RootDestination(
       icon: Icon(Icons.help_center_rounded, size: 30),

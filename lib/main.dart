@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_learning/core/services/push_background_handler.dart';
 import 'package:flutter_learning/core/services/push_notification_service.dart';
 import 'package:flutter_learning/presentation/choose_mode/bloc/theme_cubit.dart';
 import 'package:flutter_learning/firebase_options.dart';
@@ -25,6 +27,9 @@ Future<void> main() async {
     HydratedBloc.storage = null;
   }
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
   await initializeDependencies();
   try {
     await loadFontScale();
@@ -49,7 +54,7 @@ class MyApp extends StatelessWidget {
           localizationsDelegates: GlobalMaterialLocalizations.delegates,
           supportedLocales: const [Locale('es', 'ES')],
           locale: const Locale('es', 'ES'),
-          title: 'DrBot',
+          title: 'DRBOT',
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: mode,

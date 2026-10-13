@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/common/helpers/is_dark_mode.dart';
 import 'package:flutter_learning/core/configs/theme/app_colors.dart';
@@ -109,50 +111,66 @@ class RootNavBar extends StatelessWidget {
                       builder: (_) {
                         final bool isSelected =
                             showSelection && i == currentPageIndex;
-                        return AnimatedContainer(
-                          duration: Duration(milliseconds: 250),
-                          width: 55,
-                          height: 55,
+                        final bool isAlerts =
+                            destinations[i].label == 'Alertas';
+                        return Stack(
+                          clipBehavior: Clip.none,
                           alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                              color: isSelected
-                                  ? context.isDarkMode
-                                        ? AppColors.darkGrey.withAlpha(200)
-                                        : Colors.transparent
-                                  : Colors.transparent,
-                              style: BorderStyle.solid,
-                              width: 2,
-                              strokeAlign: BorderSide.strokeAlignInside,
+                          children: [
+                            AnimatedContainer(
+                              duration: Duration(milliseconds: 250),
+                              width: 55,
+                              height: 55,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: isSelected
+                                      ? context.isDarkMode
+                                            ? AppColors.darkGrey.withAlpha(200)
+                                            : Colors.transparent
+                                      : Colors.transparent,
+                                  style: BorderStyle.solid,
+                                  width: 2,
+                                  strokeAlign: BorderSide.strokeAlignInside,
+                                ),
+                                color: isSelected
+                                    ? context.isDarkMode
+                                          ? AppColors.primary
+                                          : Theme.of(context)
+                                                .colorScheme
+                                                .surface
+                                    : Colors.transparent,
+                              ),
+                              child: ColorFiltered(
+                                colorFilter: ColorFilter.mode(
+                                  isSelected
+                                      ? context.isDarkMode
+                                            ? AppColors.darkBackground
+                                            : Theme.of(context)
+                                                  .colorScheme
+                                                  .inverseSurface
+                                                  .withAlpha(200)
+                                      : context.isDarkMode
+                                      ? Colors.grey
+                                      : const Color.fromARGB(
+                                          255,
+                                          79,
+                                          79,
+                                          79,
+                                        ).withAlpha(200),
+                                  BlendMode.srcIn,
+                                ),
+                                child: destinations[i].icon,
+                              ),
                             ),
-                            color: isSelected
-                                ? context.isDarkMode
-                                      ? AppColors.primary
-                                      : Theme.of(context).colorScheme.surface
-                                : Colors.transparent,
-                          ),
-                          child: ColorFiltered(
-                            colorFilter: ColorFilter.mode(
-                              isSelected
-                                  ? context.isDarkMode
-                                        ? AppColors.darkBackground
-                                        : Theme.of(context)
-                                              .colorScheme
-                                              .inverseSurface
-                                              .withAlpha(200)
-                                  : context.isDarkMode
-                                  ? Colors.grey
-                                  : const Color.fromARGB(
-                                      255,
-                                      79,
-                                      79,
-                                      79,
-                                    ).withAlpha(200),
-                              BlendMode.srcIn,
-                            ),
-                            child: destinations[i].icon,
-                          ),
+                            if (isAlerts)
+                              const Positioned(
+                                top: 4,
+                                right: 4,
+                                child: _AlertBadge(),
+                              ),
+                          ],
                         );
                       },
                     ),
@@ -163,6 +181,30 @@ class RootNavBar extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _AlertBadge extends StatelessWidget {
+  const _AlertBadge();
+
+  @override
+  Widget build(BuildContext context) {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) return const SizedBox.shrink();
+
+    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+      stream: FirebaseFirestore.instance
+          .collection('Users')
+          .doc(uid)
+          .collection('alerts')
+          .where('read', isEqualTo: false)
+          .snapshots(),
+      builder: (context, snapshot) {
+        final count = snapshot.data?.docs.length ?? 0;
+        if (count == 0) return const SizedBox.shrink();
+        return Badge(label: Text('$count'));
+      },
     );
   }
 }
