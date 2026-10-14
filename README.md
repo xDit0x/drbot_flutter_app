@@ -66,7 +66,7 @@ El siguiente diagrama muestra los principales casos de uso de Dr. Bot para el pa
 
 ### Antonio
 
-## 1. Consultar los centros médicos asignados
+#### 1. Consultar los centros médicos asignados
 
 El usuario accede a la sección **Perfil** para consultar los centros médicos que tiene asignados.
 
