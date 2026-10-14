@@ -122,13 +122,11 @@ class ChooseModePage extends StatelessWidget {
                 SizedBox(height: 50),
                 BasicAppButton(
                   onPressed: () {
-                    Navigator.pushAndRemoveUntil(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            const SignupOrSigninPage(),
+                        builder: (_) => const SignupOrSigninPage(),
                       ),
-                      (route) => false,
                     );
                   },
                   title: 'Continuar',

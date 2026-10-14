@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_learning/common/widgets/snackbar/snack_bar_root.dart';
 import 'package:flutter_learning/dev/seed_doctors.dart';
 import 'package:flutter_learning/domain/usecases/auth/delete_account.dart';
-import 'package:flutter_learning/presentation/auth/pages/signup_or_signin.dart';
+
 import 'package:flutter_learning/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_learning/presentation/settings/pages/font_size_page.dart';
@@ -304,10 +304,7 @@ class _SettingsPageState extends State<SettingsPage> {
           selection: SnackbarRootType.ok,
           leading: Icon(Icons.person_remove_outlined),
         );
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute<void>(builder: (_) => const SignupOrSigninPage()),
-          (route) => false,
-        );
+        Navigator.of(context).popUntil((route) => route.isFirst);
       },
     );
   }

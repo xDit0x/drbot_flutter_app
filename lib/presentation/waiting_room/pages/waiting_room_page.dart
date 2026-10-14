@@ -212,12 +212,12 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
           return Text.rich(
             TextSpan(
               children: [
-                const TextSpan(text: 'Le quedan '),
+                const TextSpan(text: 'Le quedan'),
                 TextSpan(
-                  text: '$peopleAhead',
+                  text: '\t$peopleAhead\t',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-                const TextSpan(text: ' personas delante.'),
+                const TextSpan(text: 'personas delante.'),
               ],
             ),
             softWrap: true,
@@ -335,10 +335,10 @@ class _WaitingRoomPageState extends State<WaitingRoomPage> {
                         ),
 
                         Text(
-                          'Disponible 15 \nminutos antes de la cita.',
+                          'Disponible 15\nminutos antes de la cita.',
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
-                            fontSize: isFirst ? 14 : 10,
+                            fontSize: isFirst ? 12 : 10,
                           ),
                           textAlign: TextAlign.center,
                         ),
