@@ -78,6 +78,7 @@ class _SignInPageState extends State<SignInPage> {
                   },
                   (r) {
                     HapticFeedback.mediumImpact();
+                    Navigator.popUntil(context, (route) => route.isFirst);
                   },
                 );
               },

@@ -24,94 +24,92 @@ class SignUpPage extends StatelessWidget {
       appBar: BasicAppbar(
         title: Image.asset(AppImages.logo, height: 100, width: 100),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 50, horizontal: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Spacer(),
-            _registerText(),
-            SizedBox(height: 50),
-            _fullNameField(context),
-            SizedBox(height: 20),
-            _emailField(context),
-            SizedBox(height: 20),
-            _passwordField(context),
-            SizedBox(height: 20),
-            BasicAppButton(
-              onPressed: () async {
-                if (_fullname.text.trim().isEmpty ||
-                    _email.text.trim().isEmpty ||
-                    _password.text.isEmpty) {
-                  SnackbarRoot.show(
-                    context,
-                    'Complete todos los campos',
-                    selection: SnackbarRootType.warning,
-                  );
-                  return;
-                }
-
-                if (_fullname.text.trim().length < 3) {
-                  SnackbarRoot.show(
-                    context,
-                    'El nombre debe tener al menos 3 caracteres',
-                    selection: SnackbarRootType.warning,
-                  );
-                  return;
-                }
-
-                final password = _password.text;
-                final hasSymbol = RegExp(r'[^A-Za-z0-9]').hasMatch(password);
-                final hasUppercase = RegExp(r'[A-Z]').hasMatch(password);
-                final hasTwoNumbers =
-                    RegExp(r'(?:.*\d){2}').hasMatch(password);
-
-                if (password.length < 6 ||
-                    !hasSymbol ||
-                    !hasUppercase ||
-                    !hasTwoNumbers) {
-                  SnackbarRoot.show(
-                    context,
-                    'La contraseña debe tener al menos 6 caracteres, un símbolo, una mayúscula y dos números',
-                    selection: SnackbarRootType.warning,
-                  );
-                  return;
-                }
-
-                final result = await sl<SignUpUseCase>().call(
-                  params: CreateUserReq(
-                    fullName: _fullname.text.toString(),
-                    email: _email.text.toString(),
-                    password: _password.text.toString(),
-                    publicCoverty: false,
-                    privateCoverty: false,
-                    privateCompany: null,
-                  ),
-                );
-
-                if (!context.mounted) {
-                  return;
-                }
-
-                result.fold(
-                  (l) {
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 50, horizontal: 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _registerText(),
+              SizedBox(height: 50),
+              _fullNameField(context),
+              SizedBox(height: 20),
+              _emailField(context),
+              SizedBox(height: 20),
+              _passwordField(context),
+              SizedBox(height: 20),
+              BasicAppButton(
+                onPressed: () async {
+                  if (_fullname.text.trim().isEmpty ||
+                      _email.text.trim().isEmpty ||
+                      _password.text.isEmpty) {
                     SnackbarRoot.show(
                       context,
-                      l.toString(),
-                      selection: SnackbarRootType.bad,
+                      'Complete todos los campos',
+                      selection: SnackbarRootType.warning,
                     );
-                  },
-                  (r) {
-                    if (Navigator.canPop(context)) {
-                      Navigator.pop(context);
-                    }
-                  },
-                );
-              },
-              title: 'Siguiente paso',
-            ),
-            Spacer(),
-          ],
+                    return;
+                  }
+
+                  if (_fullname.text.trim().length < 3) {
+                    SnackbarRoot.show(
+                      context,
+                      'El nombre debe tener al menos 3 caracteres',
+                      selection: SnackbarRootType.warning,
+                    );
+                    return;
+                  }
+
+                  final password = _password.text;
+                  final hasSymbol = RegExp(r'[^A-Za-z0-9]').hasMatch(password);
+                  final hasUppercase = RegExp(r'[A-Z]').hasMatch(password);
+                  final hasTwoNumbers = RegExp(r'(?:.*\d){2}')
+                      .hasMatch(password);
+
+                  if (password.length < 6 ||
+                      !hasSymbol ||
+                      !hasUppercase ||
+                      !hasTwoNumbers) {
+                    SnackbarRoot.show(
+                      context,
+                      'La contraseña debe tener al menos 6 caracteres, un símbolo, una mayúscula y dos números',
+                      selection: SnackbarRootType.warning,
+                    );
+                    return;
+                  }
+
+                  final result = await sl<SignUpUseCase>().call(
+                    params: CreateUserReq(
+                      fullName: _fullname.text.toString(),
+                      email: _email.text.toString(),
+                      password: _password.text.toString(),
+                      publicCoverty: false,
+                      privateCoverty: false,
+                      privateCompany: null,
+                    ),
+                  );
+
+                  if (!context.mounted) {
+                    return;
+                  }
+
+                  result.fold(
+                    (l) {
+                      SnackbarRoot.show(
+                        context,
+                        l.toString(),
+                        selection: SnackbarRootType.bad,
+                      );
+                    },
+                    (r) {
+                      Navigator.popUntil(context, (route) => route.isFirst);
+                    },
+                  );
+                },
+                title: 'Siguiente paso',
+              ),
+            ],
+          ),
         ),
       ),
     );

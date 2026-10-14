@@ -304,10 +304,7 @@ class _SettingsPageState extends State<SettingsPage> {
           selection: SnackbarRootType.ok,
           leading: Icon(Icons.person_remove_outlined),
         );
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute<void>(builder: (_) => const SignupOrSigninPage()),
-          (route) => false,
-        );
+        Navigator.of(context).popUntil((route) => route.isFirst);
       },
     );
   }
