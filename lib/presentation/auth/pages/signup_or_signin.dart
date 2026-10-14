@@ -31,7 +31,7 @@ class SignupOrSigninPage extends StatelessWidget {
             child: Stack(
               alignment: Alignment.bottomLeft,
               children: [
-                Image.asset(AppImages.authBG, width: 350),
+                Image.asset(AppImages.authBG, width: 280),
                 Container(
                   color: context.isDarkMode
                       ? Colors.black.withAlpha(65)
@@ -57,6 +57,7 @@ class SignupOrSigninPage extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       fontSize: 26,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                   Padding(
                     padding: EdgeInsetsGeometry.symmetric(vertical: 21),
@@ -69,7 +70,7 @@ class SignupOrSigninPage extends StatelessWidget {
                         color: context.isDarkMode
                             ? AppColors.grey
                             : AppColors.darkGrey,
-                        fontSize: 13,
+                        fontSize: 15,
                       ),
                     ),
                   ),
@@ -87,6 +88,7 @@ class SignupOrSigninPage extends StatelessWidget {
                               ),
                             );
                           },
+
                           title: "Registrarme",
                         ),
                       ),
@@ -119,6 +121,7 @@ class SignupOrSigninPage extends StatelessWidget {
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
