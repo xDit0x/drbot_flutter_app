@@ -42,10 +42,10 @@ flutter build web       # Web
 ### Otros comandos
 ```bash
 # Flutter
-flutter pub add <dependencia>       # Añadir dependencias al proyecto, que se registran en el archivo pubspec.yaml
-flutter emulators                   # Ver los dispositivos que podemos emular
-flutter emulators --launch <device_id> # Lanzar dispositivo en emulación
-flutter clean                       # Borra toda la configuración en local que tengas del proyecto, menos la carpeta lib, para poderlo reconstruir con el comando `flutter pub get` y el archivo pubspec.yaml
+flutter pub add <dependencia>           # Añadir dependencias al proyecto, que se registran en el archivo pubspec.yaml
+flutter emulators                       # Ver los dispositivos que podemos emular
+flutter emulators --launch <device_id>  # Lanzar dispositivo en emulación
+flutter clean                           # Borra toda la configuración en local que tengas del proyecto, menos la carpeta lib, para poderlo reconstruir con el comando `flutter pub get` y el archivo pubspec.yaml
 
 # Firebase
 firebase.cmd deploy --only storage --project drbot-app  # Lanzar las reglas de lectura y escritura en la base de datos en Firebase en el archivo firestore.rules
