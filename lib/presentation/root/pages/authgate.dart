@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/core/configs/assets/app_images.dart';
 import 'package:flutter_learning/presentation/auth/pages/center_selection_page.dart';
 import 'package:flutter_learning/presentation/auth/pages/insurance_selection_page.dart';
-import 'package:flutter_learning/presentation/auth/pages/signin.dart';
+
+import 'package:flutter_learning/presentation/intro/pages/get_started.dart';
 import 'package:flutter_learning/presentation/root/pages/root.dart';
 import 'package:flutter_learning/presentation/settings/widgets/biometric_lock_gate.dart';
-import 'package:flutter_learning/presentation/splash/pages/splash.dart';
 
 class AuthGate extends StatefulWidget {
   const AuthGate({super.key});
@@ -29,14 +30,14 @@ class _AuthGateState extends State<AuthGate> {
       stream: _authStateChanges,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return Center(child: Image.asset(AppImages.logo, width: 120));
         } else if (snapshot.hasError) {
           return const Center(child: Text('Ha ocurrido un error'));
         } else if (snapshot.hasData) {
           final uid = snapshot.data!.uid;
           return _ProfileGate(key: ValueKey(uid), uid: uid);
         } else {
-          return const SplashPage();
+          return const GetStartedPage();
         }
       },
     );

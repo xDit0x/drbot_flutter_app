@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_learning/core/configs/assets/app_images.dart';
 import 'package:flutter_learning/presentation/intro/pages/get_started.dart';
 
+@deprecated
+/// No utilizado, se ha establecido como periodo de carga en authgate
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
