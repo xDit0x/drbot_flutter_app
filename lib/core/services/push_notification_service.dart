@@ -24,8 +24,27 @@ class PushNotificationService {
     _messaging.onTokenRefresh.listen(_save);
     FirebaseAuth.instance.authStateChanges().listen((user) async {
       if (user == null) return;
-      await _save(await _messaging.getToken());
+      await _save(await _currentToken());
     });
+  }
+
+  Future<String?> _currentToken() async {
+    try {
+      if (defaultTargetPlatform == TargetPlatform.iOS ||
+          defaultTargetPlatform == TargetPlatform.macOS) {
+        for (var i = 0; i < 5; i++) {
+          try {
+            final apns = await _messaging.getAPNSToken();
+            if (apns != null) break;
+          } catch (_) {}
+          await Future.delayed(const Duration(seconds: 1));
+        }
+      }
+      return await _messaging.getToken();
+    } catch (e) {
+      debugPrint('No se pudo obtener el token FCM: $e');
+      return null;
+    }
   }
 
   Future<void> _initLocalNotifications() async {

@@ -6,6 +6,7 @@ import 'package:flutter_learning/presentation/auth/pages/insurance_selection_pag
 import 'package:flutter_learning/presentation/auth/pages/signin.dart';
 import 'package:flutter_learning/presentation/root/pages/root.dart';
 import 'package:flutter_learning/presentation/settings/widgets/biometric_lock_gate.dart';
+import 'package:flutter_learning/presentation/splash/pages/splash.dart';
 
 class AuthGate extends StatefulWidget {
   const AuthGate({super.key});
@@ -35,7 +36,7 @@ class _AuthGateState extends State<AuthGate> {
           final uid = snapshot.data!.uid;
           return _ProfileGate(key: ValueKey(uid), uid: uid);
         } else {
-          return const SignInPage();
+          return const SplashPage();
         }
       },
     );
