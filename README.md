@@ -58,7 +58,7 @@ La aplicación inicializa Firebase al arrancar, comprueba la sesión y dirige al
 
 El siguiente diagrama muestra los principales casos de uso de Dr. Bot para el paciente y el médico:
 
-![Diagrama de casos de uso de Dr. Bot](docs/diagrams/diagrama-casos-uso.png)
+![Diagrama de casos de uso de Dr. Bot](docs/diagrams/Use_Case_Diagram_DrBot.png)
 
 ## Casos de Uso
 
