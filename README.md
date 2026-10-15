@@ -1,4 +1,4 @@
-# Dr. Bot
+# DRBOT
 
 ## Descripción del Proyecto
 
@@ -9,8 +9,9 @@
 ### Requisitos
 
 - Flutter y Dart compatibles con la versión del SDK indicada en `pubspec.yaml`.
-- Una instalación de Android Studio/SDK para ejecutar en Android, o Xcode para iOS/macOS.
+- Una instalación de Android Studio/SDK para ejecutar en Android, o Xcode con Device Hub para iOS/macOS.
 - Acceso al proyecto Firebase `drbot-app`. La configuración de Firebase para las plataformas está en `lib/firebase_options.dart` y en los archivos nativos correspondientes.
+- **Con deseo de testeo en iPhone:** se ha de establecer el dispositivo en modo desarrollador, se procede a reiniciar dicho dispositivo.
 
 ### Preparar y ejecutar
 
@@ -40,6 +41,7 @@ flutter build web       # Web
 ```
 
 ### Otros comandos
+
 ```bash
 # Flutter
 flutter pub add <dependencia>           # Añadir dependencias al proyecto, que se registran en el archivo pubspec.yaml
@@ -56,13 +58,15 @@ La aplicación inicializa Firebase al arrancar, comprueba la sesión y dirige al
 
 ## Diagrama de casos de uso
 
-El siguiente diagrama muestra los principales casos de uso de Dr. Bot para el paciente y el médico:
+El siguiente diagrama muestra los principales casos de uso de DRBOT para el paciente y el médico:
 
-![Diagrama de casos de uso de Dr. Bot](docs/diagrams/Use_Case_Diagram_DrBot.png)
+![Diagrama de casos de uso de DRBOT](docs/diagrams/Use_Case_Diagram_DrBot.png)
 
 ## Casos de Uso
 
 ### Pedro
+
+#### 1.
 
 ### Antonio
 
@@ -121,20 +125,19 @@ La aplicación utiliza la información pública sobre medicamentos de la [API de
 
 Desde la sección **Medicamentos**, el usuario puede descargar un documento con la información de la receta para consultarla o presentarla en la farmacia. Este documento es informativo y no tiene validez legal.
 
-
 ## Base de Datos
 
 La aplicación utiliza **Cloud Firestore**, la base de datos documental de Firebase, y **Firebase Authentication** para identificar a los usuarios. Los documentos de cada paciente se asocian al UID de Firebase Authentication. Las colecciones y subcolecciones principales que utiliza la aplicación son:
 
-| Ruta / colección | Uso |
-| --- | --- |
-| `Users/{uid}` | Perfil, contacto, centro asignado y datos clínicos del paciente. |
-| `Users/{uid}/appointments` | Citas del paciente, estado, check-in, firma y datos de la consulta. |
-| `Users/{uid}/alerts` y `Users/{uid}/tokens` | Alertas guardadas y tokens para notificaciones push. |
-| `Doctors` | Médicos, especialidad, centro y horarios. |
-| `Slots` | Bloqueo y estado de las franjas horarias reservadas. |
-| `Sessions` | Datos de sesión de consulta, como sala y fecha. |
-| `Queues` | Contador y estado de la cola de espera por médico, centro y día. |
+| Ruta / colección                                                | Uso                                                                                                                     |
+| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `Users/{uid}`                                                   | Perfil, contacto, centro asignado y datos clínicos del paciente.                                                        |
+| `Users/{uid}/appointments`                                      | Citas del paciente, estado, check-in, firma y datos de la consulta.                                                     |
+| `Users/{uid}/alerts` y `Users/{uid}/tokens`                     | Alertas guardadas y tokens para notificaciones push.                                                                    |
+| `Doctors`                                                       | Médicos, especialidad, centro y horarios.                                                                               |
+| `Slots`                                                         | Bloqueo y estado de las franjas horarias reservadas.                                                                    |
+| `Sessions`                                                      | Datos de sesión de consulta, como sala y fecha.                                                                         |
+| `Queues`                                                        | Contador y estado de la cola de espera por médico, centro y día.                                                        |
 | `Prescriptions/{medicationId}/Users/{uid}/PatientPrescriptions` | Recetas asignadas al paciente. Cada receta puede tener subcolección `Dispensations` con las dispensaciones registradas. |
 
 Las reservas, cancelaciones y el check-in usan transacciones de Firestore para mantener coherentes la cita, el horario y la cola. Los índices compuestos necesarios se declaran en `firestore.indexes.json`; las reglas se configuran en `firestore.rules`.
@@ -145,35 +148,35 @@ Las dependencias se declaran en `pubspec.yaml`. Se utilizan para las siguientes 
 
 ### Dependencias de la aplicación
 
-| Paquete | Uso en el proyecto |
-| --- | --- |
-| `flutter` | SDK base para construir la interfaz y ejecutar la aplicación multiplataforma. |
-| `cupertino_icons` | Proporciona iconos con estilo iOS para la interfaz. |
-| `flutter_svg` | Carga y muestra los iconos e ilustraciones vectoriales SVG de la aplicación. |
-| `flutter_bloc` | Gestiona estado y actualizaciones de interfaz con el patrón BLoC/Cubit, por ejemplo para el tema. |
-| `hydrated_bloc` | Persiste y restaura el estado de Cubit/BLoC entre ejecuciones; se usa para conservar preferencias como el tema. |
-| `path_provider` | Obtiene directorios de almacenamiento del dispositivo; se usa para inicializar el almacenamiento de `hydrated_bloc`. |
-| `get_it` | Localizador de dependencias para registrar y recuperar servicios, repositorios y casos de uso. |
-| `dartz` | Proporciona tipos funcionales como `Either` para devolver resultados o errores desde la capa de dominio y datos. |
-| `firebase_core` | Inicializa Firebase y la configuración de cada plataforma al arrancar la aplicación. |
-| `firebase_auth` | Gestiona el registro, inicio/cierre de sesión, recuperación de contraseña y la identidad del paciente. |
-| `cloud_firestore` | Almacena y consulta perfiles, citas, médicos, horarios, recetas, alertas y colas de espera. |
-| `firebase_messaging` | Recibe notificaciones push mediante Firebase Cloud Messaging y registra los tokens del dispositivo. |
-| `flutter_local_notifications` | Muestra notificaciones locales en el dispositivo, incluidas las asociadas a mensajes recibidos. |
-| `shared_preferences` | Guarda preferencias sencillas localmente, como el tamaño del texto y la activación del bloqueo biométrico. |
-| `local_auth` | Solicita autenticación biométrica o del dispositivo para proteger el acceso a la aplicación. |
-| `package_info_plus` | Lee los metadatos de la aplicación, como nombre y versión, mostrados en la pantalla “Acerca de”. |
-| `url_launcher` | Abre enlaces externos o acciones del sistema desde las pantallas de ayuda e información del centro médico. |
-| `table_calendar` | Presenta el calendario empleado para consultar y seleccionar fechas de citas. |
-| `flutter_localizations` | Añade soporte de localización de Flutter; la aplicación configura el idioma español. |
-| `pdf` | Genera documentos PDF para la documentación clínica y las recetas. |
-| `printing` | Permite previsualizar, compartir o imprimir los PDF generados. |
-| `signature` | Permite capturar la firma del paciente durante el check-in de una cita. |
+| Paquete                       | Uso en el proyecto                                                                                                   |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `flutter`                     | SDK base para construir la interfaz y ejecutar la aplicación multiplataforma.                                        |
+| `cupertino_icons`             | Proporciona iconos con estilo iOS para la interfaz.                                                                  |
+| `flutter_svg`                 | Carga y muestra los iconos e ilustraciones vectoriales SVG de la aplicación.                                         |
+| `flutter_bloc`                | Gestiona estado y actualizaciones de interfaz con el patrón BLoC/Cubit, por ejemplo para el tema.                    |
+| `hydrated_bloc`               | Persiste y restaura el estado de Cubit/BLoC entre ejecuciones; se usa para conservar preferencias como el tema.      |
+| `path_provider`               | Obtiene directorios de almacenamiento del dispositivo; se usa para inicializar el almacenamiento de `hydrated_bloc`. |
+| `get_it`                      | Localizador de dependencias para registrar y recuperar servicios, repositorios y casos de uso.                       |
+| `dartz`                       | Proporciona tipos funcionales como `Either` para devolver resultados o errores desde la capa de dominio y datos.     |
+| `firebase_core`               | Inicializa Firebase y la configuración de cada plataforma al arrancar la aplicación.                                 |
+| `firebase_auth`               | Gestiona el registro, inicio/cierre de sesión, recuperación de contraseña y la identidad del paciente.               |
+| `cloud_firestore`             | Almacena y consulta perfiles, citas, médicos, horarios, recetas, alertas y colas de espera.                          |
+| `firebase_messaging`          | Recibe notificaciones push mediante Firebase Cloud Messaging y registra los tokens del dispositivo.                  |
+| `flutter_local_notifications` | Muestra notificaciones locales en el dispositivo, incluidas las asociadas a mensajes recibidos.                      |
+| `shared_preferences`          | Guarda preferencias sencillas localmente, como el tamaño del texto y la activación del bloqueo biométrico.           |
+| `local_auth`                  | Solicita autenticación biométrica o del dispositivo para proteger el acceso a la aplicación.                         |
+| `package_info_plus`           | Lee los metadatos de la aplicación, como nombre y versión, mostrados en la pantalla “Acerca de”.                     |
+| `url_launcher`                | Abre enlaces externos o acciones del sistema desde las pantallas de ayuda e información del centro médico.           |
+| `table_calendar`              | Presenta el calendario empleado para consultar y seleccionar fechas de citas.                                        |
+| `flutter_localizations`       | Añade soporte de localización de Flutter; la aplicación configura el idioma español.                                 |
+| `pdf`                         | Genera documentos PDF para la documentación clínica y las recetas.                                                   |
+| `printing`                    | Permite previsualizar, compartir o imprimir los PDF generados.                                                       |
+| `signature`                   | Permite capturar la firma del paciente durante el check-in de una cita.                                              |
 
 ### Dependencias de desarrollo
 
-| Paquete | Uso en el proyecto |
-| --- | --- |
-| `flutter_test` | Herramientas de Flutter para pruebas automatizadas. |
-| `flutter_lints` | Reglas de análisis estático para mantener un estilo y detectar problemas comunes en Dart. |
+| Paquete                  | Uso en el proyecto                                                                                         |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------- |
+| `flutter_test`           | Herramientas de Flutter para pruebas automatizadas.                                                        |
+| `flutter_lints`          | Reglas de análisis estático para mantener un estilo y detectar problemas comunes en Dart.                  |
 | `flutter_launcher_icons` | Genera los iconos de lanzamiento de Android e iOS a partir de las imágenes configuradas en `pubspec.yaml`. |
