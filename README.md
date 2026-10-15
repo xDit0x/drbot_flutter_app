@@ -2,15 +2,19 @@
 
 ## Descripción del Proyecto
 
-DRBOT es una aplicación móvil multiplataforma desarrollada en Flutter que permite gestionar la asistencia médica y la relación entre pacientes y profesionales sanitarios. Su objetivo es centralizar citas, documentos clínicos, medicación, cobertura sanitaria y notificaciones en una única aplicación, facilitando el seguimiento del proceso asistencial.
+DRBOT se ha desarrollado en el contexto de la atención médica, con el objetivo de encontrarle solución a uno de sus problemas principales, la saturación de las consultas y la lentitud del proceso de recogida de información clínica del paciente. El entorno de trabajo en el cual se implementaría DRBOT serían tanto clínicas privadas como hospitales públicos, adaptándose a las necesidades de cada institución mediante modelos de licencia por contrato.
 
-La aplicación está orientada principalmente al paciente, aunque contempla también la labor del médico para registrar informes y prescripciones. Integra datos de fuentes públicas españolas (Registro General de Centros, Servicios y Establecimientos Sanitarios - REGCESS y la API de CIMA de la AEMPS) junto con la información gestionada en Cloud Firestore.
+**Bajo nuestro contexto de la asignatura de desarrollo de aplicaciones móviles**, DRBOT es una aplicación móvil multiplataforma desarrollada en Flutter que permite gestionar la asistencia médica y la relación entre pacientes y profesionales sanitarios. Su objetivo es centralizar citas, documentos clínicos, medicación, cobertura sanitaria y notificaciones en una única aplicación, facilitando el seguimiento del proceso asistencial.
 
-DRBOT sigue una arquitectura por capas (presentación, dominio y datos), con inyección de dependencias mediante `get_it` y manejo de errores con `Either` de `dartz`. Utiliza Firebase (Authentication, Firestore y Cloud Messaging) para la autenticación, persistencia y notificaciones push, y ofrece funcionalidades como reserva/cancelación de citas, check-in con firma, sala de espera con cola en tiempo real, documentos médicos, receta virtual y ajustes de accesibilidad.
+La aplicación está orientada principalmente al paciente, aunque contempla también la labor del médico para registrar informes y prescripciones. Integra datos de fuentes públicas españolas (Registro General de Centros, Servicios y Establecimientos Sanitarios - REGCESS y la API de CIMA de la AEMPS) junto con la información gestionada en **Cloud Firestore**.
+
+DRBOT sigue una arquitectura por capas **(presentación, dominio y datos)**, con inyección de dependencias mediante `get_it` y manejo de errores con `Either` de `dartz`. Utiliza Firebase (Authentication, Firestore y Cloud Messaging) para la autenticación, persistencia y notificaciones push, y ofrece funcionalidades como reserva/cancelación de citas, check-in con firma, sala de espera con cola en tiempo real, documentos médicos, receta virtual y ajustes de accesibilidad.
+
+Se desea implementar el uso de API's sobre LLM's, como Groq, que sean capaces de gestionar los ruegos, preguntas, cuestiones de los pacientes, junto con el uso por parte de los doctores, para que puedan recibir un resumen sobre el los precedentes, e información del clínica del paciente antes de acceder a consulta. Para ello, se debe cumplir con el RGPD y la HIPAA estadounidense.
 
 ## Estructura
 
-El proyecto se organiza siguiendo una estructura modular por capas. A continuación se muestra la estructura general del repositorio y de la carpeta `lib/`:
+El proyecto se organiza siguiendo una estructura modular por **capas**. A continuación se muestra la estructura general del repositorio y de la carpeta de implementaciones `lib/`:
 
 ```text
 .
@@ -23,8 +27,8 @@ El proyecto se organiza siguiendo una estructura modular por capas. A continuaci
 ├── macos/                  # Configuración nativa de macOS
 ├── test/                   # Pruebas automatizadas
 ├── tool/                   # Scripts de utilidades (Firebase Admin)
-├── web/                    # Configuración nativa de Web
-└── windows/                # Configuración nativa de Windows
+├── web/                    # Configuración nativa de Web (No main-focus del usuario final)
+└── windows/                # Configuración nativa de Windows (No main-focus del usuario final)
 ```
 
 ```text
@@ -68,15 +72,15 @@ lib/
     └── waiting_room/
 ```
 
-| Carpeta | Responsabilidad |
-| --- | --- |
-| `lib/main.dart`, `firebase_options.dart`, `service_locator.dart` | Punto de entrada, configuración de Firebase e inyección de dependencias. |
-| `core/` | Configuración global (tema, assets), servicios (Firebase Messaging, notificaciones locales y handler en background), utilidades y clase base `UseCase`. |
-| `common/` | Widgets reutilizables (AppBar, botones, SnackBar) y helpers. |
-| `domain/` | Lógica de negocio: entidades, modelos de dominio, interfaces de repositorios y casos de uso (`domain/usecases`). |
-| `data/` | Implementación de repositorios y fuentes de datos (Firestore, Firebase Auth, notificaciones). Traduce datos entre capas. |
-| `presentation/` | Interfaz de usuario organizada por módulos (autenticación, citas, documentos, perfil, ajustes, sala de espera...). |
-| `dev/` | Scripts y datos de prueba para desarrollo. |
+| Carpeta                                                          | Responsabilidad                                                                                                                                         |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `lib/main.dart`, `firebase_options.dart`, `service_locator.dart` | Punto de entrada, configuración de Firebase e inyección de dependencias.                                                                                |
+| `core/`                                                          | Configuración global (tema, assets), servicios (Firebase Messaging, notificaciones locales y handler en background), utilidades y clase base `UseCase`. |
+| `common/`                                                        | Widgets reutilizables (AppBar, botones, SnackBar) y helpers.                                                                                            |
+| `domain/`                                                        | **Lógica de negocio: entidades, modelos de dominio, interfaces de repositorios y casos de uso**(`domain/usecases`).                                     |
+| `data/`                                                          | **Implementación de repositorios y fuentes de datos (Firestore, Firebase Auth, notificaciones Traduce datos entre capas.**                              |
+| `presentation/`                                                  | **Interfaz de usuario organizada por módulos (autenticación, citas, documentos, perfil, ajustes, sala de espera...).**                                  |
+| `dev/`                                                           | Scripts y datos de prueba para desarrollo.                                                                                                              |
 
 La aplicación sigue el patrón **Clean Architecture** (`presentation → domain ← data`), con `get_it` para la inyección de dependencias y el tipo `Either` de `dartz` para gestionar resultados y errores de forma funcional.
 
@@ -148,7 +152,7 @@ El usuario crea una cuenta con su nombre completo, correo electrónico y contras
 
 #### 2. Iniciar sesión y recuperar la contraseña
 
-El usuario accede a la aplicación con su correo y contraseña. En caso de no recordar la contraseña, puede solicitar un correo de restablecimiento desde la pantalla de inicio de sesión.
+El usuario accede a la aplicación con su correo y contraseña. En caso de no recordar la contraseña, puede solicitar un correo de restablecimiento desde la pantalla de inicio de sesión, facilitado por la plantilla de Cloud Firestore.
 
 #### 3. Seleccionar médico y franja horaria
 
@@ -156,7 +160,7 @@ Al reservar una cita, el usuario selecciona el centro médico y el médico, visu
 
 #### 4. Reservar una cita
 
-El usuario confirma la reserva para una franja horaria libre. La operación actualiza de forma coherente la cita, el slot horario y la cola de espera, garantizando la integridad de los datos mediante transacciones de Firestore.
+El usuario confirma la reserva para una franja horaria libre, que sea posterior al DateTime de la reserva, y disponible por el médico. La operación actualiza de forma coherente la cita, el slot horario y la cola de espera, garantizando la integridad de los datos mediante transacciones de Firestore.
 
 #### 5. Consultar las citas
 
@@ -168,7 +172,7 @@ El usuario puede cancelar una cita programada. Al cancelar la cita, la franja ho
 
 #### 7. Hacer el check-in de la cita
 
-El día de la cita, el usuario puede realizar el check-in desde la sala de espera, para lo cual deberá firmar mediante el componente de firma. Una vez realizado, su estado pasa a "checked-in" y queda registrado en la cita.
+El día de la cita, el usuario puede realizar el **check-in** desde la sala de espera, para lo cual deberá firmar mediante el componente de firma. Una vez realizado, su estado pasa a "checked-in" y queda registrado en la cita.
 
 #### 8. Consultar y actualizar los datos de contacto
 
@@ -180,7 +184,7 @@ La aplicación registra el token de notificaciones push del dispositivo del usua
 
 #### 10. Consultar la sala de espera y el turno
 
-El usuario accede a la sala de espera para consultar su próxima cita y las siguientes. La aplicación muestra la sala asignada, el turno (número de personas que le quedan delante) calculado a partir de la cola en tiempo real (`Queues` por médico, centro y día), así como el estado del check-in. El check-in está disponible a partir de 15 minutos antes de la hora de la cita.
+El usuario accede a la sala de espera para consultar su próxima cita y las siguientes. La aplicación muestra la sala asignada, el turno (número de personas que le quedan delante) calculado a partir de la cola en tiempo real (`Queues` por médico, centro y día), así como el estado del check-in. El check-in está disponible a partir de 15 minutos antes de la hora de la cita (actualmente con ese ajuste, dispuesto a cambios dicho tiempo).
 
 ### Antonio
 
