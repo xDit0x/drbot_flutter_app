@@ -2,7 +2,83 @@
 
 ## Descripción del Proyecto
 
+DRBOT es una aplicación móvil multiplataforma desarrollada en Flutter que permite gestionar la asistencia médica y la relación entre pacientes y profesionales sanitarios. Su objetivo es centralizar citas, documentos clínicos, medicación, cobertura sanitaria y notificaciones en una única aplicación, facilitando el seguimiento del proceso asistencial.
+
+La aplicación está orientada principalmente al paciente, aunque contempla también la labor del médico para registrar informes y prescripciones. Integra datos de fuentes públicas españolas (Registro General de Centros, Servicios y Establecimientos Sanitarios - REGCESS y la API de CIMA de la AEMPS) junto con la información gestionada en Cloud Firestore.
+
+DRBOT sigue una arquitectura por capas (presentación, dominio y datos), con inyección de dependencias mediante `get_it` y manejo de errores con `Either` de `dartz`. Utiliza Firebase (Authentication, Firestore y Cloud Messaging) para la autenticación, persistencia y notificaciones push, y ofrece funcionalidades como reserva/cancelación de citas, check-in con firma, sala de espera con cola en tiempo real, documentos médicos, receta virtual y ajustes de accesibilidad.
+
 ## Estructura
+
+El proyecto se organiza siguiendo una estructura modular por capas. A continuación se muestra la estructura general del repositorio y de la carpeta `lib/`:
+
+```text
+.
+├── android/                # Configuración nativa de Android
+├── assets/                 # Recursos estáticos (datos, fuentes, imágenes, vectores)
+├── docs/                   # Documentación y datos originales
+├── ios/                    # Configuración nativa de iOS
+├── lib/                    # Código fuente de la aplicación
+├── linux/                  # Configuración nativa de Linux
+├── macos/                  # Configuración nativa de macOS
+├── test/                   # Pruebas automatizadas
+├── tool/                   # Scripts de utilidades (Firebase Admin)
+├── web/                    # Configuración nativa de Web
+└── windows/                # Configuración nativa de Windows
+```
+
+```text
+lib/
+├── common/                 # Componentes y utilidades reutilizables
+│   ├── helpers/
+│   └── widgets/
+│       ├── appbar/
+│       ├── button/
+│       └── snackbar/
+├── core/                   # Núcleo de la aplicación
+│   ├── configs/
+│   │   ├── assets/
+│   │   └── theme/
+│   ├── services/           # Servicios (notificaciones push, background)
+│   ├── usecase/            # Clase base para casos de uso
+│   └── utils/              # Utilidades comunes
+├── data/                   # Capa de datos
+│   ├── models/             # Modelos de datos
+│   ├── repository/         # Implementaciones de repositorios
+│   └── sources/            # Fuentes de datos (Firestore, Auth)
+├── dev/                    # Datos de desarrollo y seeds
+├── domain/                 # Capa de dominio
+│   ├── entities/           # Entidades del dominio
+│   ├── models/             # Modelos de dominio (requests)
+│   ├── repository/         # Interfaces de repositorios
+│   └── usecases/           # Casos de uso
+└── presentation/           # Capa de presentación (UI)
+    ├── alerts/
+    ├── appointments/
+    ├── auth/
+    ├── choose_mode/
+    ├── help/
+    ├── intro/
+    ├── medical_documents/
+    ├── prescription_page/
+    ├── profile/
+    ├── root/
+    ├── settings/
+    ├── splash/
+    └── waiting_room/
+```
+
+| Carpeta | Responsabilidad |
+| --- | --- |
+| `lib/main.dart`, `firebase_options.dart`, `service_locator.dart` | Punto de entrada, configuración de Firebase e inyección de dependencias. |
+| `core/` | Configuración global (tema, assets), servicios (Firebase Messaging, notificaciones locales y handler en background), utilidades y clase base `UseCase`. |
+| `common/` | Widgets reutilizables (AppBar, botones, SnackBar) y helpers. |
+| `domain/` | Lógica de negocio: entidades, modelos de dominio, interfaces de repositorios y casos de uso (`domain/usecases`). |
+| `data/` | Implementación de repositorios y fuentes de datos (Firestore, Firebase Auth, notificaciones). Traduce datos entre capas. |
+| `presentation/` | Interfaz de usuario organizada por módulos (autenticación, citas, documentos, perfil, ajustes, sala de espera...). |
+| `dev/` | Scripts y datos de prueba para desarrollo. |
+
+La aplicación sigue el patrón **Clean Architecture** (`presentation → domain ← data`), con `get_it` para la inyección de dependencias y el tipo `Either` de `dartz` para gestionar resultados y errores de forma funcional.
 
 ## Comandos de funcionamiento y plataformas
 
@@ -66,7 +142,45 @@ El siguiente diagrama muestra los principales casos de uso de DRBOT para el paci
 
 ### Pedro
 
-#### 1.
+#### 1. Registrarse en la aplicación
+
+El usuario crea una cuenta con su nombre completo, correo electrónico y contraseña. La contraseña debe cumplir los requisitos de seguridad (mínimo 6 caracteres, al menos un símbolo, una mayúscula y dos números). Tras el registro, la aplicación crea el perfil del usuario y le solicita completar la cobertura sanitaria y los centros de referencia.
+
+#### 2. Iniciar sesión y recuperar la contraseña
+
+El usuario accede a la aplicación con su correo y contraseña. En caso de no recordar la contraseña, puede solicitar un correo de restablecimiento desde la pantalla de inicio de sesión.
+
+#### 3. Seleccionar médico y franja horaria
+
+Al reservar una cita, el usuario selecciona el centro médico y el médico, visualizando las franjas horarias disponibles. Las franjas ya reservadas aparecen bloqueadas para evitar solapes.
+
+#### 4. Reservar una cita
+
+El usuario confirma la reserva para una franja horaria libre. La operación actualiza de forma coherente la cita, el slot horario y la cola de espera, garantizando la integridad de los datos mediante transacciones de Firestore.
+
+#### 5. Consultar las citas
+
+El usuario puede consultar sus citas, diferenciando entre citas próximas y citas pasadas, junto con su estado (programada, en sala de espera, en consulta, completada o cancelada).
+
+#### 6. Cancelar una cita
+
+El usuario puede cancelar una cita programada. Al cancelar la cita, la franja horaria se libera y la cola de espera se actualiza correctamente.
+
+#### 7. Hacer el check-in de la cita
+
+El día de la cita, el usuario puede realizar el check-in desde la sala de espera, para lo cual deberá firmar mediante el componente de firma. Una vez realizado, su estado pasa a "checked-in" y queda registrado en la cita.
+
+#### 8. Consultar y actualizar los datos de contacto
+
+El usuario puede consultar y editar sus datos de contacto desde su perfil. Los cambios se guardan en su documento de usuario en Firestore.
+
+#### 9. Recibir notificaciones y consultar las alertas
+
+La aplicación registra el token de notificaciones push del dispositivo del usuario y guarda las alertas asociadas a su cuenta. El usuario puede consultar las alertas recibidas desde la bandeja de alertas de la aplicación.
+
+#### 10. Consultar la sala de espera y el turno
+
+El usuario accede a la sala de espera para consultar su próxima cita y las siguientes. La aplicación muestra la sala asignada, el turno (número de personas que le quedan delante) calculado a partir de la cola en tiempo real (`Queues` por médico, centro y día), así como el estado del check-in. El check-in está disponible a partir de 15 minutos antes de la hora de la cita.
 
 ### Antonio
 
